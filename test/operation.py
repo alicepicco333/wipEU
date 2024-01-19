@@ -27,9 +27,9 @@ df2_women_police = pd.read_csv("data/women_in_the_police/download (1).csv")
 
 
 print(df1_discrimination)
-# print(df2_discrimination.head())
-# print(df1_earnings.head())
-# print(df2_earnings.head())
+print(df2_discrimination.head())
+print(df1_earnings.head())
+print(df2_earnings.head())
 
 
 # print("Valori univoci in df1:", df1_discrimination["SDG region"].unique())
@@ -45,14 +45,32 @@ df2_earnings.rename(columns={'Sex': 'SDG region'}, inplace=True)
 mean_per_sdg_region2 = df2_earnings.groupby('SDG region')[['Any cash labor income', 'Cash only']].mean().reset_index()
 print(mean_per_sdg_region2)
 
-df1 = pd.DataFrame(df1_discrimination)
-df2 = pd.DataFrame(df2_earnings)
+# df1 = pd.DataFrame(df1_discrimination)
+# df2 = pd.DataFrame(df2_earnings)
 
-# Unione dei DataFrame
-df = pd.merge(df1, df2, on='SDG region')
+# # Unione dei DataFrame
+# df = pd.merge(df1, df2, on='SDG region')
 
-# Calcolo della correlazione
-correlation = df.corr()
+# # Calcolo della correlazione
+# correlation = df.corr()
 
-print(correlation)
+# print(correlation)
 
+import statsmodels.api as sm
+
+# Definisci le tue variabili indipendenti e dipendenti
+X = df1_discrimination[['% Men', '% Women']] # variabili indipendenti
+y = df2_earnings['Any cash labor income'] # variabile target
+
+# Aggiungi una costante alla matrice X.
+# Questo è un passaggio necessario in statsmodels per ottenere un'intercetta.
+X = sm.add_constant(X)
+
+# Crea un modello OLS (Ordinary Least Squares)
+model = sm.OLS(y, X)
+
+# Addestra il modello
+results = model.fit()
+
+# Stampa i risultati
+print(results.summary())
