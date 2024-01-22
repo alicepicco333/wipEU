@@ -1,48 +1,48 @@
 Time,2023,2022,2021,2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2006,2005,2004,2003
 Entity\Sex,Men,Men,Men,Men,Men,Men,Men,Men,Men,Men,Men,Men,Men,Men,Men,Men,Men,Men,Men,Men,Men
-Total,63,64.5,65.3,64.2,66,66.3,67.4,68.3,69.9,71.3,72.7,74.9,70.3,71.2,71.6,73.8,74.8,75.5,75.7,78.6,74.9
-Agency for the Cooperation of Energy Regulators (ACER),70.4,74.1,74.1,76.9,71.4,75,81.5,85.7,77.8,74.1,74.1,74.1,84.6,,,,,,,,
-Body of European Regulators for Electronic Communications (BEREC),73.1,66.7,70.4,77.8,81.5,85.7,75,71.4,78.6,78.6,82.1,92.3,,,,,,,,,
-Community Plant Variety Office (CPVO),63,57.1,53.6,57.1,60.7,55.2,58.6,55.2,58.6,55.6,57.1,59.3,53.6,53.6,57.1,59.3,67.9,65.4,64,68,74.2
+Total,835,830,841,827,841,854,858,880,884,925,937,927,652,626,592,626,642,524,521,462,281
+Agency for the Cooperation of Energy Regulators (ACER),19,20,20,20,20,21,22,24,21,20,20,20,22,,,,,,,,
+Body of European Regulators for Electronic Communications (BEREC),19,18,19,21,22,24,21,20,22,22,23,24,,,,,,,,,
+Community Plant Variety Office (CPVO),17,16,15,16,17,16,17,16,17,15,16,16,15,15,16,16,19,17,16,17,23
 Euratom Supply Agency (ESA),,,,,,,,,,,,,,,,,,,,,
-European Agency for Reconstruction (EAR),,,,,,,,,,,,,,,,54.1,55.3,76.9,84.6,84.6,81.3
-European Agency for Safety and Health at Work (EU-OSHA),64.7,61,59.5,57.1,58.6,63.2,63.2,65.5,65.9,70.9,68.7,71,69.9,67.4,67.9,68.3,76.2,75,74,76.1,80
-European Agency for the Management of Operational Cooperation at the External Borders (FRONTEX),87.5,90.6,90.3,87.1,87.5,87.5,93.8,93.8,100,93.8,93.5,93.5,93.5,93.5,93.1,96.8,100,,,,
-"European Agency for the Operational Management of large-scale IT Systems in the Area of Freedom, Security and Justice (eu-LISA)",81.8,82.8,82.8,82.8,83.3,93.3,90,83.3,88.6,86.1,86.1,,,,,,,,,,
-European Asylum Support Office (EASO),,,62.1,51.9,48.3,51.7,53.6,62.1,73.3,72.4,75.9,75,83.3,,,,,,,,
-European Aviation Safety Agency (EASA),75.8,81.3,84.8,84.8,90.3,87.5,84.4,84.8,87.1,87.9,81.8,81.3,81.3,84.4,90.6,96.8,100,100,100,100,
-European Banking Authority (EBA),82.1,78.6,82.1,71.4,78.6,79.3,79.3,82.8,85.7,90,93.1,93.1,,,,,,,,,
-European Centre for Disease Prevention and Control (ECDC),43.3,37.5,53.1,40.6,43.8,43.8,42.4,54.5,48,48.1,51.9,53.1,56.3,57.6,50,83.3,66.7,69,65.5,,
-European Centre for the Development of Vocational Training (Cedefop),44.8,47.9,47.4,51.1,52.9,55.7,57.5,56.3,62.5,62.1,64.3,70.5,66.3,69.8,70.2,67.5,67.4,77.9,73.5,75.3,57.1
-European Chemicals Agency (ECHA),34.4,43.8,31.3,31.3,33.3,42.4,40.6,39.4,45.5,54.5,59.4,64.5,68.8,62.9,65.7,65.7,65.7,,,,
-European Defence Agency (EDA),77.8,77.8,77.8,77.8,78.6,71.4,78.6,82.1,82.1,85.2,88.9,92.6,,,,,,,,,
-European Environment Agency (EEA),51.4,51.4,55.9,52.8,55.6,58.3,61.8,52.8,62.9,73,68.4,68.6,67.6,63.9,80.6,89.2,91.9,97.1,94.1,97.1,70.6
-European Fisheries Control Agency (EFCA),68.8,75.8,69.7,66.7,70.6,70.6,79.4,87.9,87.5,81.8,84.8,81.8,81.8,84.8,84.8,90.3,90.9,,,,
-European Food Safety Authority (EFSA),47.4,73.3,80,78.6,78.6,80,80,80,80,73.3,60,61.5,60,60,60,66.7,66.7,61.5,71.4,71.4,71.4
-European Public Prosecutor's Office (EPPO),60.9,,,,,,,,,,,,,,,,,,,,
-European Union Agency for Asylum (EUAA),57.1,57.1,,,,,,,,,,,,,,,,,,,
-European Foundation for the Improvement of Living and Working Conditions (EUROFOUND),51.2,60.7,59.5,60.7,60.2,54,53.5,55.8,58.1,60,65.9,67.9,64.6,73.2,70.2,66.7,65.5,56.2,59,56.1,66.7
-European GNSS Agency (GSA),,,,83.9,80,81.8,81.8,75,75,72.7,75,75,78.1,81.5,81.5,85.7,82.1,,,,
-European Institute for Gender Equality (EIGE),21.1,15.8,31.3,27.8,33.3,11.1,11.1,5.3,5.6,5.3,10.5,26.3,21.1,15.8,5.6,,,,,,
-European Institute of Innovation and Technology (EIT),57.1,50,50,33.3,33.3,63.6,58.3,64.3,66.7,63.6,63.6,72.7,,,,,,,,,
-European Insurance and Occupational Pensions Authority (EIOPA),67.9,60.7,63,63,75,69,69,75.9,71.4,78.6,79.3,71.4,,,,,,,,,
-European Joint Undertaking for ITER and the Development of Fusion Energy (Fusion for Energy),84.9,83.6,81.8,91.1,89.8,86.4,89.7,89.7,91.4,89.5,89.8,89.7,,,,,,,,,
-European Maritime Safety Agency (EMSA),82.8,83.9,83.9,86.7,76.7,75,84.4,84.4,81.3,88.2,85.3,93.5,94.6,94.6,88.2,91.9,94.6,94.6,94.3,100,100
-European Medicines Agency (EMA),60.7,59.4,61.8,69.7,74.3,59.4,61.1,63.9,68.6,69.4,72.2,70,62.9,60,54.3,60.6,62.9,72.7,71,80.6,84.8
-European Monitoring Centre for Drugs and Drug Addiction (EMCDDA),72.7,69.7,65.6,54.5,55.9,64.7,67.6,62.5,50,60.6,57.6,71.9,71.9,62.5,73.3,65.6,65.6,65.5,72.7,84.4,78.9
-European Network and Information Security Agency (ENISA),82.1,85.2,86.2,89.7,80,76.7,83.3,86.2,84.6,86.2,90,93.9,90.9,88.2,90.9,93.9,96.9,96.9,96.8,96.9,
-European Police College (CEPOL),58.6,66.7,67.9,64.3,67.9,67.9,70.4,78.6,71.4,89.3,82.1,85.2,,,,,,,,,
-European Police Office (Europol),71.4,71.4,75,78.6,73.1,73.3,81.5,81.5,82.8,90,89.7,96.4,,,,,,,,,
-European Railway Agency (ERA),65.6,66.7,73.3,70,73.3,70,82.8,84.4,83.9,89.5,92.1,97.2,94.6,97.3,97.3,100,100,100,100,,
-European Securities and Markets Authority (ESMA),74.1,77.8,64.3,64.3,64.3,64.3,67.9,72.4,75,82.1,85.7,85.2,,,,,,,,,
-European Training Foundation (ETF),50,50,43.3,41.9,45.2,48.4,46.4,44.8,55.2,41.4,60,60,60,63.6,57.6,55.2,51.7,65.5,64.5,75,62.5
-European Union Agency for Fundamental Rights (FRA),50,50,46.4,44.8,55.6,58.6,58.1,60,54.8,54.8,56.7,58.6,53.6,60,62.1,63.3,60,67.9,65.4,68,82.4
+European Agency for Reconstruction (EAR),,,,,,,,,,,,,,,,20,21,20,22,22,13
+European Agency for Safety and Health at Work (EU-OSHA),55,50,50,48,51,55,55,55,54,61,57,66,65,58,57,56,64,57,57,54,36
+European Agency for the Management of Operational Cooperation at the External Borders (FRONTEX),28,29,28,27,28,28,30,30,32,30,29,29,29,29,27,30,31,,,,
+"European Agency for the Operational Management of large-scale IT Systems in the Area of Freedom, Security and Justice (eu-LISA)",27,24,24,24,25,28,27,25,31,31,31,,,,,,,,,,
+European Asylum Support Office (EASO),,,18,14,14,15,15,18,22,21,22,21,25,,,,,,,,
+European Aviation Safety Agency (EASA),25,26,28,28,28,28,27,28,27,29,27,26,26,27,29,30,28,25,24,24,
+European Banking Authority (EBA),23,22,23,20,22,23,23,24,24,27,27,27,,,,,,,,,
+European Centre for Disease Prevention and Control (ECDC),13,12,17,13,14,14,14,18,12,13,14,17,18,19,3,5,4,20,19,,
+European Centre for the Development of Vocational Training (Cedefop),39,46,45,47,46,49,50,49,55,54,54,62,59,60,59,56,58,60,61,58,8
+European Chemicals Agency (ECHA),11,14,10,10,11,14,13,13,15,18,19,20,22,22,23,23,23,,,,
+European Defence Agency (EDA),21,21,21,21,22,20,22,23,23,23,24,25,,,,,,,,,
+European Environment Agency (EEA),18,18,19,19,20,21,21,19,22,27,26,24,25,23,29,33,34,34,32,33,24
+European Fisheries Control Agency (EFCA),22,25,23,22,24,24,27,29,28,27,28,27,27,28,28,28,30,,,,
+European Food Safety Authority (EFSA),18,11,12,11,11,12,12,12,12,11,9,8,9,9,9,10,10,8,10,10,10
+European Public Prosecutor's Office (EPPO),14,,,,,,,,,,,,,,,,,,,,
+European Union Agency for Asylum (EUAA),16,16,,,,,,,,,,,,,,,,,,,
+European Foundation for the Improvement of Living and Working Conditions (EUROFOUND),43,51,50,51,53,47,46,48,50,51,56,55,51,60,59,56,57,50,49,23,32
+European GNSS Agency (GSA),,,,26,24,27,27,24,24,24,24,24,25,22,22,24,23,,,,
+European Institute for Gender Equality (EIGE),4,3,5,5,6,2,2,1,1,1,2,5,4,3,1,,,,,,
+European Institute of Innovation and Technology (EIT),8,6,6,4,4,7,7,9,10,14,14,16,,,,,,,,,
+European Insurance and Occupational Pensions Authority (EIOPA),19,17,17,17,21,20,20,22,20,22,23,20,,,,,,,,,
+European Joint Undertaking for ITER and the Development of Fusion Energy (Fusion for Energy),45,46,45,51,53,51,52,52,53,51,53,52,,,,,,,,,
+European Maritime Safety Agency (EMSA),24,26,26,26,23,24,27,27,26,30,29,29,35,35,30,34,35,35,33,31,22
+European Medicines Agency (EMA),17,19,21,23,26,19,22,23,24,25,26,21,22,21,19,20,22,24,22,25,28
+European Monitoring Centre for Drugs and Drug Addiction (EMCDDA),24,23,21,18,19,22,23,20,16,20,19,23,23,20,22,21,21,19,24,27,15
+European Network and Information Security Agency (ENISA),23,23,25,26,24,23,25,25,22,25,27,31,30,30,30,31,31,31,30,31,
+European Police College (CEPOL),17,18,19,18,19,19,19,22,20,25,23,23,,,,,,,,,
+European Police Office (Europol),20,20,21,22,19,22,22,22,24,27,26,27,,,,,,,,,
+European Railway Agency (ERA),21,18,22,21,22,21,24,27,26,34,35,35,35,36,36,39,39,36,38,,
+European Securities and Markets Authority (ESMA),20,21,18,18,18,18,19,21,21,23,24,23,,,,,,,,,
+European Training Foundation (ETF),15,15,13,13,14,15,13,13,16,12,18,18,18,21,19,16,15,19,20,24,10
+European Union Agency for Fundamental Rights (FRA),14,15,13,13,15,17,18,18,17,17,17,17,15,18,18,19,18,19,17,17,14
 European Union Institute for Security Studies (EUISS),,,,,,,,,,,,,,,,,,,,,
-European Union Intellectual Property Office (EUIPO),56.7,56.7,62.1,74.2,78.1,77.4,66.7,64.5,,,,,,,,,,,,,
-European Union Satellite Centre (EU SatCen),77.8,70.4,67.9,69,69,75.9,75.9,78.6,78.6,78.6,77.8,81.5,,,,,,,,,
-Office for Harmonisation in the Internal Market (OHIM),,,,,,,,,62.1,58.6,65.5,71.4,71.4,78.6,81.5,82.1,82.1,68,76.9,68.6,67.7
-Single Resolution Board (SRB),80,80,80,80,80,80,66.7,66.7,66.7,,,,,,,,,,,,
-The European Union's Judicial Cooperation Unit (Eurojust),63,66.7,66.7,63,71.4,71.4,69.2,69.2,70.4,63,59.3,63,,,,,,,,,
-Translation Centre for the Bodies of the European Union (CdT),60,60,66.7,50,59.7,59.4,54.2,56.5,58.6,59.1,61.9,61.7,54.2,68.6,58.6,60,60,67.3,64.3,73.8,71.4
-European Labour Authority (ELA),54.5,64.7,64.7,63.6,,,,,,,,,,,,,,,,,
-European Union Agency for the Space Programme (EUSPA),76.7,80.6,87.5,,,,,,,,,,,,,,,,,,
+European Union Intellectual Property Office (EUIPO),17,17,18,23,25,24,20,20,,,,,,,,,,,,,
+European Union Satellite Centre (EU SatCen),21,19,19,20,20,22,22,22,22,22,21,22,,,,,,,,,
+Office for Harmonisation in the Internal Market (OHIM),,,,,,,,,18,17,19,20,20,22,22,23,23,17,20,35,21
+Single Resolution Board (SRB),4,4,4,4,4,4,4,4,4,,,,,,,,,,,,
+The European Union's Judicial Cooperation Unit (Eurojust),17,18,18,17,20,20,18,18,19,17,16,17,,,,,,,,,
+Translation Centre for the Bodies of the European Union (CdT),36,36,38,29,37,38,32,39,34,39,39,37,32,48,34,36,36,33,27,31,25
+European Labour Authority (ELA),18,22,22,21,,,,,,,,,,,,,,,,,
+European Union Agency for the Space Programme (EUSPA),23,25,28,,,,,,,,,,,,,,,,,,

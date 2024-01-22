@@ -1,48 +1,48 @@
 Time,2023,2022,2021,2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2006,2005,2004,2003
 Entity\Sex,Total,Total,Total,Total,Total,Total,Total,Total,Total,Total,Total,Total,Total,Total,Total,Total,Total,Total,Total,Total,Total
-Total,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100
-Agency for the Cooperation of Energy Regulators (ACER),100,100,100,100,100,100,100,100,100,100,100,100,100,,,,,,,,
-Body of European Regulators for Electronic Communications (BEREC),100,100,100,100,100,100,100,100,100,100,100,100,,,,,,,,,
-Community Plant Variety Office (CPVO),100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100
+Total,1325,1287,1288,1289,1274,1288,1273,1289,1264,1297,1288,1237,927,879,827,848,858,694,688,588,375
+Agency for the Cooperation of Energy Regulators (ACER),27,27,27,26,28,28,27,28,27,27,27,27,26,,,,,,,,
+Body of European Regulators for Electronic Communications (BEREC),26,27,27,27,27,28,28,28,28,28,28,26,,,,,,,,,
+Community Plant Variety Office (CPVO),27,28,28,28,28,29,29,29,29,27,28,27,28,28,28,27,28,26,25,25,31
 Euratom Supply Agency (ESA),,,,,,,,,,,,,,,,,,,,,
-European Agency for Reconstruction (EAR),,,,,,,,,,,,,,,,100,100,100,100,100,100
-European Agency for Safety and Health at Work (EU-OSHA),100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100
-European Agency for the Management of Operational Cooperation at the External Borders (FRONTEX),100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,,,,
-"European Agency for the Operational Management of large-scale IT Systems in the Area of Freedom, Security and Justice (eu-LISA)",100,100,100,100,100,100,100,100,100,100,100,,,,,,,,,,
-European Asylum Support Office (EASO),,,100,100,100,100,100,100,100,100,100,100,100,,,,,,,,
-European Aviation Safety Agency (EASA),100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,
-European Banking Authority (EBA),100,100,100,100,100,100,100,100,100,100,100,100,,,,,,,,,
-European Centre for Disease Prevention and Control (ECDC),100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,,
-European Centre for the Development of Vocational Training (Cedefop),100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100
-European Chemicals Agency (ECHA),100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,,,,
-European Defence Agency (EDA),100,100,100,100,100,100,100,100,100,100,100,100,,,,,,,,,
-European Environment Agency (EEA),100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100
-European Fisheries Control Agency (EFCA),100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,,,,
-European Food Safety Authority (EFSA),100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100
-European Public Prosecutor's Office (EPPO),100,,,,,,,,,,,,,,,,,,,,
-European Union Agency for Asylum (EUAA),100,100,,,,,,,,,,,,,,,,,,,
-European Foundation for the Improvement of Living and Working Conditions (EUROFOUND),100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100
-European GNSS Agency (GSA),,,,100,100,100,100,100,100,100,100,100,100,100,100,100,100,,,,
-European Institute for Gender Equality (EIGE),100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,,,,,,
-European Institute of Innovation and Technology (EIT),100,100,100,100,100,100,100,100,100,100,100,100,,,,,,,,,
-European Insurance and Occupational Pensions Authority (EIOPA),100,100,100,100,100,100,100,100,100,100,100,100,,,,,,,,,
-European Joint Undertaking for ITER and the Development of Fusion Energy (Fusion for Energy),100,100,100,100,100,100,100,100,100,100,100,100,,,,,,,,,
-European Maritime Safety Agency (EMSA),100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100
-European Medicines Agency (EMA),100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100
-European Monitoring Centre for Drugs and Drug Addiction (EMCDDA),100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100
-European Network and Information Security Agency (ENISA),100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,
-European Police College (CEPOL),100,100,100,100,100,100,100,100,100,100,100,100,,,,,,,,,
-European Police Office (Europol),100,100,100,100,100,100,100,100,100,100,100,100,,,,,,,,,
-European Railway Agency (ERA),100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,,
-European Securities and Markets Authority (ESMA),100,100,100,100,100,100,100,100,100,100,100,100,,,,,,,,,
-European Training Foundation (ETF),100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100
-European Union Agency for Fundamental Rights (FRA),100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100
+European Agency for Reconstruction (EAR),,,,,,,,,,,,,,,,37,38,26,26,26,16
+European Agency for Safety and Health at Work (EU-OSHA),85,82,84,84,87,87,87,84,82,86,83,93,93,86,84,82,84,76,77,71,45
+European Agency for the Management of Operational Cooperation at the External Borders (FRONTEX),32,32,31,31,32,32,32,32,32,32,31,31,31,31,29,31,31,,,,
+"European Agency for the Operational Management of large-scale IT Systems in the Area of Freedom, Security and Justice (eu-LISA)",33,29,29,29,30,30,30,30,35,36,36,,,,,,,,,,
+European Asylum Support Office (EASO),,,29,27,29,29,28,29,30,29,29,28,30,,,,,,,,
+European Aviation Safety Agency (EASA),33,32,33,33,31,32,32,33,31,33,33,32,32,32,32,31,28,25,24,24,
+European Banking Authority (EBA),28,28,28,28,28,29,29,29,28,30,29,29,,,,,,,,,
+European Centre for Disease Prevention and Control (ECDC),30,32,32,32,32,32,33,33,25,27,27,32,32,33,6,6,6,29,29,,
+European Centre for the Development of Vocational Training (Cedefop),87,96,95,92,87,88,87,87,88,87,84,88,89,86,84,83,86,77,83,77,14
+European Chemicals Agency (ECHA),32,32,32,32,33,33,32,33,33,33,32,31,32,35,35,35,35,,,,
+European Defence Agency (EDA),27,27,27,27,28,28,28,28,28,27,27,27,,,,,,,,,
+European Environment Agency (EEA),35,35,34,36,36,36,34,36,35,37,38,35,37,36,36,37,37,35,34,34,34
+European Fisheries Control Agency (EFCA),32,33,33,33,34,34,34,33,32,33,33,33,33,33,33,31,33,,,,
+European Food Safety Authority (EFSA),38,15,15,14,14,15,15,15,15,15,15,13,15,15,15,15,15,13,14,14,14
+European Public Prosecutor's Office (EPPO),23,,,,,,,,,,,,,,,,,,,,
+European Union Agency for Asylum (EUAA),28,28,,,,,,,,,,,,,,,,,,,
+European Foundation for the Improvement of Living and Working Conditions (EUROFOUND),84,84,84,84,88,87,86,86,86,85,85,81,79,82,84,84,87,89,83,41,48
+European GNSS Agency (GSA),,,,31,30,33,33,32,32,33,32,32,32,27,27,28,28,,,,
+European Institute for Gender Equality (EIGE),19,19,16,18,18,18,18,19,18,19,19,19,19,19,18,,,,,,
+European Institute of Innovation and Technology (EIT),14,12,12,12,12,11,12,14,15,22,22,22,,,,,,,,,
+European Insurance and Occupational Pensions Authority (EIOPA),28,28,27,27,28,29,29,29,28,28,29,28,,,,,,,,,
+European Joint Undertaking for ITER and the Development of Fusion Energy (Fusion for Energy),53,55,55,56,59,59,58,58,58,57,59,58,,,,,,,,,
+European Maritime Safety Agency (EMSA),29,31,31,30,30,32,32,32,32,34,34,31,37,37,34,37,37,37,35,31,22
+European Medicines Agency (EMA),28,32,34,33,35,32,36,36,35,36,36,30,35,35,35,33,35,33,31,31,33
+European Monitoring Centre for Drugs and Drug Addiction (EMCDDA),33,33,32,33,34,34,34,32,32,33,33,32,32,32,30,32,32,29,33,32,19
+European Network and Information Security Agency (ENISA),28,27,29,29,30,30,30,29,26,29,30,33,33,34,33,33,32,32,31,32,
+European Police College (CEPOL),29,27,28,28,28,28,27,28,28,28,28,27,,,,,,,,,
+European Police Office (Europol),28,28,28,28,26,30,27,27,29,30,29,28,,,,,,,,,
+European Railway Agency (ERA),32,27,30,30,30,30,29,32,31,38,38,36,37,37,37,39,39,36,38,,
+European Securities and Markets Authority (ESMA),27,27,28,28,28,28,28,29,28,28,28,27,,,,,,,,,
+European Training Foundation (ETF),30,30,30,31,31,31,28,29,29,29,30,30,30,33,33,29,29,29,31,32,16
+European Union Agency for Fundamental Rights (FRA),28,30,28,29,27,29,31,30,31,31,30,29,28,30,29,30,30,28,26,25,17
 European Union Institute for Security Studies (EUISS),,,,,,,,,,,,,,,,,,,,,
-European Union Intellectual Property Office (EUIPO),100,100,100,100,100,100,100,100,,,,,,,,,,,,,
-European Union Satellite Centre (EU SatCen),100,100,100,100,100,100,100,100,100,100,100,100,,,,,,,,,
-Office for Harmonisation in the Internal Market (OHIM),,,,,,,,,100,100,100,100,100,100,100,100,100,100,100,100,100
-Single Resolution Board (SRB),100,100,100,100,100,100,100,100,100,,,,,,,,,,,,
-The European Union's Judicial Cooperation Unit (Eurojust),100,100,100,100,100,100,100,100,100,100,100,100,,,,,,,,,
-Translation Centre for the Bodies of the European Union (CdT),100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100
-European Labour Authority (ELA),100,100,100,100,,,,,,,,,,,,,,,,,
-European Union Agency for the Space Programme (EUSPA),100,100,100,,,,,,,,,,,,,,,,,,
+European Union Intellectual Property Office (EUIPO),30,30,29,31,32,31,30,31,,,,,,,,,,,,,
+European Union Satellite Centre (EU SatCen),27,27,28,29,29,29,29,28,28,28,27,27,,,,,,,,,
+Office for Harmonisation in the Internal Market (OHIM),,,,,,,,,29,29,29,28,28,28,27,28,28,25,26,51,31
+Single Resolution Board (SRB),5,5,5,5,5,5,6,6,6,,,,,,,,,,,,
+The European Union's Judicial Cooperation Unit (Eurojust),27,27,27,27,28,28,26,26,27,27,27,27,,,,,,,,,
+Translation Centre for the Bodies of the European Union (CdT),60,60,57,58,62,64,59,69,58,66,63,60,59,70,58,60,60,49,42,42,35
+European Labour Authority (ELA),33,34,34,33,,,,,,,,,,,,,,,,,
+European Union Agency for the Space Programme (EUSPA),30,31,32,,,,,,,,,,,,,,,,,,
