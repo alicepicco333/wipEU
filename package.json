@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@amcharts/amcharts5": "^5.7.7",
+    "@amcharts/amcharts5-geodata": "^5.1.2",
+    "plotly.js-dist": "^2.28.0"
+  }
+}
