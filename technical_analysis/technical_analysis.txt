@@ -1,0 +1,220 @@
+### First step:
+The first step is undoubtedly to read the data in xslx format and convert them to csv in order to be able to analyse them via pandas. In this first cell, certain functions are also defined which will be useful later on:
+- <code>force_to_numeric</code>: this function has the task of converting all instances of values in the selected columns into numeric values, this function was developed to deal with the problem resulting from the fact that in some datasets the datatype of individual instances is sometimes not numeric (probably due to NaN values).
+- <code>knn_impute</code>: this function has a dual purpose, that of calculating the ideal number of neighbours and then using this number as the value for imputing missing data into the dataframes resulting from the merge. This algorithm proposes missing values by calculating them according to a learning model that produces 'plausible' data. Its logic follow these steps:
+- - Numeric Data Selection: Select numeric columns from the input DataFrame (dataframe).
+- - Cross-Validation for k Selection: Iterate over a range of values for the number of neighbors (k) from 1 to 50. Use k-NN imputation with each k and calculate cross-validated mean squared error scores. Keep track of the scores for each k.
+- - Optimal k Selection: Identify the optimal k that minimizes the mean squared error.
+- - Final Imputation: Use the optimal k to perform k-NN imputation on the entire numeric dataset. Replace missing values in the original DataFrame with the imputed values. 
+- - Return Results: Return the updated DataFrame and the optimal k.
+- <code>column_remove</code>: This function was developed with the sole purpose of limiting and thus equalising all datasets by only examining columns referring to data from 2018 onwards.
+- <code>generate_overall_trend_correlation</code>: This function aims to calculate the overall correlation of a dataset based on the difference of individual values taken and compared year by year.
+- <code>generate_yearly_correlations</code>: This function has a similar purpose to the one just discussed, it generates correlations between the absolute values of each instance taken individually year by year.
+
+### First look at correlations of the dataframes
+
+Using the two functions developed above we can start to look at the correlations: The first function looks at the correlation between the absolute values of the columns, while the second function looks at the correlation between the trends or changes in values over time for each column. The second function is useful when you are interested in understanding how the trends in values for common columns correlate between two dataframes.
+Before doing that bowt <code>column_remove</code> and <code>force_to_numeric</code> functions have been applied in order to limitate our anlysis starting from 2018 to 2023 and to make every value numeric in the dataset. This second option is needed because no modification on the dataset have been applied so far. Later it will be possible to see how this situations has been managed
+
+### Merging all dataset that share the Geographic region column
+
+At this point in the work, in order to identify correlations and other broader types of analysis, it is necessary to merge datasets that share common columns such as the first case 'Geographic region'. The data in these are those concerning the influential roles women play in 
+- Research funding organisations: presidents and members of the highest decision-making body
+- Major political parties: leaders and deputy leaders 
+- National ministries dealing with environment and climate change
+
+Each of these datasets is categorised according to the region to which the women in question belong, with an additional row covering the entirety of the pre- and post-Brexit EU region.
+
+Once the merge of the datasets is complete, the <code>knn_impute</code> function is applied to address missing values (NaN) in the dataset and so to plausibly replace by estimating them based on the values of the most similar observations.
+The knn algorithm follow this logic of action: Given a dataset with features (independent variables) and a target variable (dependent variable), the k-NN algorithm compute the distance (commonly Euclidean distance) between the data point with missing values and all other data points in the dataset. At this point it identify the k nearest neighbors (data points with the smallest distances) to the data point with missing values. At the end it impute missing values with the average (or weighted average) of the target values of its k nearest neighbors.
+
+In other words the goal is to find a predefined number of training samples closest in distance to the new point, and predict the label from these. 
+For a data point with a missing value in a numeric feature $X_i$ and $k$ nearest neighbors with observed values
+$X_{i_1}, X_{i_2}, ..., X_{i_k}$, the imputation formula is often the mean:
+
+$$\text{Imputed Value} = \frac{1}{k} \sum_{j=1}^{k} X_{i_j} \$$
+
+
+When it comes to KNN imputation, the algorithm works by imputing missing values in a dataset with the mean (for numerical data) or mode (for categorical data) of the ‘k’ nearest neighbors, as determined by some distance metric. The ‘k’ is dynamically calculated by the <code>knn_impute</code> function that estimates the optimum number of neighbors to adopt as parameter that dictates how many of the nearest neighbors contribute to the imputation.
+
+It is worth to mention that the <code>KNNImputer</code> class in <code>scikit-learn</code> handles the complexities of the k-NN imputation algorithm, including distance metrics, weights, and handling missing values in the input data. The optimal $k$ is selected based on cross-validated mean squared error scores
+
+
+### Spearman's correlation between variables in the merged dataset
+
+At this point, to investigate and in case identify interesting correlation trends, it was decided to apply Spearman's correlation, which is particularly useful when dealing with non-linear data.
+
+Spearman's rank correlation coefficient, denoted by ρ (rho), is a non-parametric measure of statistical dependence between two variables. It assesses how well the relationship between two variables can be described using a monotonic function. Unlike Pearson's correlation, Spearman's correlation does not assume a linear relationship between the variables.
+
+The process involves ranking data points for each variable, ordering them from lowest to highest. In case of ties, the ranks are averaged. Subsequently, the differences (d) between the ranks of corresponding pairs of data points are computed. These differences are then squared (d²), and the sum of the squared differences is utilized to calculate Spearman's rank correlation coefficient.
+
+Mathematical Formula:
+$$
+\rho = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)}
+$$
+ 
+where $\rho $ is the number of data points, and $ d_i $ represents the differences in ranks.
+
+
+The advantage for Non-linear Data relies on Spearman's correlation capacity of being robust to outliers and the fact that it does not assume linearity. It is particularly useful when dealing with non-linear relationships, as it captures monotonic (increasing or decreasing) relationships. This makes it more suitable for assessing associations in datasets where the relationship between variables is not strictly linear.
+
+Non-linear data generally refers to a situation where the relationship between two variables cannot be adequately represented by a straight line. In non-linear data, the pattern between variables may follow a curve, such as an exponential, logarithmic, or quadratic function. Spearman's correlation is advantageous in such cases, as it evaluates the strength and direction of monotonic relationships without relying on linear assumptions.
+
+The demonstration of the non linearity of data is quite simple, it is necessary to plot two chosen variables from the dataframe and look at the general going of the dispositions of each point.
+
+
+The numerical analysis of the Spearman correlation matrix provides further details on the strength of correlations and potential influences between categories. Based on the numerical values:
+
+- Temporal Correlations within the Same Categories: Correlations within the same categories over the years are generally high (close to 1), suggesting a strong positive correlation. This indicates that gender dynamics in one category positively influence dynamics in similar categories in subsequent years.
+
+- Correlations between Different Categories in the Same Year: Correlations between different categories in the same year vary, but often are significant. A high value indicates a positive relationship, while a low or negative value indicates a weaker or even negative relationship.
+
+- Correlations Between Different Categories Over the Years: Correlations between different categories over time show significant variations. Some years exhibit stronger correlations than others, suggesting that gender dynamics in an agency in one year may influence other categories differently in subsequent years.
+
+- Negative Values in Year-to-Year Correlations: Negative values indicate an inverse relationship between categories in those specific years. This suggests that in certain periods, an increase in the number of women in one category is associated with a decrease in other categories and vice versa.
+
+- Correlations between Agencies in the Same Year: Correlations between different agencies in the same year indicate how gender dynamics in one agency may be linked to those in other agencies during the same period.
+
+In summary, the numerical data confirm that similar categories exhibit a strong temporal correlation, while different categories may show varying degrees of correlation depending on the years. Negative values suggest complex dynamics, indicating that changes in the number of women in influential roles in certain categories may counterbalance variations in other categories. Further analyses and investigations could provide a deeper understanding of gender dynamics in European institutions over time.
+
+### Heatmap of spearman's correlation for non linear variables
+
+Correlation within the Same Domains Across Years: Cells with warmer colors (such as red) along the diagonal indicate a strong positive correlation within the same domain in consecutive years. This suggests that if the number of women in a specific domain increases or decreases in one year, a similar trend is likely to follow in the subsequent years.
+
+Correlation between Different Domains in the Same Year: Cells not on the diagonal represent the correlation between different domains in the same year. For example, the cell intersecting 2023_x and 2023_y indicates the correlation between these two domains in 2023. If the color of this cell is warm, it means that if the number of women increases in one domain (2023_x), it is likely to increase in the other domain (2023_y) and vice versa.
+
+Correlation between Different Domains Across Years: Cells neither on the diagonal nor in the same year show the correlation between different domains across years. For instance, the cell intersecting 2023_x and 2022_y indicates the correlation between domain x in 2023 and domain y in 2022. If the color of this cell is cool, it means that these two domains are not strongly correlated over time.
+
+### Clusters and visualization
+
+In this section, a different analysis approach was employed to identify any patterns in the dataset. Before proceeding with the cluster identification, it is necessary to employ the elbow method to determine the optimal number of clusters by which to partition the dataset.
+
+The elbow method is a technique used to find the optimal number of clusters in a dataset for clustering algorithms, such as K-Means. It involves plotting the variance explained by the clusters against the number of clusters and observing the point at which adding more clusters does not significantly improve the variance explained. This point is visualized as an "elbow" in the plot, and the number of clusters corresponding to the elbow is considered the optimal choice. The elbow method helps strike a balance between achieving a good fit to the data and avoiding overfitting.
+
+Although the elbow method plot strongly suggests adopting two clusters during the analysis, it was found to be a good choice to opt for three clusters instead. This decision was based, in part, on the averages of the values within each individual cluster, as seen above. The obtained means appear to fairly clearly indicate that there are three distinct patterns that differentiate the clusters.
+
+The 3D visualization provides a clear insight into how the choice of 3 clusters can be supported by the arrangement of points in the three-dimensional space based on the values they have taken. This visualization is obtained throguh the reduction of dimensionality of each point. The reduction of dimensionality, as performed by techniques like Principal Component Analysis (PCA), is often necessary for various reasons:
+
+- Data Visualization: It is challenging to visualize high-dimensional data. Reducing the data to 2 or 3 dimensions can aid in visualizing and better understanding relationships between variables.
+
+- Noise Reduction: Dimensionality reduction can help eliminate "noise" in the data, retaining only the most important features.
+
+- Computational Efficiency: Machine learning models may be more efficient with fewer input variables. Reducing data dimensionality can speed up model training time and require fewer memory resources.
+
+- Avoiding the Curse of Dimensionality: With a high number of dimensions, data becomes sparse, making it difficult for some machine learning algorithms to find meaningful patterns.
+
+- Multicollinearity Reduction: In the presence of highly correlated variables, dimensionality reduction can help create new independent variables, potentially enhancing the performance of certain machine learning models.
+
+To better understand what principal components represent in this case it is possible to say that principal components are new variables created as combinations of your original variables. These new variables are generated to capture the most data's information possible.
+
+The original variables represent the number of women in influential roles for each year and category (2023_x, 2022_x, 2021_x, etc.). PCA creates new variables, known as principal components, which are combinations of these original variables. For example, the first principal component might be $0.3 \cdot 2023_x + 0.4 \cdot 2022_x - 0.2 \cdot 2021_x + \ldots$ This new variable is crafted to capture the majority of the variance (variation) in the data.
+Each term in the expression represents a weight multiplied by the value of the corresponding original variable. The weights (0.3, 0.4, -0.2, etc.) are determined by the PCA algorithm during the analysis of the data. 
+
+The positive or negative sign of each weight indicates the direction and strength of the relationship between the original variable and the principal component. In this case, a positive weight suggests a positive relationship, while a negative weight implies a negative relationship.
+The magnitude of each weight signifies the importance or contribution of the respective original variable to the principal component. The purpose of creating this new variable (the first principal component) is to capture the majority of the variance or variation in the dataset.
+
+
+By combining the original variables with specific weights, the principal component is constructed to highlight the patterns and variations present in the data. The principal components are typically ordered by the amount of variance they capture, with the first component capturing the most variance.
+Using these principal components allows for a more concise representation of the data, reducing its dimensionality while retaining the essential information.
+
+
+In summary, the formula for the first principal component is a linear combination of the original variables, designed to effectively summarize the patterns and variations in the data by assigning appropriate weights to each variable. In the 3D graph, each category is represented by a point, and the position of that point along the X-axis is determined by the value of the first principal component for that agency. Similarly, the position along the Y-axis is determined by the second principal component, and the position along the Z-axis is determined by the third principal component.
+
+For convenience, it has been decided to print fairly clear listings of the members belonging to the different clusters.
+
+The obtained clusters represent different geographical regions that exhibit similar patterns in the number of women in influential roles over the years. Regions within the same cluster have more similar temporal change patterns compared to agencies in different clusters.
+
+The criterion for clustering the data is based on the Euclidean distance between points in a multidimensional space, where each dimension represents a year. The KMeans algorithm aims to minimize the variance within each cluster, which is the sum of squared distances between each point and the centroid of its cluster.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### First look at correlations of the dataframes
+
+Using the two functions developed above we can start to look at the correlations: The first function looks at the correlation between the absolute values of the columns, while the second function looks at the correlation between the trends or changes in values over time for each column. The second function is useful when you are interested in understanding how the trends in values for common columns correlate between two dataframes.
+Also once again before doing that both <code>column_remove</code> and <code>force_to_numeric</code> functions have been applied in order to limitate our anlysis starting from 2018 to 2023 and to make every value numeric in the dataset. This second option is needed because no modification on the dataset have been applied so far. Later it will be possible to see how this situations has been managed. In this case it is also necessary to remove the first row of each dataset because it contains categorical data that do not interest us in this analysis (also because it only specify the sex of the person which is covering a role in that particular institution, something that is un-mistakable here because at this stage we're dealing only with dataset in which every istance of values represents a woman)
+
+
+
+As it will be further explaine below, the correlations between these datasets is more difficult due to the fact that they have a huge difference in terms of number of rows, this make the analysis quite complicated and it requires a fair amount of manipulation for the sake of the tests. 
+
+This is why for this second set of datasets the results are not that trustworthy,specifically for all those values that are imputed due to their high number. When the imputation of missing data is an rare event among the values of a dataset it can be overseen without too many difficulties, but in this case there are complete rows tht are artificially imputed. It is possible to notice this problemalso here, in the firstlook at the correlations year by year.
+
+
+### Merging all datasets that share the Time column (renamed "Agency" column)
+
+As before, the workflow is repeated in the same manner: after examining the initial correlations calculated for each year, it is now necessary to merge the datasets to gain a broader perspective on potential phenomena. As mentioned earlier, the first challenge arising from this operation lies in the significant disparity in the number of rows in the individual datasets. Additionally, in the datasets as downloaded from the source, the column labeled "Time," which actually referred to the row where this label was present, has been renamed as "Agency" for better organization and handling of the data. From the final dataset the first row was removed because it was relative to the total sum of position held by women of each column. It would have been both an outlier and a not informative piece of data for our purpose.
+
+Same as before: in order to identify correlations and other broader types of analysis, it is necessary to merge datasets that share common columns, in this case the newly renamed "Agency" column. The data in these are those concerning the influential roles women play in:
+
+- European agencies: presidents, members and executive heads
+- European courts: presidents and members 
+- European financial institutions: presidents and members
+
+
+Each of these datasets is categorised according to the agency to which the women in question belong.
+The workflow for the remaining operations is the same, but "repetita iuvant", so:
+
+Once the merge of the datasets is complete, the <code>knn_impute</code> function is applied to address missing values (NaN) in the dataset and so to plausibly replace by estimating them based on the values of the most similar observations.
+
+The principle behind the KNN imputation approach is to find a predefined number of training samples closest in distance to the new point, and predict the label from these. The number of samples can be a user-defined constant (k-nearest neighbour learning), or vary based on the local density of points (radius-based neighbour learning). The distance can, in general, be any metric measure: standard Euclidean distance is the most common choice.
+
+When it comes to KNN imputation, the algorithm works by imputing missing values in a dataset with the mean (for numerical data) or mode (for categorical data) of the ‘k’ nearest neighbors, as determined by some distance metric. The ‘k’ is dynamically calculated by the <code>knn_impute</code> function that estimates the optimum number of neighbors to adopt as parameter that dictates how many of the nearest neighbors contribute to the imputation.
+
+### Spearman's application
+
+Once again we apply the Spearman's correlation coefficient to obtain possible interesting correlations between our data.
+
+Once again we obtain a similar result as for the other series of datasets. Based on the numerical values:
+
+- Temporal Correlations within the Same Categories: Correlations within the same categories over the years are generally high (close to 1), suggesting a strong positive correlation. This indicates that gender dynamics in one category positively influence dynamics in similar categories in subsequent years.
+
+- Correlations between Different Categories in the Same Year: Correlations between different categories in the same year vary, but often are significant. A high value indicates a positive relationship, while a low or negative value indicates a weaker or even negative relationship.
+
+- Correlations Between Different Categories Over the Years: Correlations between different categories over time show significant variations. Some years exhibit stronger correlations than others, suggesting that gender dynamics in an agency in one year may influence other categories differently in subsequent years.
+
+- Negative Values in Year-to-Year Correlations: Negative values indicate a inverse relationship between categories in those specific years. This suggests that in certain periods, an increase in the number of women in one category is associated with a decrease in other categories and vice versa.
+
+
+- Correlations between Agencies in the Same Year: Correlations between different agencies in the same year indicate how gender dynamics in one agency may be linked to those in other agencies during the same period.
+
+In summary, the numerical data confirm that similar categories exhibit a strong temporal correlation, while different categories may show varying degrees of correlation depending on the years. Negative values suggest complex dynamics, indicating that changes in the number of women in influential roles in certain categories may counterbalance variations in other categories. Further analyses and investigations could provide a deeper understanding of gender dynamics in European institutions over time.
+
+In few lines it is possible to say that:
+- The analysis reveals positive correlations within each specific domain. However, the correlations between different domains are generally weaker. This suggests that while there is consistency in women's involvement within a specific area over time, the correlation between women's involvement in different areas is not as strong.
+
+
+It's essential to emphasize that correlations, whether observed in data or trends, do not inherently indicate a causal relationship. Jumping to the conclusion of causation based solely on correlation is a logical fallacy known as "post hoc ergo propter hoc," which means assuming that because one event follows another, the first event caused the second. Avoiding this error is crucial for accurate interpretation and analysis of data. Additionally, acknowledging the risk of confirmation bias, the tendency to favor information supporting existing beliefs, is vital to maintaining objectivity when dealing with correlations.
+
+Displayed above are the correlation results presented in a graphical format, akin to earlier visualizations. Warmer-colored zones indicate a stronger correlation between the paired years, while colder ones suggest a potential absence of correlation. It is crucial to reiterate, as emphasized throughout this notebook, that in the latter scenario, a significant volume of data has been artificially generated using the <code>knn_impute</code> function. This function adeptly replaces NaN values by employing the logic of k-nearest neighbor imputation, contributing to a more comprehensive dataset for analysis.
+
+
+### Clusters and visualization
+
+Like before in this section, the same approach oc finding and evaluating possible clusters among the data has been employed to identify any patterns in the dataset. Once again before proceeding with the cluster identification, it is necessary to employ the elbow method to determine the optimal number of clusters by which to partition the dataset.
+
+
+In this case as before, there is some space for interpretations or trials for the numbers of cluster to select, even if it is quite undeniably clear that the optimal amount of cluster in this situation is 4.
+
+As it is possible to see in the result above this cell the calculus of the average values of the clusters shows the difference in the avrage values of theclusters that suggest the choice of 4 clusters.
+
+
+Again we use a 3d visualization to better understand the poatterns and the disposition of clusters and of each point that belongs to them. Same as before this visualization is obtained by the reduction of dimensionality, as performed by techniques like Principal Component Analysis (PCA), that has been explained before.
+
+For the same convenience principle that guided us before we decided to show the labels of the different clusters that have been created through the calculation applied in the steps above in order to see the agencies that share similar trends in the disposition of important roles held by women trough the years.
