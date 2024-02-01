@@ -32,7 +32,7 @@
 
     // Function to fetch GeoJSON data
     const fetchGeoJSON = () => {
-        return fetch('wipEU/europe.geojson')
+        return fetch('main/europe.geojson')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch GeoJSON');
@@ -49,13 +49,13 @@ const fetchValuesData = (dataset, year, gender) => {
     // Determine the dataset URL based on the selected dataset
     switch (dataset) {
         case 'dataset1':
-            datasetUrl = `wipEU/datav/2024-01-25-wmidm_pol_part__wmid_polpart.json`;
+            datasetUrl = `main/datav/2024-01-25-wmidm_pol_part__wmid_polpart.json`;
             break;
         case 'dataset2':
-            datasetUrl = `wipEU/datav/2024-01-26-wmidm_educ__wmid_resfund.json`;
+            datasetUrl = `main/datav/2024-01-26-wmidm_educ__wmid_resfund.json`;
             break;
         case 'dataset3':
-            datasetUrl = `wipEU/datav/2024-01-26-wmidm_env_nat__wmid_env_natmin_envmin.json`;
+            datasetUrl = `main/datav/2024-01-26-wmidm_env_nat__wmid_env_natmin_envmin.json`;
             break;
         // Add more cases if you have additional datasets
         default:
