@@ -59,7 +59,7 @@ function updateGraph(selectedPosition, selectedEntity) {
 }
 
 // Fetch the JSON data
-fetch('http://localhost:8000/databar/2024-01-26-wmidm_adm_eur__wmid_euadmin_eurag.json')
+fetch('/databar/2024-01-26-wmidm_adm_eur__wmid_euadmin_eurag.json')
   .then(response => response.json())
   .then(data => {
     jsonData1 = data.elements;
@@ -197,7 +197,7 @@ function updateGraph(selectedPosition, selectedEntity) {
 }
 
 // Fetch the JSON data
-fetch('http://localhost:8000/databar/2024-01-26-wmidm_bus_fin__wmid_fineur.json')
+fetch('/databar/2024-01-26-wmidm_bus_fin__wmid_fineur.json')
   .then(response => response.json())
   .then(data => {
     jsonData2 = data.elements;
@@ -336,7 +336,7 @@ function updateGraph(selectedPosition, selectedEntity) {
 
 
 // Fetch the JSON data
-fetch('http://localhost:8000/databar/2024-01-26-wmidm_jud_eucrt__wmid_eucrt (2).json')
+fetch('/databar/2024-01-26-wmidm_jud_eucrt__wmid_eucrt (2).json')
   .then(response => response.json())
   .then(data => {
     jsonData3 = data.elements;

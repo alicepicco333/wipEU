@@ -1228,3 +1228,16 @@ section {
   width: 800px; /* Adjust the width as needed */
   margin: 0 auto; /* Center the container horizontally */
 }
+
+ /* Apply some basic styling for the grid */
+ .grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px; /* Adjust the gap between columns */
+}
+
+/* Ensure images take up 100% width of their container */
+img {
+  width: 100%;
+  height: auto;
+}
