@@ -16,7 +16,11 @@
             existingMap._leaflet_id = null;
         }
 
-        const map = L.map(containerId).setView([50, 15], 3);
+        const map = L.map(containerId).setView([50, 10], 3, {
+            maxZoom: 4, // Set maximum zoom level to make the map unzoomable
+            minZoom: 4,  // Set minimum zoom level to maintain a consistent view
+            zoomControl: false // Disable zoom control
+        });
 
         const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -112,14 +116,14 @@ const fetchValuesData = (dataset, year, gender) => {
             return 'rgba(0, 0, 0, 0)';  // Transparent color
         }
     
-        return value > 10 ? '#800026' :
-            value > 8 ? '#BD0026' :
-                value > 5 ? '#E31A1C' :
-                    value > 4 ? '#FC4E2A' :
-                        value > 3 ? '#FD8D3C' :
-                            value > 2 ? '#FEB24C' :
-                                value > 1 ? '#FED976' :
-                                    '#FFEDA0';
+        return value > 10 ? '#801259' :  // Adjusted Dark Magenta
+        value > 8 ? '#B80E4B' :       // Adjusted Medium Violet Red
+            value > 5 ? '#D91FD5' :   // Adjusted Orchid
+                value > 4 ? '#E844E8' : // Adjusted Magenta
+                    value > 3 ? '#E853B1' : // Adjusted Hot Pink
+                        value > 2 ? '#E377C2' : // Adjusted Light Pink
+                            value > 1 ? '#E28EBF' : // Adjusted Pink
+                                '#E3A492'; // Adjusted Peach Puff
     }
 
     // Function to update maps based on selected year and sex

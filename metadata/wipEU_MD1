@@ -1,0 +1,81 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#>.
+@prefix dcatapit: <http://dati.gov.it/onto/dcatapit/>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix adms: <http://www.w3.org/ns/adms#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix prov: <https://www.w3.org/TR/prov-o/>.
+
+
+<https://raw.githubusercontent.com/matteo-guenci/Open_access_project/main/data/mashup/merged_df_final.csv>
+            a   dcatapit:Dataset ,
+                dcat:Dataset ,
+                prov:Entity ;
+
+            dct:isPartOf <https://github.com/matteo-guenci/Open_access_project> ;
+
+            dct:identifier  "MD1" ;            
+            dct:title   "MD1 - Data related to singular geographic areas of the EU" ;
+            dct:description "Mashup dataset with data related to singular EU countries" ;
+
+            dcat:theme  <http://publications.europa.eu/resource/authority/data-theme/GOVE>> ;
+            dct:subject <http://eurovoc.europa.eu/2826>, <http://eurovoc.europa.eu/2831>  ;
+            
+
+            dct:modified "2024-01-22"^^xsd:date ;
+            dct:issued "2024-01-22"^^xsd:date ;
+
+            dct:rightsHolder <https://github.com/matteo-guenci/Open_access_project> ;
+            dct:creator <https://github.com/matteo-guenci/Open_access_project/team/MatteoGuenci> ;                        
+            dct:publisher <https://github.com/matteo-guenci/Open_access_project>;
+            dcat:distribution <https://github.com/MatteoGuenci/Open_access_project/distribution/MD1.csv> ; 
+
+            dct:accrualPeriodicity <http://publications.europa.eu/resource/authority/frequency/NEVER>;
+
+            dcat:landingPage <https://matteo-guenci.github.io/Open_access_project/> ;
+            dct:language    <http://publications.europa.eu/resource/authority/language/ENG/> ;
+
+            prov:wasGeneratedBy <https://github.com/matteo-guenci/Open_access_project/activity/mashup> ;
+            prov:wasDerivedFrom <https://eige.europa.eu/gender-statistics/dgs/browse/wmidm>
+          
+        
+            
+
+<https://github.com/matteo-guenci/Open-access-project/activity/mashup>
+            a prov:Activity ;
+            rdfs:label "the process of merging, filtering and aggregating multiple source datasets"@en .
+
+
+<http://publications.europa.eu/resource/authority/data-theme/GOVE>
+            a    skos:Concept ;
+            skos:prefLabel  "Governmental Service"@en .
+
+
+<https://github.com/matteo-guenci/Open_access_project> 
+            a    dcatapit:Agent , 
+                foaf:Agent ;
+            dct:identifier "wipEU" ;
+            foaf:name   "wipEU" .
+
+
+<https://github.com/matteo-guenci/Open_access_project/team/MatteoGuenci>
+            a   foaf:Person ;
+            foaf:name "Matteo Guenci"@it .            
+
+
+<https://github.com/matteo-guenci/Open-access-project/distribution/MD1-csv>
+            a   dcatapit:distribution,
+                dcat:Distribution  ;
+            dct:title  "CSV distribution of wipEU MD1"@en  ;
+            dct:description "" ;
+            dct:format <http://publications.europa.eu/resource/authority/file-type/CSV/> ;
+            dcat:accessURL <https://matteo-guenci.github.io/Open_access_project/> ;
+            dct:license   <http://creativecommons.org/licenses/by/4.0/> .    
+
+
+<http://creativecommons.org/licenses/by/4.0/>
+            a    dcatapit:LicenseDocument , dct:LicenseDocument ;
+                dct:type         <http://purl.org/adms/licencetype/Attribution> ;
+                foaf:name        "CC BY" ;
+                owl:versionInfo  "4.0" .
+            

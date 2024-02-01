@@ -1,0 +1,43 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#>.
+@prefix dcatap: <http://data.europa.eu/r5r/>.
+@prefix dcatapit: <http://dati.gov.it/onto/dcatapit/>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix adms: <http://www.w3.org/ns/adms#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+ 
+ 
+<https:https://github.com/matteo-guenci/Open_access_project/metadata/catalog_wipEU> 
+                    a           dcatapit:Catalog , 
+                                dcat:Catalog ;
+                    dct:title  "wipEU - Catalog"@en ;
+                    adms:identifier  "wipEUCatalog"@en; 
+                    dct:description "Catalog containing the mashup datasets for the project wipEU" ;
+                    dct:publisher  <https://github.com/matteo-guenci/Open_access_project> ;
+                    dct:issued    "2023-01-31"^^xsd:date ;  
+                    dct:modified  "2023-01-31"^^xsd:date ;
+                    
+                    dcat:dataset  <https://raw.githubusercontent.com/matteo-guenci/Open_access_project/main/data/mashup/merged_df_final.csv> ;
+                    dcat:dataset    <https://raw.githubusercontent.com/matteo-guenci/Open_access_project/main/data/mashup/merged_df_final2.csv> ;
+
+
+                    foaf:hompage    <https://github.com/matteo-guenci/Open_access_project/tree/main/data/mashup/> ;
+                    dct:language    <http://publications.europa.eu/resource/authority/language/ENG/> ;
+                    dcat:themeTaxonomy <http://publications.europa.eu/resource/authority/data-theme/> ;
+                    
+                    dct:license	    <http://creativecommons.org/licenses/by/4.0/> .
+
+
+<https://github.com/matteo-guenci/Open_access_project> 
+                    a           dcatapit:Agent , 
+                                foaf:Agent ;
+                    dct:identifier "wipEU" ;
+                    foaf:name   "wipEU" .
+
+
+<http://creativecommons.org/licenses/by/4.0/>
+                    a                dcatapit:LicenseDocument , dct:LicenseDocument ;
+                    dct:type         <http://purl.org/adms/licencetype/Attribution> ;
+                    foaf:name        "CC BY" ;
+                    owl:versionInfo  "4.0" .
+
+        
