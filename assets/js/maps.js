@@ -32,7 +32,7 @@
 
     // Function to fetch GeoJSON data
     const fetchGeoJSON = () => {
-        return fetch('https://raw.githubusercontent.com/alicepicco333/wipEU/master/europe.geojson')
+        return fetch('https://raw.githubusercontent.com/alicepicco333/wipEU/main/europe.geojson')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch GeoJSON');
