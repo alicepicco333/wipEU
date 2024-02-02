@@ -197,7 +197,7 @@ function updateGraph(selectedPosition, selectedEntity) {
 }
 
 // Fetch the JSON data
-fetch('https://github.com/alicepicco333/wipEU/databar/2024-01-26-wmidm_bus_fin__wmid_fineur.json')
+fetch('wipEU/databar/2024-01-26-wmidm_bus_fin__wmid_fineur.json')
   .then(response => response.json())
   .then(data => {
     jsonData2 = data.elements;
@@ -336,7 +336,7 @@ function updateGraph(selectedPosition, selectedEntity) {
 
 
 // Fetch the JSON data
-fetch('https://github.com/alicepicco333/wipEU/databar/2024-01-26-wmidm_jud_eucrt__wmid_eucrt (2).json')
+fetch('wipEU/databar/2024-01-26-wmidm_jud_eucrt__wmid_eucrt (2).json')
   .then(response => response.json())
   .then(data => {
     jsonData3 = data.elements;

@@ -49,13 +49,13 @@ const fetchValuesData = (dataset, year, gender) => {
     // Determine the dataset URL based on the selected dataset
     switch (dataset) {
         case 'dataset1':
-            datasetUrl = `https://github.com/alicepicco333/wipEU/datav/2024-01-25-wmidm_pol_part__wmid_polpart.json`;
+            datasetUrl = `wipEU/datav/2024-01-25-wmidm_pol_part__wmid_polpart.json`;
             break;
         case 'dataset2':
-            datasetUrl = `https://github.com/alicepicco333/wipEU/datav/2024-01-26-wmidm_educ__wmid_resfund.json`;
+            datasetUrl = `wipEU/datav/2024-01-26-wmidm_educ__wmid_resfund.json`;
             break;
         case 'dataset3':
-            datasetUrl = `https://github.com/alicepicco333/wipEU/datav/2024-01-26-wmidm_env_nat__wmid_env_natmin_envmin.json`;
+            datasetUrl = `wipEU/datav/2024-01-26-wmidm_env_nat__wmid_env_natmin_envmin.json`;
             break;
         // Add more cases if you have additional datasets
         default:
