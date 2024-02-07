@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to fetch GeoJSON data
     const fetchGeoJSON = () => {
-        return fetch('https://raw.githubusercontent.com/alicepicco333/wipEU/main/europe.geojson')
+        return fetch('https://raw.githubusercontent.com/matteo-guenci/wipEU/main/europe.geojson')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch GeoJSON');
@@ -41,13 +41,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const fetchValuesData = (dataset, year, gender) => {
         switch (dataset) {
             case 'dataset1':
-                datasetUrl = 'https://raw.githubusercontent.com/alicepicco333/wipEU/main/datav/2024-01-25-wmidm_pol_part__wmid_polpart.json';
+                datasetUrl = 'https://raw.githubusercontent.com/matteo-guenci/wipEU/main/datav/2024-01-25-wmidm_pol_part__wmid_polpart.json';
                 break;
             case 'dataset2':
-                datasetUrl = 'https://raw.githubusercontent.com/alicepicco333/wipEU/main/datav/2024-01-26-wmidm_educ__wmid_resfund.json';
+                datasetUrl = 'https://raw.githubusercontent.com/matteo-guenci/wipEU/main/datav/2024-01-26-wmidm_educ__wmid_resfund.json';
                 break;
             case 'dataset3':
-                datasetUrl = 'https://raw.githubusercontent.com/alicepicco333/wipEU/main/datav/2024-01-26-wmidm_env_nat__wmid_env_natmin_envmin.json';
+                datasetUrl = 'https://raw.githubusercontent.com/matteo-guenci/wipEU/main/datav/2024-01-26-wmidm_env_nat__wmid_env_natmin_envmin.json';
                 break;
             default:
                 throw new Error('Invalid dataset selection');
