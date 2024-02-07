@@ -18,7 +18,7 @@
             dct:title   "MD1 - Data related to singular geographic areas of the EU" ;
             dct:description "Mashup dataset with data related to singular EU countries" ;
 
-            dcat:theme  <http://publications.europa.eu/resource/authority/data-theme/GOVE>> ;
+            dcat:theme  <http://publications.europa.eu/resource/authority/data-theme/GOVE> ;
             dct:subject <http://eurovoc.europa.eu/2826>, <http://eurovoc.europa.eu/2831>  ;
             
 
@@ -28,7 +28,14 @@
             dct:rightsHolder <https://github.com/matteo-guenci/Open_access_project> ;
             dct:creator <https://github.com/matteo-guenci/Open_access_project/team/MatteoGuenci> ;                        
             dct:publisher <https://github.com/matteo-guenci/Open_access_project>;
-            dcat:distribution <https://github.com/MatteoGuenci/Open_access_project/distribution/MD1.csv> ; 
+            dcat:distribution <https://github.com/MatteoGuenci/Open_access_project/distribution/MD1.csv>
+                 a   dcatapit:distribution,
+                dcat:Distribution  ;
+                 dct:title  "CSV distribution of wipEU MD1"@en  ;
+                 dct:description "This distribution contains the Mashup dataset (MD1) related to singular geographic areas of the EU. The data includes information about governmental services and is provided in CSV format. Access to the data is available through the provided URL. The data is licensed under CC BY 4.0." ;
+                 dct:format <http://publications.europa.eu/resource/authority/file-type/CSV/> ;
+                 dcat:accessURL <https://matteo-guenci.github.io/Open_access_project/> ;
+                 dct:license   <http://creativecommons.org/licenses/by/4.0/> .
 
             dct:accrualPeriodicity <http://publications.europa.eu/resource/authority/frequency/NEVER>;
 
