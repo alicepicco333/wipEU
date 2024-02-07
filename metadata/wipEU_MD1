@@ -6,83 +6,89 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#>.
 @prefix prov: <https://www.w3.org/TR/prov-o/>.
 
+# Catalog Information
+<https://github.com/matteo-guenci/wipEU/metadata/catalog_wipEU> 
+    a           dcatapit:Catalog , 
+                dcat:Catalog ;
+    dct:title   "wipEU - Catalog"@en ;
+    adms:identifier  "wipEUCatalog"@en; 
+    dct:description "Catalog containing the mashup datasets for the project wipEU" ;
+    dct:publisher  <https://github.com/matteo-guenci/wipEU> ;
+    dct:issued    "2023-01-31"^^xsd:date ;  
+    dct:modified  "2023-01-31"^^xsd:date ;
+    dcat:dataset  <https://raw.githubusercontent.com/matteo-guenci/wipEU/main/data/mashup/merged_df_final.csv> ;
+    dcat:dataset  <https://raw.githubusercontent.com/matteo-guenci/wipEU/main/data/mashup/merged_df_final2.csv> ;
+    foaf:homepage  <https://github.com/matteo-guenci/wipEU/tree/main/data/mashup/> ;
+    dct:language  <http://publications.europa.eu/resource/authority/language/ENG/> ;
+    dcat:themeTaxonomy <http://publications.europa.eu/resource/authority/data-theme/> ;
+    dct:license    <http://creativecommons.org/licenses/by/4.0/> .
 
-<https://raw.githubusercontent.com/matteo-guenci/Open_access_project/main/data/mashup/merged_df_final.csv>
-            a   dcatapit:Dataset ,
-                dcat:Dataset ,
-                prov:Entity ;
+# Agent Information
+<https://github.com/matteo-guenci/wipEU> 
+    a    dcatapit:Agent , 
+        foaf:Agent ;
+    dct:identifier "wipEU" ;
+    foaf:name   "wipEU" .
 
-            dct:isPartOf <https://github.com/matteo-guenci/Open_access_project> ;
+# Person Information
+<https://github.com/matteo-guenci/wipEU/team/MatteoGuenci>
+    a   foaf:Person ;
+    foaf:name "Matteo Guenci"@it .
 
-            dct:identifier  "MD1" ;            
-            dct:title   "MD1 - Data related to singular geographic areas of the EU" ;
-            dct:description "Mashup dataset with data related to singular EU countries" ;
+# Dataset Information
+<https://raw.githubusercontent.com/matteo-guenci/wipEU/main/data/mashup/merged_df_final.csv>
+    a   dcatapit:Dataset ,
+        dcat:Dataset ,
+        prov:Entity ;
+    dct:isPartOf <https://github.com/matteo-guenci/wipEU> ;
+    dct:identifier  "MD1" ;            
+    dct:title   "MD1 - Data related to singular geographic areas of the EU" ;
+    dct:description "Mashup dataset with data related to singular EU countries" ;
+    dcat:theme  <http://publications.europa.eu/resource/authority/data-theme/GOVE> ;
+    dct:subject <http://eurovoc.europa.eu/2826>, <http://eurovoc.europa.eu/2831>  ;
+    dct:modified "2024-01-22"^^xsd:date ;
+    dct:issued "2024-01-22"^^xsd:date ;
+    dct:rightsHolder <https://github.com/matteo-guenci/wipEU> ;
+    dct:creator <https://github.com/matteo-guenci/wipEU/team/MatteoGuenci> ;                        
+    dct:publisher <https://github.com/matteo-guenci/wipEU>;
+    dcat:distribution <https://github.com/matteo-guenci/wipEU/distribution/MD1.csv> ;
+    dct:accrualPeriodicity <http://publications.europa.eu/resource/authority/frequency/NEVER>;
+    dcat:landingPage <https://matteo-guenci.github.io/wipEU/> ;
+    dct:language    <http://publications.europa.eu/resource/authority/language/ENG/> ;
+    prov:wasGeneratedBy <https://github.com/matteo-guenci/wipEU/activity/mashup> ;
+    prov:wasDerivedFrom <https://eige.europa.eu/gender-statistics/dgs/browse/wmidm> .
 
-            dcat:theme  <http://publications.europa.eu/resource/authority/data-theme/GOVE> ;
-            dct:subject <http://eurovoc.europa.eu/2826>, <http://eurovoc.europa.eu/2831>  ;
-            
+# Distribution Information
+<https://github.com/matteo-guenci/wipEU/distribution/MD1.csv>
+    a   dcatapit:distribution,
+        dcat:Distribution  ;
+    dct:title  "CSV distribution of wipEU MD1"@en  ;
+    dct:description "Distribution of the Mashup dataset (MD1) related to singular geographic areas of the EU. The data includes information about governmental services and is provided in CSV format. Access to the data is available through the provided URL. The data is licensed under CC BY 4.0." ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/CSV/> ;
+    dcat:accessURL <https://matteo-guenci.github.io/wipEU/> ;
+    dct:license   <http://creativecommons.org/licenses/by/4.0/> .
 
-            dct:modified "2024-01-22"^^xsd:date ;
-            dct:issued "2024-01-22"^^xsd:date ;
+<https://github.com/matteo-guenci/wipEU/distribution/MD1-csv>
+    a   dcatapit:distribution,
+        dcat:Distribution  ;
+    dct:title  "CSV distribution of wipEU MD1"@en  ;
+    dct:description "Distribution of the Mashup dataset (MD1) related to singular geographic areas of the EU. The data is provided in CSV format. Access to the data is available through the provided URL. The data is licensed under CC BY 4.0." ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/CSV/> ;
+    dcat:accessURL <https://matteo-guenci.github.io/wipEU/> ;
+    dct:license   <http://creativecommons.org/licenses/by/4.0/> .
 
-            dct:rightsHolder <https://github.com/matteo-guenci/Open_access_project> ;
-            dct:creator <https://github.com/matteo-guenci/Open_access_project/team/MatteoGuenci> ;                        
-            dct:publisher <https://github.com/matteo-guenci/Open_access_project>;
-            dcat:distribution <https://github.com/MatteoGuenci/Open_access_project/distribution/MD1.csv>
-                 a   dcatapit:distribution,
-                dcat:Distribution  ;
-                 dct:title  "CSV distribution of wipEU MD1"@en  ;
-                 dct:description "This distribution contains the Mashup dataset (MD1) related to singular geographic areas of the EU. The data includes information about governmental services and is provided in CSV format. Access to the data is available through the provided URL. The data is licensed under CC BY 4.0." ;
-                 dct:format <http://publications.europa.eu/resource/authority/file-type/CSV/> ;
-                 dcat:accessURL <https://matteo-guenci.github.io/Open_access_project/> ;
-                 dct:license   <http://creativecommons.org/licenses/by/4.0/> .
-
-            dct:accrualPeriodicity <http://publications.europa.eu/resource/authority/frequency/NEVER>;
-
-            dcat:landingPage <https://matteo-guenci.github.io/Open_access_project/> ;
-            dct:language    <http://publications.europa.eu/resource/authority/language/ENG/> ;
-
-            prov:wasGeneratedBy <https://github.com/matteo-guenci/Open_access_project/activity/mashup> ;
-            prov:wasDerivedFrom <https://eige.europa.eu/gender-statistics/dgs/browse/wmidm>
-          
-        
-            
-
+# Activity Information
 <https://github.com/matteo-guenci/Open-access-project/activity/mashup>
-            a prov:Activity ;
-            rdfs:label "the process of merging, filtering and aggregating multiple source datasets"@en .
+    a prov:Activity ;
+    rdfs:label "the process of merging, filtering and aggregating multiple source datasets"@en .
 
-
+# Theme Information
 <http://publications.europa.eu/resource/authority/data-theme/GOVE>
-            a    skos:Concept ;
-            skos:prefLabel  "Governmental Service"@en .
+    a    skos:Concept ;
+    skos:prefLabel  "Governmental Service"@en .
 
-
-<https://github.com/matteo-guenci/Open_access_project> 
-            a    dcatapit:Agent , 
-                foaf:Agent ;
-            dct:identifier "wipEU" ;
-            foaf:name   "wipEU" .
-
-
-<https://github.com/matteo-guenci/Open_access_project/team/MatteoGuenci>
-            a   foaf:Person ;
-            foaf:name "Matteo Guenci"@it .            
-
-
-<https://github.com/matteo-guenci/Open-access-project/distribution/MD1-csv>
-            a   dcatapit:distribution,
-                dcat:Distribution  ;
-            dct:title  "CSV distribution of wipEU MD1"@en  ;
-            dct:description "" ;
-            dct:format <http://publications.europa.eu/resource/authority/file-type/CSV/> ;
-            dcat:accessURL <https://matteo-guenci.github.io/Open_access_project/> ;
-            dct:license   <http://creativecommons.org/licenses/by/4.0/> .    
-
-
+# License Information
 <http://creativecommons.org/licenses/by/4.0/>
-            a    dcatapit:LicenseDocument , dct:LicenseDocument ;
-                dct:type         <http://purl.org/adms/licencetype/Attribution> ;
-                foaf:name        "CC BY" ;
-                owl:versionInfo  "4.0" .
-            
+    a    dcatapit:LicenseDocument , dct:LicenseDocument ;
+    foaf:name        "CC BY" ;
+    owl:versionInfo  "4.0" .
