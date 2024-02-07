@@ -1241,3 +1241,18 @@ img {
   width: 100%;
   height: auto;
 }
+
+#visua h4 {
+  margin: 15px 0 0 0;
+  font-size: 23px;
+  font-weight: 700;
+  text-align: left;
+
+}
+#visua h3 {
+  margin: 15px 0 0 0;
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+
+}

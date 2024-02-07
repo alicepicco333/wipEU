@@ -61,8 +61,6 @@
           <li><a class="nav-link scrollto" href="#results">Results</a></li>
           <li><a class="nav-link scrollto " href="#datasets">Datasets</a></li>
           <li><a class="nav-link scrollto" href="#documentation">Documentation</a></li>
-          <li><a class="nav-link scrollto" href="#team">Team</a></li>
-          <li><a class="nav-link scrollto" href="#license">License</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -132,8 +130,8 @@ and actions aimed at fostering greater gender equity in the European Union. <b>w
                             facets related to open data, including considerations of quality,
                              legality, ethics, and technical aspects. Diverse visualizations
                               are available to facilitate effective communication and enhance
-                               comprehension of the findings. Users have the option to freely
-                                download a thoroughly detailed documentation for reference.
+                               comprehension of the findings. <span><b>You can freely
+                                download a thoroughly detailed documentation for reference by clicking <a href="DOCUMENTATION.ipynb" type="download"> here.</a></span></b>
             </p>
           </div>
         </div>
@@ -225,18 +223,18 @@ and actions aimed at fostering greater gender equity in the European Union. <b>w
              offering insights that transcend numerical data and enhance our collective understanding of gender dynamics across Europe.<br><br>
              Explore these dynamic datasets with the flexibility to tailor your visual experience. Utilize the user-friendly dropdown menu to choose from three distinct perspectives and a 
              yearly explorable time frame that goes from <b>2017 to 2023.</b><br><br> Please keep in mind that EIGE has not any available data for the dataset D3 -  Men and Women in EU Research Funding Organizations for the year 2023.<br><br>
-             <h3>D6 - Major Political Parties Leaders in the EU (Men and Women):</h3>
+             <h4>D6 - Major Political Parties Leaders in the EU (Men and Women):</h4>
             
              This dataset visualizes the gender distribution of leaders within major political parties across European Union member states.
               Each country is color-coded on the choropleth map to represent the proportion of male and female leaders within its political landscape.
                The intensity of color variations provides a quick and insightful overview of gender
               representation at the helm of influential political parties, fostering a nuanced understanding of political leadership dynamics in the EU.<br><br>
-             <h3>D4 - EU Executives for Climate (Men and Women):</h3>
+             <h4>D4 - EU Executives for Climate (Men and Women):</h4>
              The choropleth map for this dataset offers a visual representation of the gender composition among executives
               dedicated to climate-related initiatives within the European Union. By employing distinct color gradients, the map vividly illustrates the distribution of men and women in leadership roles tasked with shaping and implementing climate policies. This visualization facilitates 
              an exploration of gender diversity in key positions crucial to addressing environmental
               challenges and promoting sustainable practices across EU member states.<br><br>
-             <h3>D3 - Men and Women in EU Research Funding Organizations:</h3>
+             <h4>D3 - Men and Women in EU Research Funding Organizations:</h4>
              This choropleth map highlights the gender distribution among professionals
               within research funding organizations across Europe. The map employs varying colors
                to showcase the proportion of men and women actively engaged in supporting and shaping
@@ -285,11 +283,12 @@ and actions aimed at fostering greater gender equity in the European Union. <b>w
 
         <!-- ======= Visua 2 Section ======= -->
         <section id="" class="about section-bg">
-          <div class="container" data-aos="fade-up">
+          <div class="container" id="visua" data-aos="fade-up">
     
             <div class="section-title">
               
               <h3>Line <span>Charts</span></h3></div>
+            
               <p>
                 The line charts as dynamic visualizations serve as a journey through the shifting landscape of gender distribution within European institutions over the years. <br><br>
                 With <b>time</b> represented along the X-axis and the <b>number of individuals</b> plotted on the Y-axis, distinct lines  trace the evolution of counts for both men, women and total individuals.
@@ -303,7 +302,7 @@ and actions aimed at fostering greater gender equity in the European Union. <b>w
                  This feature amplifies the <b>accessibility</b> of the data, ensuring that users can extract the most <b>relevant and targeted information</b> based on their interests or research objectives.<br><br>
                 
               </p>
-            <h3>D2 - European agencies: presidents, members and executive heads</h3><br><p>
+            <h4>D2 - European agencies: presidents, members and executive heads</h4><p>
             European agencies are decentralized bodies of the European Union (EU) established to carry out specific tasks and functions across various policy areas. 
       These agencies operate independently and are tasked with providing expertise, support, and coordination to EU member states. Their roles encompass 
       a wide range of areas, including <b>regulatory oversight, scientific research, and implementation of EU policies.</b><br><br>
@@ -327,7 +326,7 @@ and actions aimed at fostering greater gender equity in the European Union. <b>w
 
             <div id="line-graph"></div>
           <br>
-          <h3>D1 - European Financial Institutions: presidents and members</h3><br><p>
+          <h4>D1 - European Financial Institutions: presidents and members</h4><p>
           Our dynamic line chart presentation allows the user to choose from three distinct organizational perspectives:
            the European Investment Bank (EIB), the European Central Bank (ECB), and the European Investment Fund (EIF).
           <ul><li><b>The European Investment Bank (EIB):</b><br><br>
@@ -356,7 +355,7 @@ and actions aimed at fostering greater gender equity in the European Union. <b>w
            
     <br>
 
-    <h3>D5 - European courts: presidents and members</h3><br>
+    <h4>D5 - European courts: presidents and members</h4>
     <p>
       Legal institutions collectively contribute to the <b>development and interpretation of EU law</b>,
        ensuring the protection of rights, the resolution of disputes, and the maintenance of legal consistency within the European Union.<br><br>
@@ -591,7 +590,7 @@ Also part of the CJEU, the General Court is responsible for hearing cases brough
               <h4><a href="https://github.com/matteo-guenci/Open_access_project/blob/main/data/mashup/merged_df_final2.csv">MD2 - Data related to different organs and agencies in the EU</a></h4>
                <p class="dttext"><b>Source type:</b> Data collected by EIGE and  integrated in the framework of wipEU <br>
           
-           <b>URI:</b> 	(https://github.com/matteo-guenci/Open_access_project/blob/main/data/mashup/merged_df_final2.csv<br>
+           <b>URI:</b> 	https://github.com/matteo-guenci/Open_access_project/blob/main/data/mashup/merged_df_final2.csv<br>
            <b>Statistical activity:</b> Data collection on women and men in decision-making (WMID)<br>
 
            <b>Data Type:</b> 	Administrative Data<br>
@@ -667,7 +666,8 @@ Also part of the CJEU, the General Court is responsible for hearing cases brough
             is a data analysis technique used to group similar data points into distinct
              subsets or clusters based on certain characteristics or features. The primary
               goal of clusterization is to identify inherent patterns and structures within a dataset,
-               allowing for a more organized and insightful understanding of the underlying data.</p>
+               allowing for a more organized and insightful understanding of the underlying data.
+               You can discover more on clusterization in our <a href="#documentation">Documentation</a></p>
                <div class="grid-container">
                 <!-- First column with an image -->
                 <div class="grid-item">
@@ -685,7 +685,7 @@ Also part of the CJEU, the General Court is responsible for hearing cases brough
               <h3>Correlations</h3></div>
             <p>Correlation is a statistical measure that describes the degree to which two variables change together. 
               In other words, it quantifies the strength and direction of a linear relationship between two sets of data. 
-              Correlation does not imply causation; it simply indicates whether and how two variables tend to vary together.</p>
+              Correlation does not imply causation; it simply indicates whether and how two variables tend to vary together. You can discover more on the correlation measures that we used in our <a href="#documentation">Documentation</a></p>
               <div class="grid-container">
                 <!-- First column with an image -->
                 <div class="grid-item">
@@ -701,7 +701,7 @@ Also part of the CJEU, the General Court is responsible for hearing cases brough
 
 
 
-      <!-- ======= Visua 2 Section ======= -->
+      <!-- ======= Documentation Section ======= -->
       <section id="documentation" class="documentation">
         <div class="container" data-aos="fade-up">
   
@@ -711,7 +711,7 @@ Also part of the CJEU, the General Court is responsible for hearing cases brough
             <p>Welcome to the documentation hub for <b>wipEU</b>.
 
           
-              Gain in-depth insights into our project by downloading the comprehensive documentation. Click the link below to access the PDF file.<br><br>
+              Gain in-depth insights into our project by downloading the comprehensive documentation. Click the link below to access the Jupyter Notebook file.<br><br>
               
               <b><a href="DOCUMENTATION.ipynb" download="DOCUMENTATION.ipynb">Download Documentation</a></b><br><br>
               
@@ -755,7 +755,7 @@ Also part of the CJEU, the General Court is responsible for hearing cases brough
     
 
     <!-- ======= Team Section ======= -->
-    <section id="team" class="team section-bg">
+    <section id="team" class="team">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
