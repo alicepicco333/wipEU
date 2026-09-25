@@ -1,901 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Women in Power and Decision-Making</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/favicon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: BizLand
-  * Updated: Jan 09 2024 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/bizland-bootstrap-business-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-  <script src="https://cdn.plot.ly/plotly-2.27.0.min.js" charset="utf-8"></script>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-  crossorigin=""/>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-  crossorigin=""></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>wipEU — Women in Power and Decision-Making in the EU</title>
+  <meta name="description" content="wipEU is an open data project on the representation of women in decision-making positions across the European Union, built on EIGE data (2003–2023).">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/wipeu.css">
 </head>
-
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
+<header class="top" id="top">
+  <div class="wrap top__inner">
+    <a class="brand" href="#top" aria-label="wipEU, back to top">wipEU</a>
+    <nav aria-label="Sections">
+      <ul class="nav">
+        <li><a href="#findings">Findings</a></li>
+        <li><a href="#map">Map</a></li>
+        <li><a href="#institutions">Institutions</a></li>
+        <li><a href="#method">Method</a></li>
+        <li><a href="#data">Data</a></li>
+        <li><a href="#credits">Credits</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-      <h1 class="logo"><a href="index.html">wip<span>EU</span></a></h1>
-     
+<main id="main">
 
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#results">Results</a></li>
-          <li><a class="nav-link scrollto " href="#datasets">Datasets</a></li>
-          <li><a class="nav-link scrollto" href="#documentation">Documentation</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+  <!-- 00 — Opening -->
+  <section class="hero wrap" aria-labelledby="rq">
+    <p class="eyebrow">Women in Power and Decision-Making in the EU &middot; an open data project, 2023/24</p>
+    <h1 id="rq">How do the levels of representation of women in different decision-making positions correlate within the European Union?</h1>
+    <p class="hero__sub">Is there a discernible pattern or trend in the relationships between women occupying various roles, and how have these correlations evolved over time?</p>
 
+    <dl class="kpis" id="kpis" aria-label="Headline numbers, computed from EIGE headcounts">
+      <div class="kpi">
+        <dt>Areas where women hold half the seats, latest year</dt>
+        <dd><span class="kpi__v" data-kpi="parity">0 of 6</span><span class="kpi__n" data-kpi="parity-note">All six headline series sit below 50%.</span></dd>
+      </div>
+      <div class="kpi">
+        <dt>Leaders of major political parties in the EU-27 who are women, 2023</dt>
+        <dd><span class="kpi__v" data-kpi="pol">26.8%</span><span class="kpi__n" data-kpi="pol-note">44 of 164 leaders. 16.0% in 2017.</span></dd>
+      </div>
+      <div class="kpi">
+        <dt>Judges at the European Court of Justice who are women, 2023</dt>
+        <dd><span class="kpi__v" data-kpi="ecj">6 of 27</span><span class="kpi__n" data-kpi="ecj-note">22.2%, up from 5 of 28 in 2017.</span></dd>
+      </div>
+      <div class="kpi">
+        <dt>Closest to parity: board members of research funding organisations, 2023</dt>
+        <dd><span class="kpi__v" data-kpi="res">43.1%</span><span class="kpi__n" data-kpi="res-note">379 of 880 members, EU-27.</span></dd>
+      </div>
+    </dl>
+    <p class="note">Every figure on this page is computed in your browser as <em>women &divide; total &times; 100</em> from EIGE headcounts, and matches EIGE's own &ldquo;percent of total&rdquo; to one decimal. <a href="#method-calc">How the numbers are made</a>.</p>
+  </section>
+
+  <!-- 01 — Approach -->
+  <section class="sec wrap" id="about" aria-labelledby="about-h">
+    <div class="sec__label"><span class="num">01</span><h2 id="about-h">Approach</h2></div>
+    <div class="sec__body">
+      <p class="lede">wipEU looks at how the presence of women in positions of power and decision-making in the EU relates across different roles, and how that relationship has changed over time.</p>
+      <p>The project examines the factors that shape who holds influence in the EU, with an emphasis on how these dynamics develop across different periods: progress, persistent gaps and the trends behind them. The aim is to add evidence to discussions, policies and actions for gender equity in European decision-making. Alongside the research question, the project examines open data itself: its quality, legality, ethics and technical form.</p>
+      <ol class="areas" aria-label="The six areas and their datasets">
+        <li><span class="areas__code">D2</span><span class="areas__name">Public administration</span><span class="areas__what">European agencies</span></li>
+        <li><span class="areas__code">D1</span><span class="areas__name">Business &amp; finance</span><span class="areas__what">EU financial institutions</span></li>
+        <li><span class="areas__code">D6</span><span class="areas__name">Politics</span><span class="areas__what">Major political parties</span></li>
+        <li><span class="areas__code">D4</span><span class="areas__name">Environment &amp; climate change</span><span class="areas__what">National environment ministries</span></li>
+        <li><span class="areas__code">D3</span><span class="areas__name">Education, science &amp; research</span><span class="areas__what">Research funding organisations</span></li>
+        <li><span class="areas__code">D5</span><span class="areas__name">Law &amp; institutions</span><span class="areas__what">European courts</span></li>
+      </ol>
     </div>
-  </header><!-- End Header -->
+  </section>
 
-  <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex align-items-center">
-    <div class="container" data-aos="zoom-out" data-aos-delay="100">
-      <h1 class="rq">How do the levels of representation of women in different decision-making positions correlate within the European Union?</h1> <br>
-        <h2>Is there a discernible pattern or trend in the relationships between women occupying various roles, and how have these correlations evolved over time?</h2>
-       </div>
-  </section><!-- End Hero -->
+  <!-- 02 — Findings -->
+  <section class="sec wrap" id="findings" aria-labelledby="findings-h">
+    <div class="sec__label"><span class="num">02</span><h2 id="findings-h">Findings</h2></div>
+    <div class="sec__body sec__body--wide">
+      <h3 class="statement">Every area moved towards parity. None reached it.</h3>
+      <p class="lede">Share of women in one headline role per area, EU level. The line at 50% marks parity.</p>
+      <div class="multiples" id="multiples" role="group" aria-label="Small multiples: share of women over time in six areas"></div>
+      <details class="table-view">
+        <summary>Show the values as a table</summary>
+        <div id="multiples-table" class="table-scroll"></div>
+      </details>
 
-  <main id="main">
-
-   
-
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about section-bg">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>About</h2>
-          <h3>About the<span> Project</span></h3></div><div>
-          <p><b>wipEU</b> is an open data project focused on analyzing the correlation between the representation of women in diverse positions
-             across the European Union and its evolution over time. Our project aims to examine factors influencing the presence of women
-              in positions of <b>Power & Decision Making</b> in the EU, with a particular emphasis on understanding how these dynamics change and develop over different time periods.<br><br>
-              By examining data and trends, we aim to uncover insights into the progress, challenges, and trends related to gender representation within the EU.
-
-Through comprehensive data analysis, we seek to contribute valuable knowledge that can inform discussions, policies, 
-and actions aimed at fostering greater gender equity in the European Union. <b>wipEU</b> stands at the intersection of data-driven
- insights and the pursuit of a more inclusive and representative future in positions of influence and decision-making across the EU landscape.<br><br>
-            </p>
+      <div class="split">
+        <div class="split__text">
+          <h3 class="h3">Change since 2017</h3>
+          <p>Percentage-point change from 2017 to the latest year EIGE published for each series (2023, or 2022 for environment ministries). Politics, finance and environment gained ten points or more; the agencies and the Court of Justice moved about four.</p>
+          <p>The smallest bodies move in large steps. The three EU financial institutions (ECB, EIB, EIF) had no woman as president or chair in any year from 2003 to 2019; one in 2020, 2021 and 2022; two of three in 2023.</p>
         </div>
-
-        <div class="row">
-          <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
-            <img src="assets/img/about.jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
-            <h3>We have decided to approach this topic by analyzing a few fundamental areas:
-              
-             </h3>
-            
-             <br>
-               
-               
-                  <h5>Public Administration</h5>
-
-               
-                  <h5>Business & Finance</h5>
-
-                  <h5>Politics</h5>
-
-                  <h5>Environment & Climate Change</h5>
-
-                  <h5>Education, Science & Research</h5>
-
-                  <h5>Law & Institutions</h5>
-                
-              <br>
-            <p>
-                          In addition to addressing the primary research question,
-                           this project involves comprehensive examinations of various
-                            facets related to open data, including considerations of quality,
-                             legality, ethics, and technical aspects. Diverse visualizations
-                              are available to facilitate effective communication and enhance
-                               comprehension of the findings. <span><b>You can freely
-                                download a thoroughly detailed documentation for reference by clicking <a href="DOCUMENTATION.ipynb" type="download"> here.</a></span></b>
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End About Section -->
- 
-        <!-- ======= Results Section ======= -->
-        <section id="results" class="results">
-          <div class="container" data-aos="fade-up">
-            <div class="section-title"><h2>Results</h2><br>
-              <h3>In 2023:</h3>
-              </div>
-                     
-            <div class="row skills-content">
-    
-              <div class="col-lg-6">
-    
-                <div class="progress">
-                  <span class="skill">Women members of the highest decision-making body in European Financial Institutions  <i class="val">20%</i></span>
-                  <div class="progress-bar-wrap">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-    
-                <div class="progress">
-                  <span class="skill">Women members of the highest decision-making body in European agencies for Public Administration  <i class="val">37%</i></span>
-                  <div class="progress-bar-wrap">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="37" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-    
-                <div class="progress">
-                  <span class="skill">Women members of the highest decision-making body in European Research Funding organizations <i class="val">43.1%</i></span>
-                  <div class="progress-bar-wrap">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="43.1" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-    
-              </div>
-    
-              <div class="col-lg-6">
-    
-                <div class="progress">
-                  <span class="skill">Women members of European Court for Justice <i class="val">22.2%</i></span>
-                  <div class="progress-bar-wrap">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="22.2" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-    
-                <div class="progress">
-                  <span class="skill">Women presidents or chairs of European Financial Institutions <i class="val">66.7%</i></span>
-                  <div class="progress-bar-wrap">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="66.7" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-    
-                <div class="progress">
-                  <span class="skill">Women Leading Major Political Parties <i class="val">26.8%</i></span>
-                  <div class="progress-bar-wrap">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="26.8" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-    
-              </div>
-    
-            </div>
-    
-          </div>
-        </section><!-- End Results Section -->
-
-        <!-- ======= Visualization Section ======= -->
-    <section id="" class="about section-bg">
-      <div class="container"id="visua" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Visualizations</h2>
-          <h3>Choropleth<span> Maps</span></h3></div>
-          <p>
-           Explore the rich datasets through dynamic <b>choropleth maps</b>, providing an illuminating visual representation of <b>geographic-related data</b> for a comprehensive understanding of women's representation in positions of <b>Power & Decision Making</b> across Europe.<br><br>
-            
-            These dynamic maps offer an engaging way to interpret and analyze the distribution of key metrics across different European countries. The use of color gradients allows for quick comprehension of variations, making it easier to discern patterns, trends, and disparities in gender representation.<br><br>
-            
-            It's important to note that in cases where the value is undefined, it signifies that the country is either geographically part of Europe but not a member of the EU, or that the specific data is not available for the selected country. Notably, the dataset still includes pertinent information for the United Kingdom, ensuring a thorough examination of its unique context.<br><br>
-            
-            By leveraging choropleth maps, we aim to provide a nuanced exploration of the gender landscape in positions of influence and decision-making, 
-            fostering a deeper understanding of the complexities and variations within the European context.
-             These visualizations can serve as powerful tools for researchers, policymakers, and the general public alike, 
-             offering insights that transcend numerical data and enhance our collective understanding of gender dynamics across Europe.<br><br>
-             Explore these dynamic datasets with the flexibility to tailor your visual experience. Utilize the user-friendly dropdown menu to choose from three distinct perspectives and a 
-             yearly explorable time frame that goes from <b>2017 to 2023.</b><br><br> Please keep in mind that EIGE has not any available data for the dataset D3 -  Men and Women in EU Research Funding Organizations for the year 2023.<br><br>
-             <h4>D6 - Major Political Parties Leaders in the EU (Men and Women):</h4>
-            
-             This dataset visualizes the gender distribution of leaders within major political parties across European Union member states.
-              Each country is color-coded on the choropleth map to represent the proportion of male and female leaders within its political landscape.
-               The intensity of color variations provides a quick and insightful overview of gender
-              representation at the helm of influential political parties, fostering a nuanced understanding of political leadership dynamics in the EU.<br><br>
-             <h4>D4 - EU Executives for Climate (Men and Women):</h4>
-             The choropleth map for this dataset offers a visual representation of the gender composition among executives
-              dedicated to climate-related initiatives within the European Union. By employing distinct color gradients, the map vividly illustrates the distribution of men and women in leadership roles tasked with shaping and implementing climate policies. This visualization facilitates 
-             an exploration of gender diversity in key positions crucial to addressing environmental
-              challenges and promoting sustainable practices across EU member states.<br><br>
-             <h4>D3 - Men and Women in EU Research Funding Organizations:</h4>
-             This choropleth map highlights the gender distribution among professionals
-              within research funding organizations across Europe. The map employs varying colors
-               to showcase the proportion of men and women actively engaged in supporting and shaping
-                research initiatives. By presenting a geographical overview, the visualization provides
-                 valuable insights into the gender dynamics within the realms of research funding, shedding
-                  light on the extent of gender representation in organizations pivotal to advancing scientific knowledge and innovation throughout the EU.<br><br>
-
-
-
-
-
-          </p>
-          <br>
-          <label for="datasetDropdown"><b>Choose Dataset:</b></label>
-<select id="datasetDropdown">
-    <option value="dataset1">Major Political Party Leaders in EU</option>
-    <option value="dataset2">EU Political Executives for Climate</option>
-    <option value="dataset3">Presidents and Members of EU Research Funding Organizations</option>
-
-</select>
-
-<label for="genderDropdown"><b>Choose Gender:</b></label>
-<select id="genderDropdown">
-  <option value="Women">Women</option>
-    <option value="Men">Men</option>
-  </select>
-<br><br>
-    <label for="yearDropdown"><b>Choose Year:</b></label>
-<select id="yearDropdown">
-  <option value="2017">2017</option>
-  <option value="2018">2018</option>
-  <option value="2019">2019</option>
-  <option value="2020">2020</option>
-  <option value="2021">2021</option>
-  <option value="2022">2022</option>
-  <option value="2023">2023</option>
-  
-</select>
-
-<br><br>
-  <div id="mapsContainer">
-    <div class="map" id="mapf2017"></div>
-
-      </div>
-    </section><!-- End Visualization Section -->
-
-        <!-- ======= Visua 2 Section ======= -->
-        <section id="" class="about section-bg">
-          <div class="container" id="visua" data-aos="fade-up">
-    
-            <div class="section-title">
-              
-              <h3>Line <span>Charts</span></h3></div>
-            
-              <p>
-                The line charts as dynamic visualizations serve as a journey through the shifting landscape of gender distribution within European institutions over the years. <br><br>
-                With <b>time</b> represented along the X-axis and the <b>number of individuals</b> plotted on the Y-axis, distinct lines  trace the evolution of counts for both men, women and total individuals.
-                These visual narratives provide an insightful lens into the ebb and flow of gender representation, encapsulating the changing dynamics within the complex fabric of European institutions.<br><br>
-
-                By encapsulating years of data in a visually digestible format, the line charts empower users to discern trends and potential disparities with ease. The nuanced understanding gained from these visualizations
-                 is instrumental in fostering informed discussions and driving actions aimed at promoting gender equity within these influential organizations.<br><br>
-                
-                What adds an extra layer of dynamism to these visualizations is their interactive nature. Users are not mere spectators but active participants in their exploration of the data. Through a user-friendly dropdown menu, individuals can tailor their visual experience by selecting specific roles or positions within the organizations.<br><br>
-                 <b>Interactivity</b> enables users to customize their focus, deepening their insights by honing in on the gender distribution within <b>particular sectors or leadership roles</b>. 
-                 This feature amplifies the <b>accessibility</b> of the data, ensuring that users can extract the most <b>relevant and targeted information</b> based on their interests or research objectives.<br><br>
-                
-              </p>
-            <h4>D2 - European agencies: presidents, members and executive heads</h4><p>
-            European agencies are decentralized bodies of the European Union (EU) established to carry out specific tasks and functions across various policy areas. 
-      These agencies operate independently and are tasked with providing expertise, support, and coordination to EU member states. Their roles encompass 
-      a wide range of areas, including <b>regulatory oversight, scientific research, and implementation of EU policies.</b><br><br>
-
-      The organizational structure of European agencies typically includes a leadership team, such as a president or executive head, 
-      and a membership comprising representatives from EU member states. These agencies play a crucial role in facilitating collaboration
-       and harmonizing efforts among member states in areas where shared expertise and resources are beneficial.<br><br>
-      
-      The specific functions and responsibilities of European agencies vary depending on their mandate, which may cover domains such as <b>environment, 
-      food safety, aviation safety, and more</b>. The agencies contribute to the effective implementation of EU policies
-      , ensuring consistent standards and best practices across the member states.<br><br>
-      
-      In summary, European agencies form an integral part of the EU's administrative framework, functioning as specialized entities that enhance cooperation, coordination, and the efficient execution of policies in specific domains for the benefit of all member states.</p>
-            <label for="position-dropdown"><b>Select Position:</b></label>
-            <select id="position-dropdown">
-                <!-- Add options dynamically using JavaScript -->
-            </select><br><br>
-            <label for="entity-dropdown"><b>Select Agency:</b></label>
-            <select id="entity-dropdown"></select><br><br>
-
-
-            <div id="line-graph"></div>
-          <br>
-          <h4>D1 - European Financial Institutions: presidents and members</h4><p>
-          Our dynamic line chart presentation allows the user to choose from three distinct organizational perspectives:
-           the European Investment Bank (EIB), the European Central Bank (ECB), and the European Investment Fund (EIF).
-          <ul><li><b>The European Investment Bank (EIB):</b><br><br>
-
-           The EIB, established in 1958, operates as the long-term lending institution of the EU.
-            With a mission to foster sustainable development, the EIB finances projects spanning
-             infrastructure, innovation, climate action, and support for small to medium-sized enterprises (SMEs).
-              Led by a dedicated President, the EIB plays a pivotal role in shaping the economic landscape of the EU.</li><br>
-           <li><b>European Central Bank (ECB):</b><br><br>           
-           At the heart of monetary policy in the eurozone, the ECB, founded in 1998, is tasked with maintaining price stability and ensuring the smooth functioning of financial markets
-           . Guided by a President and an Executive Board, the ECB issues the euro currency and plays a critical role in shaping the economic trajectory of the eurozone.</li><br>
-           <li><b>European Investment Fund (EIF):</b><br><br>
-           
-           Operating within the European Investment Bank Group, the EIF is dedicated to supporting Europe's micro, small, and medium-sized enterprises (MSMEs).
-            Led by a Chief Executive, the EIF provides guarantees and equity financing, fostering entrepreneurship, innovation, and job creation as an integral part of the EU's economic ecosystem.</li></ul><br>
-            Together, these institutions form a dynamic trio, each with its unique focus and mandate, working in tandem to drive economic growth, financial stability, and innovation within the European Union.<br>
-
-      </p>
-          <label for="position-dropdown2"><b>Select Position:</b></label>
-          <select id="position-dropdown2">
-              <!-- Add options dynamically using JavaScript -->
-          </select>
-          <label for="entity-dropdown2"><b>Select Agency:</b></label>
-          <select id="entity-dropdown2"></select><br><br>
-          <div id="line-graph-fin"></div>
-           
-    <br>
-
-    <h4>D5 - European courts: presidents and members</h4>
-    <p>
-      Legal institutions collectively contribute to the <b>development and interpretation of EU law</b>,
-       ensuring the protection of rights, the resolution of disputes, and the maintenance of legal consistency within the European Union.<br><br>
-
-      <ul><li><b>Court of Justice of the European Union (CJEU):</b><br>
-
-The CJEU is the supreme judicial authority of the EU. It ensures the uniform application and interpretation of EU law across all member states. 
-Comprising the Court of Justice, the General Court, and specialized courts, the CJEU plays a critical role in safeguarding 
-legal consistency and protecting the rights of individuals and entities under EU law.</li><br>
-<li><b>Civil Service Tribunal:</b><br>
-
-The Civil Service Tribunal is one of the specialized courts within the CJEU. It specifically deals with cases involving disputes between the EU and its
- staff, including issues related to employment, working conditions, and disputes arising from staff members' roles within EU institutions.</li><br>
-<li><b>European Court of Human Rights (ECHR):</b><br>
-
-The ECHR, based in Strasbourg, is not an EU institution but a body of the Council of Europe.
- It safeguards human rights and fundamental freedoms in Europe. Individuals can bring cases
-  against member states for alleged violations of the European Convention on Human Rights, ensuring a regional framework for human rights protection.</li><br>
-<li><b>European Court of Justice (ECJ):</b><br>
-
-The ECJ is one of the key institutions of the EU, serving as the highest court in matters of EU law.
- It interprets EU legislation, ensures its uniform application, and settles legal disputes between member states, institutions, and individuals.
-  The ECJ plays a crucial role in upholding the rule of law within the EU.</li><br>
-<li><b>General Court:</b>
-
-Also part of the CJEU, the General Court is responsible for hearing cases brought by individuals,
- businesses, and, in some instances, member states against EU institutions. It serves as a court of first instance for certain types of actions, 
- offering an avenue for legal review and redress within the EU's judicial framework.</li><br>
-          <label for="position-dropdown3"><b>Select Position:</b></label>
-          <select id="position-dropdown3">
-              <!-- Add options dynamically using JavaScript -->
-          </select>
-          <label for="entity-dropdown3"><b>Select Entity:</b></label>
-          <select id="entity-dropdown3"></select><br><br>
-          <div id='line-graph-courts'></div>
-          </div>
-        </section><!-- End About Section -->
-
-    <!-- ======= Datasets Section ======= -->
-    <section id="datasets" class="datasets">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Datasets</h2>
-          <h3>Check the <span>Source Datasets</span> we used</h3>
-     
-        </div>
-<p>The project comprises the use of <b>10 different datasets</b>, between source ones and mashup ones.
-  Each source dataset was divided in three parts for women, men and total values, so - practically - we worked with 18 source datasets and 2 mash up datasets.
-  
-  The <b>source datasets</b> have been downloaded in .csv and .json format from the Women and men in decision-making section in EIGE's <b><a href="https://eige.europa.eu/gender-statistics/dgs">Gender Statistics Database.</a></b><br><br>
-  
-  It's essential to recognize the inherent complexities and limitations that accompany our exploration of gender representation in Power & Decision Making across Europe. While our datasets meticulously capture the dynamics between women and men,
-   it's important to acknowledge the <b>inherent constraint of a binary representation</b>, as we regrettably do not encompass the rich and diverse spectrum of queer and non-binary identities.<br><br>
-
-  Data, as a reflection of societal structures and categorizations, can sometimes fall short in capturing the multifaceted nature of human experiences. The absence of representation for queer and non-binary individuals in our datasets prompts 
-  a broader reflection on the challenges of quantifying dimensions of identity that transcend traditional parameters. As we navigate this data landscape, it becomes an opportunity for introspection, challenging us to critically examine the 
-  limitations of our categorical frameworks and consider how these frameworks might inadvertently marginalize certain voices and experiences.<br><br>
-  
-  This contemplation on the limitations of our data invites us to envision more inclusive and comprehensive approaches to data collection in the future. It prompts us to question not only what is measured but also <b>what is left unmeasured</b>, urging us to strive for data that authentically reflects the richness of diverse identities.
-   In essence, our exploration of data is not just a numerical exercise but a thoughtful journey into the complexities of representation, challenging us to continually refine our understanding of societal dynamics and the narratives embedded within the numbers.<br><br>
-  Click on the download icon to download a zip folder containing datasets in csv and xsls formats.</p>
-        <div class="row">
-          <div class="col-lg-4 col-md-4 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bi bi-bank"></i></i></div>
-              <h4><a href="https://eige.europa.eu/gender-statistics/dgs/indicator/wmidm_bus_fin__wmid_fineur/hbar">D1 - European financial institutions: presidents and members</a></h4>
-              <p class="dttext"><b>Source type:</b> Data collected by EIGE <br>
-            <b>Source organisation:</b> European Institute for Gender Equality (EIGE)<br>
-           <b>Source organisation URL:</b> 	https://eige.europa.eu/<br>
-           <b>Statistical activity:</b> Data collection on women and men in decision-making (WMID)<br>
-          <b>Source reference:</b> Data collected by EIGE from January 2017 and previously by the European Commission, DG Justice<br>
-           <b>Data Type:</b> 	Administrative Data<br>
-           <b>Harmonised:</b> Harmonised at EU level<br>
-            
-              <a href="zip\european_financial_institutions.zip" download><div class="icon"><i class="bi bi-download"></i></i></div></a>
-          </p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-4 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="https://eige.europa.eu/gender-statistics/dgs/indicator/wmidm_adm_eur__wmid_euadmin_eurag">D2 - European agencies: presidents, members and executive heads</a></h4>
-               <p class="dttext"><b>Source type:</b> Data collected by EIGE <br>
-            <b>Source organisation:</b> European Institute for Gender Equality (EIGE)<br>
-           <b>Source organisation URL:</b> 	https://eige.europa.eu/<br>
-           <b>Statistical activity:</b> Data collection on women and men in decision-making (WMID)<br>
-          <b>Source reference:</b> Data collected by EIGE from January 2017 and previously by the European Commission, DG Justice<br>
-           <b>Data Type:</b> 	Administrative Data<br>
-           <b>Harmonised:</b> Harmonised at EU level<br>
-             
-              <a href="zip\european_agencies.zip" download><div class="icon"><i class="bi bi-download"></i></i></div></a>
-         
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-4 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon-box">
-              <div class="icon"><i class="bi bi-currency-exchange"></i></div>
-              <h4><a href="https://eige.europa.eu/gender-statistics/dgs/indicator/wmidm_educ__wmid_resfund">D3 - Research funding organisations: presidents and members</a></h4>
-               <p class="dttext"><b>Source type:</b> Data collected by EIGE <br>
-            <b>Source organisation:</b> European Institute for Gender Equality (EIGE)<br>
-           <b>Source organisation URL:</b> 	https://eige.europa.eu/<br>
-           <b>Statistical activity:</b> Data collection on women and men in decision-making (WMID)<br>
-          <b>Source reference:</b> Data first collected by EIGE in 2017<br>
-           <b>Data Type:</b> 	Administrative Data<br>
-           <b>Harmonised:</b> Harmonised at EU level<br>
-         
-           <b>Number of Values:</b> 3360</p>
-           <a href="zip\research_funding.zip" download><div class="icon"><i class="bi bi-download"></i></i></div></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-4 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-world"></i></div>
-              <h4><a href="https://eige.europa.eu/gender-statistics/dgs/indicator/wmidm_env_euinst__wmid_env_eu_ag">D4 - European agencies working in climate change</a></h4>
-               <p class="dttext"><b>Source type:</b> Data collected by EIGE <br>
-            <b>Source organisation:</b> European Institute for Gender Equality (EIGE)<br>
-           <b>Source organisation URL:</b> 	https://eige.europa.eu/<br>
-           <b>Statistical activity:</b> Data collection on women and men in decision-making (WMID)<br>
-          <b>Source reference:</b> Data collected by EIGE from January 2017 and previously by the European Commission, DG Justice<br>
-           <b>Data Type:</b> 	Administrative Data<br>
-           <b>Harmonised:</b> Harmonised at EU level<br>
-              
-           <b>Time Form:</b> Years</p>
-           <a href="zip\political_executives_climate.zip" download><div class="icon"><i class="bi bi-download"></i></i></div></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-4 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bi bi-bank2"></i></i></div>
-              <h4><a href="https://eige.europa.eu/gender-statistics/dgs/indicator/wmidm_jud_eucrt__wmid_eucrt/hbar/year:2009/geo:EU/EGROUP:CRTS_EUR/sex:M,W/UNIT:PC/POSITION:MEMB_CRT/ENTITY:CST,ECHR,GC,CJEU,ECJ">D5 - European courts: presidents and members</a></h4>
-               <p class="dttext"><b>Source type:</b> Data collected by EIGE <br>
-            <b>Source organisation:</b> European Institute for Gender Equality (EIGE)<br>
-           <b>Source organisation URL:</b> 	https://eige.europa.eu/<br>
-           <b>Statistical activity:</b> Data collection on women and men in decision-making (WMID)<br>
-          <b>Source reference:</b> Data collected by EIGE from January 2017 and previously by the European Commission, DG Justice<br>
-           <b>Data Type:</b> 	Administrative Data<br>
-           <b>Harmonised:</b> Harmonised at EU level<br>
-            
-           <b>Time Form:</b> Years</p>
-           <a href="zip\judges_european_court (1).zip" download="data\european_courts"><div class="icon"><i class="bi bi-download"></i></i></div></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-4 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-arch"></i></div>
-              <h4><a href="https://eige.europa.eu/gender-statistics/dgs/indicator/wmidm_pol_part__wmid_polpart">D6 - Major political parties: leader and deputy leaders</a></h4>
-               <p class="dttext"><b>Source type:</b> Data collected by EIGE <br>
-            <b>Source organisation:</b> European Institute for Gender Equality (EIGE)<br>
-           <b>Source organisation URL:</b> 	https://eige.europa.eu/<br>
-           <b>Statistical activity:</b> Data collection on women and men in decision-making (WMID)<br>
-          <b>Source reference:</b> Data first collected by EIGE in 2017<br>
-           <b>Data Type:</b> 	Administrative Data<br>
-           <b>Harmonised:</b> Harmonised at EU level<br>
-          
-           <b>Time Form:</b> Years</p>
-           <a href="zip\political_parties (1).zip" download="data\major_political_party_leaders"><div class="icon"><i class="bi bi-download"></i></i></div></a>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End Dataset Section -->
-
-
-    <!-- ======= Datasets 2 Section ======= -->
-    <section id="datasets" class="datasets">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Datasets</h2>
-          <h3>Check the <span> Mashup Datasets</span> we created</h3>
-     
-        </div>
-        <div id="visua">
-       <p>
-        The decision to create separate mashup datasets for geographically related data <b>(MD1)</b>
-         containing names of individual countries in the EU and another
-          for data containing different organizations of the EU <b>(MD2)</b> is likely driven
-           by the distinct nature and purpose of each dataset, as well as the intended use cases for visualization or analysis.<br><br>
-           The distinctions between geographically related information and organizational data within the European Union are marked by their emphasis on different parameters — space and time, respectively.
-
-           <br><br><b>MD1 - Geographically Related Data (Space):</b> Geographical data revolves around parameters linked to space, encapsulating the physical dimensions,
-            locations, and boundaries of countries within the European Union. Key spatial parameters include latitude and longitude coordinates, land area,
-             population density, and features like mountains or rivers. Spatial analysis techniques, such as mapping libraries and geographic information system (GIS)
-              tools, are commonly employed to visualize and analyze these spatial dimensions.<br><br>
-           
-           <b>MD2 - Organization-Related Data (Time):</b> In contrast, organizational data is immersed in parameters tied to time,
-            focusing on the temporal aspects of EU institutions, agencies, and bodies. Temporal parameters may include establishment dates,
-             tenure durations, historical changes in organizational structures, and milestones in the development of the EU. Understanding the evolution of EU
-              organizations over time is critical for temporal analysis, providing insights into historical development and structural dynamics.<br><br>
-           
-           <b>Integration for Comprehensive Insights:</b> Recognizing that organizational data has both spatial and temporal dimensions, integrating
-            both aspects becomes essential for comprehensive insights. This integration allows for a nuanced understanding of the historical development
-             and geographical distribution of EU structures. For example, it enables an exploration of how the functions of EU institutions have evolved 
-             over time in response to geopolitical changes.<br><br>
-           
-           <b>Visualization Techniques:</b> Geographical data finds expression through spatial visualization techniques such as choropleth maps, heatmaps, or geographical scatter plots. These visualizations emphasize the spatial distribution of data points, facilitating the exploration of patterns across different regions. On the other hand, organizational data benefits from temporal visualization techniques, including timelines, Gantt charts, or interactive graphs showcasing changes over time.
-            These visualizations offer a means to explore historical events, leadership transitions, and organizational developments.<br><br>
-           
-           <b>Data Modeling and Structures:</b> Geographical data is typically modeled to capture spatial relationships and attributes, utilizing tools like spatial databases, geoJSON formats, and geospatial indexing. In contrast, organizational data requires modeling that accommodates temporal aspects, such as effective dating for changes in organizational structures, historical records, and timelines. Temporal databases or versioning mechanisms may be employed to manage time-related data.
-           
-           By considering the distinct parameters of space and time for geographically related and organizational data, respectively, tailored dataset structures, analytical methods, and visualization techniques can be applied. This comprehensive approach allows for a more profound exploration of both spatial and temporal dimensions, providing a holistic understanding of the intricate interactions within the European Union.
-           <h3>Metadata</h3><br>
-           The <a href="#documentation">Documentation</a> provides a detailed overview of the metadata for our Mashup datasets MD-1 and MD-2 using the Resource Description Framework (RDF), a format that facilitates machine-readable representations of information. By referring to our documentation, users can access a structured presentation of the metadata, enabling a better understanding of its specific details, relationships, and attributes.
-           
-        </p><br>
-        </div>
-             <div class="row">
-          <div class="col-lg-6 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bi bi-bank"></i></i></div>
-              <h4><a href="https://github.com/matteo-guenci/Open_access_project/blob/main/data/mashup/merged_df_final.csv">MD1 - Influential Positions held by Women in Different Geographical Regions</a></h4>
-              <p class="dttext"><b>Years:</b> 2018-2023 <br>
-            
-           <b>URI:</b> 	https://github.com/matteo-guenci/Open_access_project/blob/main/data/mashup/merged_df_final.csv/<br>
-           <b>Statistical activity:</b> Data collection on women and men in decision-making (WMID)<br>
-          
-           <b>Data Type:</b> 	Administrative Data<br>
-         
-             
-           <a href="data\mashup\merged_df_final.csv" download><div class="icon"><i class="bi bi-download"></i></i></div></a>
-          </p>
-            </div>
-          </div>
-
-          <div class="col-lg-6 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="https://github.com/matteo-guenci/Open_access_project/blob/main/data/mashup/merged_df_final2.csv">MD2 - Influential Positions held by Women in Different Agencies</a></h4>
-               <p class="dttext"><b>Years:</b> 2018-2023 <br>
-          
-           <b>URI:</b> 	https://github.com/matteo-guenci/Open_access_project/blob/main/data/mashup/merged_df_final2.csv<br>
-           <b>Statistical activity:</b> Data collection on women and men in decision-making (WMID)<br>
-
-           <b>Data Type:</b> 	Administrative Data<br>
-           
-              
-           <a href="data\mashup\merged_df_final2.csv" download> <div class="icon"><i class="bi bi-download"></i></i></a></div>
-         
-            </div>
-          </div>
-
-          
-        </div>
-
-      </div>
-    </section><!-- End Dataset2 Section -->
-
-
-
-     <!-- ======= Analysis Section ======= -->
-     <section id="featured-datasets" class="featured-datasets">
-      <div class="container" data-aos="fade-up">
-        <div class="title-section">
-          <h1>Analyses</h1></div><div>
-        <p>In the context of the European Institute for Gender Equality (EIGE) datasets, these analyses collectively contribute to the trustworthiness,
-           usability, and ethical handling of the data, supporting its reliability for research, policymaking, 
-           and advocacy in the field of gender equality. <br><br>You can find the complete reports in our <b>Documentation.</b></p></div><br>
-
-        <div class="row">
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4 class="title"><a href="">Quality Analysis</a></h4>
-              <p class="description">Assessing the reliability, accuracy, completeness, and relevance of the data.</p>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4 class="title"><a href="">Legal Analysis</a></h4>
-              <p class="description">Assessing the compliance of EIGE datasets with relevant laws and regulations.</p>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4 class="title"><a href="">Technical Analysis</a></h4>
-              <p class="description">Evaluating the structure, format, and accessibility of the dataset.</p>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
-              <div class="icon"><i class="bx bx-world"></i></div>
-              <h4 class="title"><a href="">Ethical Analysis</a></h4>
-              <p class="description">Evaluating the implications of data collection, usage, and dissemination.</p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End Featured Services Section -->
-
-    <section id="" class="about section-bg">
-      <div class="container"id="visua" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Additional Visualizations</h2>
-          <h3>Clusters</h3></div>
-          <p>Clusterization, also known as clustering or cluster analysis, 
-            is a data analysis technique used to group similar data points into distinct
-             subsets or clusters based on certain characteristics or features. The primary
-              goal of clusterization is to identify inherent patterns and structures within a dataset,
-               allowing for a more organized and insightful understanding of the underlying data.
-               You can discover more on clusterization in our <a href="#documentation">Documentation</a></p>
-               <div class="grid-container">
-                <!-- First column with an image -->
-                <div class="grid-item">
-                    <img src="technical_analysis\Clusters\newplot1.png" alt="Image 1">
-                </div>
-            
-                <!-- Second column with another image -->
-                <div class="grid-item">
-                    <img src="technical_analysis\Clusters\newplot2.png" alt="Image 2">
-                </div>
-            </div>
-<br><br>
-            <div class="section-title">
-              <h2>Additional Visualizations</h2>
-              <h3>Correlations</h3></div>
-            <p>Correlation is a statistical measure that describes the degree to which two variables change together. 
-              In other words, it quantifies the strength and direction of a linear relationship between two sets of data. 
-              Correlation does not imply causation; it simply indicates whether and how two variables tend to vary together. You can discover more on the correlation measures that we used in our <a href="#documentation">Documentation</a></p>
-              <div class="grid-container">
-                <!-- First column with an image -->
-                <div class="grid-item">
-                    <img src="technical_analysis\Correlations\output1.png" alt="Image 1">
-                </div>
-            
-                <!-- Second column with another image -->
-                <div class="grid-item">
-                    <img src="technical_analysis\Correlations\output2.png" alt="Image 2">
-                </div>
-            </div>
-
-
-
-
-      <!-- ======= Documentation Section ======= -->
-      <section id="documentation" class="documentation">
-        <div class="container" data-aos="fade-up">
-  
-          <div class="section-title">
-            <h2>Documentation</h2>
-            <h3>Download the<span> Documentation</span></h3></div><div>
-            <p>Welcome to the documentation hub for <b>wipEU</b>.
-
-          
-              Gain in-depth insights into our project by downloading the comprehensive documentation. Click the link below to access the Jupyter Notebook file.<br><br>
-              
-              <b><a href="DOCUMENTATION.ipynb" download="DOCUMENTATION.ipynb">Download Documentation</a></b><br><br>
-              
-              Includes:
-              <ul>
-             <li> Overview of Open Access and Digital Ethics in our project</li>
-            <li>  Source and methodology of governmental datasets used</li>
-              <li>Detailed data visualizations depicting gender representation</li>
-              <li>Key findings and trends</li>
-              <li>Recommendations for promoting gender equality in European institutions</li></ul></p>
-          </div>
-  
-         
-  
-        </div>
-      </section><!-- End About Section -->
-
-  <!-- ======= Sustainability Section ======= -->
-  <section id="about" class="about section-bg">
-    <div class="container" data-aos="fade-up">
-
-      <div class="section-title">
-        <h2>Sustainability of the Project</h2>
-        <h3>Sustainability</h3></div>
-        <p>
-          The Gender Statistics Database, from where we retrieved the data, 
-          contains gender statistics from all over the European Union (EU) and beyond,
-           at the EU, Member State and European level. <br>
-           It is aimed at providing statistical evidence which can be used to support and complement the European Commission’s
-            (EC) Strategy on Gender Equality and support the Member States to monitor their progress.
-          <br><br>
-          
-          
-          However, <b>wipEU</b> is the final project developed for the <b>"Open Access and Digital Ethics"</b> course (a.a. 2023/2024) within the <b>Digital Humanities and Digital Knowledge</b> Masters Degree (University of Bologna), 
-          and, as such is not actively maintained and will not be updated in the future.</p>
-      </div>
-
-      
-  </section><!-- End Sustainability Section -->
-
-    
-
-    <!-- ======= Team Section ======= -->
-    <section id="team" class="team">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Team</h2>
-          <h3>Our <span>Team</span></h3>
-        </div>
-
-        <div class="row">
-
-          <div class="col-lg-4 col-md-4 d-flex align-items-center" data-aos="fade-up" data-aos-delay="100">
-            <div class="member">
-              <div class="member-img">
-                <img src="assets/img/team/team-1.jpeg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href="https://github.com/SalvatoreDiMarzo"><i class="bi bi-github"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Salvatore Di Marzio</h4>
-                <span>Project Ideation — Data retrieval — Mashup datasets — Technical analysis</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-4 d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
-            <div class="member">
-              <div class="member-img">
-                <img src="assets/img/team/team-2.jpeg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href="https://github.com/matteo-guenci"><i class="bi bi-github"></i></a>
-                  <a href="https://www.linkedin.com/in/matteo-guenci-320712237/"><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Matteo Guenci</h4>
-                <span>Project Ideation — Data retrieval — Mashup datasets — Technical analysis</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-4 d-flex align-items-center" data-aos="fade-up" data-aos-delay="300">
-            <div class="member">
-              <div class="member-img">
-                <img src="assets/img/team/alice.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href="https://github.com/alicepicco333"><i class="bi bi-github"></i></a>
-                  <a href="https://www.linkedin.com/in/alice-picco-791157114/"><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Alice Picco</h4>
-                <span>Project ideation — Data retrieval — Visualizations — Quality and legal analyses — Website development</span>
-              </div>
-            </div>
-          </div>
-
-
-        </div>
-
-      </div>
-    </section><!-- End Team Section -->
-
-    <section id="license" class="license">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>License</h2>
-          <h3>Credits and<span> Licenses</span></h3></div>
-          <div class="two-columns">
-          <p>
-            
-            <b>Web template</b>:
-            This website is built on the HTML5 template "Bizland" by BootstrapMade and released under MIT<br>
-            
-            <b>Source Datasets</b>:
-            Creative Commons Attribution 3.0 Unported (CC BY 3.0)<br>
-            
-            <b>Mashup Datasets</b>:
-            Creative Commons Attribution 4.0 International (CC BY 4.0)<br><br>
-            
-           <b> Softwares used</b><br><br>
-            <b>Leaflet</b>: Copyright (c) 2010-2023, Volodymyr Agafonkin Copyright (c) 2010-2011, CloudMade - All rights reserved. (BSD 2-Clause "Simplified" License)<br>
-            
-            <b>Plotly.js</b>: Copyright (c) 2021 Plotly, Inc - All rights reserved ( MIT License)
-            </p></div>
-        </div>
-
-  </main>
-
-  
-
-    <div class="container py-4">
-      <div class="copyright">
-        &copy; Copyright <strong><span>wipEU</span></strong>. All Rights Reserved
-        <p>wipEU is a project developed for the "Open Access and Digital Ethics" course
-           (a.a. 2023/2024) within the Digital Humanities and Digital Knowledge Masters Degree at Alma Mater Studiorum - University of Bologna</p>
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bizland-bootstrap-business-template/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        <figure class="split__fig">
+          <figcaption class="fig-cap"><span class="key key--from" aria-hidden="true"></span>2017 <span class="key key--to" aria-hidden="true"></span>Latest year</figcaption>
+          <div id="dumbbell" class="chart" role="img" aria-label="Dumbbell chart of the share of women in 2017 and in the latest year for six areas"></div>
+        </figure>
       </div>
     </div>
-  </footer><!-- End Footer -->
+  </section>
 
-  <div id="preloader"></div>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <!-- 03 — Map -->
+  <section class="sec wrap" id="map" aria-labelledby="map-h">
+    <div class="sec__label"><span class="num">03</span><h2 id="map-h">Across Europe</h2></div>
+    <div class="sec__body sec__body--wide">
+      <p class="lede">Three datasets are reported country by country. Choose one, a role and a year.</p>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+      <div class="controls" role="group" aria-label="Map filters">
+        <fieldset class="seg">
+          <legend>Dataset</legend>
+          <label><input type="radio" name="mapds" value="D6" checked><span>D6 Political parties</span></label>
+          <label><input type="radio" name="mapds" value="D4"><span>D4 Environment ministries</span></label>
+          <label><input type="radio" name="mapds" value="D3"><span>D3 Research funding</span></label>
+        </fieldset>
+        <label class="field"><span>Role</span><select id="map-pos"></select></label>
+        <label class="field field--year"><span>Year <output id="map-year-out" for="map-year">2023</output></span>
+          <input type="range" id="map-year" min="2017" max="2023" step="1" value="2023"></label>
+      </div>
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/charts.js"></script>
+      <p class="map-caption" id="map-caption" aria-live="polite"></p>
 
-  <script src="https://cdn.plot.ly/plotly-2.27.0.min.js" charset="utf-8"></script>
-  <!-- D3.js -->
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet-ajax/dist/leaflet.ajax.min.js"></script>
+      <div class="mapgrid">
+        <figure class="mapfig">
+          <div id="choropleth" class="chart chart--map"></div>
+          <figcaption>
+            <div class="legend" id="map-legend" aria-label="Colour scale: share of women"></div>
+          </figcaption>
+        </figure>
+        <figure class="rankfig">
+          <figcaption class="fig-cap"><span class="key key--to" aria-hidden="true"></span><span id="rank-to">2023</span> <span class="key key--from" aria-hidden="true"></span><span id="rank-from">2017</span> <span class="key key--eu" aria-hidden="true"></span>EU-27</figcaption>
+          <div id="rank" class="chart"></div>
+        </figure>
+      </div>
+      <p class="note" id="map-note">Grey countries have no value for the selected year: they are outside EIGE's coverage, or EIGE did not publish the figure. The United Kingdom and non-EU EEA and candidate countries are included where EIGE reports them. Country-level bodies are small (a country may have three to eight major parties), so one appointment can move a country's share by twenty points or more.</p>
+      <div id="map-desc" class="ds-desc"></div>
+    </div>
+  </section>
 
+  <!-- 04 — Institutions -->
+  <section class="sec wrap" id="institutions" aria-labelledby="inst-h">
+    <div class="sec__label"><span class="num">04</span><h2 id="inst-h">Inside EU institutions</h2></div>
+    <div class="sec__body sec__body--wide">
+      <p class="lede">Three datasets describe EU-level bodies rather than countries. Pick a body and a role to follow the share of women over time.</p>
 
+      <div class="controls" role="group" aria-label="Institution filters">
+        <fieldset class="seg">
+          <legend>Dataset</legend>
+          <label><input type="radio" name="instds" value="D1" checked><span>D1 Financial institutions</span></label>
+          <label><input type="radio" name="instds" value="D2"><span>D2 European agencies</span></label>
+          <label><input type="radio" name="instds" value="D5"><span>D5 European courts</span></label>
+        </fieldset>
+        <label class="field"><span>Role</span><select id="inst-pos"></select></label>
+        <label class="field field--wide"><span>Body</span><select id="inst-ent"></select></label>
+      </div>
 
-<script defer src="assets/js/maps.js"></script>
+      <div class="instgrid">
+        <figure class="instfig">
+          <figcaption class="fig-cap" id="inst-title"></figcaption>
+          <div id="inst-chart" class="chart" tabindex="0" role="img"></div>
+          <details class="table-view">
+            <summary>Show the values as a table</summary>
+            <div id="inst-table" class="table-scroll"></div>
+          </details>
+        </figure>
+        <aside class="instdesc" id="inst-desc" aria-live="polite"></aside>
+      </div>
+    </div>
+  </section>
 
+  <!-- 05 — Method -->
+  <section class="sec wrap" id="method" aria-labelledby="method-h">
+    <div class="sec__label"><span class="num">05</span><h2 id="method-h">Method &amp; analyses</h2></div>
+    <div class="sec__body">
+      <h3 class="h3" id="method-calc">How the numbers are made</h3>
+      <ol class="steps">
+        <li><strong>Source.</strong> Six datasets downloaded in January 2024 from the <em>Women and men in decision-making</em> section of EIGE's <a href="https://eige.europa.eu/gender-statistics/dgs">Gender Statistics Database</a>, as .csv and .json. Each was split into women, men and total tables: 18 source files.</li>
+        <li><strong>Share.</strong> For every body, role and year: share of women = women &divide; total headcount &times; 100, rounded half up to one decimal. The script <a href="scripts/build_web_data.py"><code>scripts/build_web_data.py</code></a> checks each value against EIGE's published percentage: all match.</li>
+        <li><strong>Change.</strong> The difference between two shares, in percentage points (pts), for example 26.8% &minus; 16.0% = +10.8 pts.</li>
+        <li><strong>EU level.</strong> Country datasets use EIGE's <em>EU-27 (from 2020)</em> aggregate. Institution datasets use EIGE's <em>Total</em> across bodies; the Court of Justice series uses the European Court of Justice alone.</li>
+      </ol>
+
+      <h3 class="h3">Two mashup datasets</h3>
+      <p>The team built two mashups, separated by the parameter that organises them. <strong>MD1</strong> joins the country-level data (space): countries are the rows, suited to maps and spatial analysis. <strong>MD2</strong> joins the organisation-level data (time): EU agencies and bodies are the rows, suited to timelines and change over time. Keeping them apart let each follow its own structure and visualisation technique, geoJSON and choropleths for one and temporal charts for the other, while leaving room to combine the spatial and temporal views of EU structures.</p>
+
+      <h3 class="h3">Correlations and clusters</h3>
+      <p>Correlation measures how strongly two variables change together; it does not imply causation. The team used Spearman's rank correlation, which captures monotonic relationships without assuming a straight line. Clustering groups data points with similar characteristics, here countries and agencies with similar temporal patterns. The <a href="#documentation">documentation</a> reports high correlations within the same category across years, varied correlations between categories in the same year, and some negative year-to-year correlations, where a rise in one category coincides with a fall in another.</p>
+      <div class="figs">
+        <figure><img src="technical_analysis/Correlations/output1.png" alt="Spearman correlation matrix for the country mashup MD1, 2017 to 2023, coloured from blue (low) to red (high)." loading="lazy" width="801" height="718"><figcaption>Spearman correlation matrix, MD1 (countries)</figcaption></figure>
+        <figure><img src="technical_analysis/Correlations/output2.png" alt="Spearman correlation matrix for the agency mashup MD2, 2018 to 2023, with some near-zero and negative values between categories." loading="lazy" width="801" height="718"><figcaption>Spearman correlation matrix, MD2 (agencies)</figcaption></figure>
+        <figure><img src="technical_analysis/Clusters/newplot1.png" alt="Three-dimensional scatter plot of clusters from the first mashup, with one dense group and a few outliers." loading="lazy" width="1166" height="450"><figcaption>Clusters, principal components</figcaption></figure>
+        <figure><img src="technical_analysis/Clusters/newplot2.png" alt="Three-dimensional scatter plot of clusters from the second mashup, with points spread along one axis." loading="lazy" width="1166" height="450"><figcaption>Clusters, principal components</figcaption></figure>
+      </div>
+
+      <h3 class="h3">Four analyses of the data</h3>
+      <p>Together these support the trustworthiness, usability and ethical handling of the EIGE data for research, policymaking and advocacy. Full reports are in the documentation.</p>
+      <dl class="analyses">
+        <div><dt>Quality</dt><dd>Reliability, accuracy, completeness and relevance of the data.</dd></div>
+        <div><dt>Legal</dt><dd>Compliance of the EIGE datasets with relevant laws and regulations.</dd></div>
+        <div><dt>Technical</dt><dd>Structure, format and accessibility of the datasets.</dd></div>
+        <div><dt>Ethical</dt><dd>Implications of data collection, use and dissemination.</dd></div>
+      </dl>
+
+      <h3 class="h3">What the data cannot show</h3>
+      <p>The datasets record only women and men. That binary leaves out queer and non-binary people, whose presence in decision-making is not measured at all. Data reflects the categories of the society that collects it, and those categories can marginalise the people they fail to count. This limit is a prompt to ask not only what is measured but what is left unmeasured, and to call for more inclusive data collection.</p>
+    </div>
+  </section>
+
+  <!-- 06 — Data -->
+  <section class="sec wrap" id="data" aria-labelledby="data-h">
+    <div class="sec__label"><span class="num">06</span><h2 id="data-h">Data &amp; downloads</h2></div>
+    <div class="sec__body sec__body--wide">
+      <h3 class="h3">Source datasets</h3>
+      <dl class="common">
+        <div><dt>Source type</dt><dd>Data collected by EIGE</dd></div>
+        <div><dt>Source organisation</dt><dd>European Institute for Gender Equality (EIGE), <a href="https://eige.europa.eu/">eige.europa.eu</a></dd></div>
+        <div><dt>Statistical activity</dt><dd>Data collection on women and men in decision-making (WMID)</dd></div>
+        <div><dt>Data type</dt><dd>Administrative data</dd></div>
+        <div><dt>Harmonised</dt><dd>At EU level</dd></div>
+        <div><dt>Licence</dt><dd>CC BY 3.0 Unported</dd></div>
+      </dl>
+      <p class="note">These fields are the same for all six datasets. Each download is a .zip of the women, men and total tables in .csv and .xlsx.</p>
+
+      <div class="tablewrap">
+        <table class="dstable">
+          <thead><tr><th scope="col">Code</th><th scope="col">Dataset</th><th scope="col">Source reference</th><th scope="col">Years in repo</th><th scope="col">Download</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">D1</th><td><a href="https://eige.europa.eu/gender-statistics/dgs/indicator/wmidm_bus_fin__wmid_fineur/hbar">European financial institutions: presidents and members</a></td><td>Collected by EIGE from January 2017; previously by the European Commission, DG Justice</td><td>2003–2023</td><td><a class="dl" href="zip/european_financial_institutions.zip" download>.zip</a></td></tr>
+            <tr><th scope="row">D2</th><td><a href="https://eige.europa.eu/gender-statistics/dgs/indicator/wmidm_adm_eur__wmid_euadmin_eurag">European agencies: presidents, members and executive heads</a></td><td>Collected by EIGE from January 2017; previously by the European Commission, DG Justice</td><td>2003–2023</td><td><a class="dl" href="zip/european_agencies.zip" download>.zip</a></td></tr>
+            <tr><th scope="row">D3</th><td><a href="https://eige.europa.eu/gender-statistics/dgs/indicator/wmidm_educ__wmid_resfund">Research funding organisations: presidents and members</a></td><td>First collected by EIGE in 2017. 3,360 values</td><td>2017–2023 (2023 partial)</td><td><a class="dl" href="zip/research_funding.zip" download>.zip</a></td></tr>
+            <tr><th scope="row">D4</th><td><a href="https://eige.europa.eu/gender-statistics/dgs/indicator/wmidm_env_nat__wmid_env_natmin_envmin">National ministries dealing with environment and climate change: ministers by seniority</a> <span class="muted">(listed on the earlier site as <a href="https://eige.europa.eu/gender-statistics/dgs/indicator/wmidm_env_euinst__wmid_env_eu_ag">European agencies working in climate change</a>)</span></td><td>Collected by EIGE from January 2017; previously by the European Commission, DG Justice. Time form: years</td><td>2012–2022</td><td><a class="dl" href="zip/political_executives_climate.zip" download>.zip</a></td></tr>
+            <tr><th scope="row">D5</th><td><a href="https://eige.europa.eu/gender-statistics/dgs/indicator/wmidm_jud_eucrt__wmid_eucrt/hbar/year:2009/geo:EU/EGROUP:CRTS_EUR/sex:M,W/UNIT:PC/POSITION:MEMB_CRT/ENTITY:CST,ECHR,GC,CJEU,ECJ">European courts: presidents and members</a></td><td>Collected by EIGE from January 2017; previously by the European Commission, DG Justice. Time form: years</td><td>1999, 2003–2023</td><td><a class="dl" href="zip/judges_european_court%20(1).zip" download>.zip</a></td></tr>
+            <tr><th scope="row">D6</th><td><a href="https://eige.europa.eu/gender-statistics/dgs/indicator/wmidm_pol_part__wmid_polpart">Major political parties: leader and deputy leaders</a></td><td>First collected by EIGE in 2017. Time form: years</td><td>2011–2023</td><td><a class="dl" href="zip/political_parties%20(1).zip" download>.zip</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="h3">Mashup datasets</h3>
+      <div class="tablewrap">
+        <table class="dstable">
+          <thead><tr><th scope="col">Code</th><th scope="col">Dataset</th><th scope="col">URI</th><th scope="col">Years</th><th scope="col">Download</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">MD1</th><td><a href="https://github.com/matteo-guenci/Open_access_project/blob/main/data/mashup/merged_df_final.csv">Influential positions held by women in different geographical regions</a></td><td class="uri">https://github.com/matteo-guenci/Open_access_project/blob/main/data/mashup/merged_df_final.csv</td><td>2018–2023</td><td><a class="dl" href="data/mashup/merged_df_final.csv" download>.csv</a></td></tr>
+            <tr><th scope="row">MD2</th><td><a href="https://github.com/matteo-guenci/Open_access_project/blob/main/data/mashup/merged_df_final2.csv">Influential positions held by women in different agencies</a></td><td class="uri">https://github.com/matteo-guenci/Open_access_project/blob/main/data/mashup/merged_df_final2.csv</td><td>2018–2023</td><td><a class="dl" href="data/mashup/merged_df_final2.csv" download>.csv</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Both mashups: statistical activity WMID, administrative data, licensed CC BY 4.0 International. Their metadata is described in RDF (DCAT-AP-IT), a machine-readable format for their details, relationships and attributes: <a href="metadata/catalog_wipEU">catalogue</a>, <a href="metadata/wipEU_MD1">MD1</a>, <a href="metadata/wipEU_MD2">MD2</a>. The documentation gives a full overview.</p>
+
+      <div class="doc" id="documentation">
+        <div>
+          <h3 class="h3">Documentation</h3>
+          <p>The full project documentation is a Jupyter Notebook. It includes:</p>
+          <ul class="list">
+            <li>An overview of open access and digital ethics in the project</li>
+            <li>Sources and methodology of the governmental datasets used</li>
+            <li>Detailed visualisations of gender representation</li>
+            <li>Key findings and trends</li>
+            <li>Recommendations for promoting gender equality in European institutions</li>
+          </ul>
+        </div>
+        <a class="btn" href="DOCUMENTATION.ipynb" download>Download the documentation <span class="btn__ext">.ipynb</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 — Credits -->
+  <section class="sec wrap" id="credits" aria-labelledby="credits-h">
+    <div class="sec__label"><span class="num">07</span><h2 id="credits-h">Credits</h2></div>
+    <div class="sec__body sec__body--wide">
+      <ul class="team">
+        <li>
+          <img src="assets/img/team/salvatore-560.jpg" alt="Portrait of Salvatore Di Marzo" width="560" height="560" loading="lazy">
+          <h3>Salvatore Di Marzo</h3>
+          <p>Project ideation, data retrieval, mashup datasets, technical analysis</p>
+          <p class="links"><a href="https://github.com/SalvatoreDiMarzo">GitHub</a></p>
+        </li>
+        <li>
+          <img src="assets/img/team/matteo-560.jpg" alt="Portrait of Matteo Guenci" width="560" height="560" loading="lazy">
+          <h3>Matteo Guenci</h3>
+          <p>Project ideation, data retrieval, mashup datasets, technical analysis</p>
+          <p class="links"><a href="https://github.com/matteo-guenci">GitHub</a> <a href="https://www.linkedin.com/in/matteo-guenci-320712237/">LinkedIn</a></p>
+        </li>
+        <li>
+          <img src="assets/img/team/alice-560.jpg" alt="Portrait of Alice Picco" width="560" height="560" loading="lazy">
+          <h3>Alice Picco</h3>
+          <p>Project ideation, data retrieval, visualisations, quality and legal analyses, website development</p>
+          <p class="links"><a href="https://github.com/alicepicco333">GitHub</a> <a href="https://www.linkedin.com/in/alice-picco-791157114/">LinkedIn</a></p>
+        </li>
+      </ul>
+
+      <div class="colophon">
+        <div>
+          <h3 class="h3">Course</h3>
+          <p>wipEU is the final project of the <em>Open Access and Digital Ethics</em> course (a.a. 2023/2024), Digital Humanities and Digital Knowledge Master's Degree, Alma Mater Studiorum – University of Bologna.</p>
+        </div>
+        <div>
+          <h3 class="h3">Sustainability</h3>
+          <p>EIGE's Gender Statistics Database covers the EU, its member states and beyond, and provides evidence to support the European Commission's Strategy on Gender Equality and to help member states monitor progress. wipEU itself is a course project: it is not actively maintained and will not be updated.</p>
+        </div>
+        <div>
+          <h3 class="h3">Licences</h3>
+          <dl class="lic">
+            <dt>Source datasets</dt><dd>EIGE, CC BY 3.0 Unported</dd>
+            <dt>Mashup datasets</dt><dd>CC BY 4.0 International</dd>
+            <dt>Code</dt><dd><a href="LICENSE.md">MIT</a></dd>
+            <dt>Charts</dt><dd>D3.js, ISC licence, Mike Bostock</dd>
+            <dt>Typeface</dt><dd>Instrument Sans, SIL Open Font Licence</dd>
+            <dt>Earlier version</dt><dd>Built on the HTML5 template &ldquo;Bizland&rdquo; by <a href="https://bootstrapmade.com/">BootstrapMade</a> (MIT), with Leaflet (BSD 2-Clause, &copy; 2010–2023 Volodymyr Agafonkin, &copy; 2010–2011 CloudMade) and Plotly.js (MIT, &copy; 2021 Plotly, Inc.)</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <p>&copy; wipEU &middot; Salvatore Di Marzo, Matteo Guenci, Alice Picco</p>
+    <p>Data: European Institute for Gender Equality (EIGE)</p>
+    <p><a href="#top">Back to top</a></p>
+  </div>
+</footer>
+
+<div class="tip" id="tip" aria-hidden="true" hidden></div>
+<noscript><p class="wrap note">The charts need JavaScript. All data can be downloaded in the Data section.</p></noscript>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="assets/js/wipeu.js"></script>
 </body>
-
 </html>
