@@ -442,6 +442,6 @@
     setupInst();
   }).catch((err) => {
     console.error("wipEU: could not load data", err);
-    document.querySelectorAll(".chart").forEach((c) => { c.textContent = "The chart data could not be loaded. The datasets can be downloaded in section 06."; });
+    document.querySelectorAll(".chart").forEach((c) => { c.textContent = "The chart data could not be loaded. The datasets can be downloaded in section 09."; });
   });
 })();

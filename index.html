@@ -10,7 +10,11 @@
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <script>
+    /* Apply the saved theme before first paint (no flash). "auto" follows the system. */
+    (function () { try { var t = localStorage.getItem("wipeu-theme"); if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t); } catch (e) {} })();
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..500&family=Public+Sans:ital,wght@0,400..700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/wipeu.css">
 </head>
 <body>
@@ -18,27 +22,80 @@
 
 <header class="top" id="top">
   <div class="wrap top__inner">
-    <a class="brand" href="#top" aria-label="wipEU, back to top">wipEU</a>
+    <a class="brand" href="#top" aria-label="wipEU, back to top">wip<span>EU</span></a>
     <nav aria-label="Sections">
       <ul class="nav">
+        <li><a href="#chamber">Chamber</a></li>
         <li><a href="#findings">Findings</a></li>
+        <li><a href="#pace">Pace</a></li>
         <li><a href="#map">Map</a></li>
+        <li><a href="#countries">Countries</a></li>
         <li><a href="#institutions">Institutions</a></li>
         <li><a href="#method">Method</a></li>
         <li><a href="#data">Data</a></li>
         <li><a href="#credits">Credits</a></li>
       </ul>
     </nav>
+    <fieldset class="theme" id="theme">
+      <legend class="vh">Colour theme</legend>
+      <label><input type="radio" name="theme" value="auto" checked><span>Auto</span></label>
+      <label><input type="radio" name="theme" value="light"><span>Light</span></label>
+      <label><input type="radio" name="theme" value="dark"><span>Dark</span></label>
+    </fieldset>
   </div>
 </header>
 
 <main id="main">
 
-  <!-- 00 — Opening -->
+  <!-- Opening -->
   <section class="hero wrap" aria-labelledby="rq">
     <p class="eyebrow">Women in Power and Decision-Making in the EU &middot; an open data project, 2023/24</p>
     <h1 id="rq">How do the levels of representation of women in different decision-making positions correlate within the European Union?</h1>
     <p class="hero__sub">Is there a discernible pattern or trend in the relationships between women occupying various roles, and how have these correlations evolved over time?</p>
+  </section>
+
+  <!-- 01 — The chamber -->
+  <section class="chamber wrap" id="chamber" aria-labelledby="chamber-h">
+    <div class="chamber__head">
+      <p class="kicker"><span class="num">01</span> The chamber</p>
+      <h2 id="chamber-h" class="chamber__title">Every seat is a real person.</h2>
+      <p class="chamber__lede">One dot per woman or man counted by EIGE in each body, year by year. Seats fill from the left; the vertical rule is the half-way mark, where parity would be.</p>
+    </div>
+
+    <div class="controls controls--chamber" role="group" aria-label="Chamber controls">
+      <fieldset class="seg seg--bodies" id="ch-body">
+        <legend>Body</legend>
+      </fieldset>
+      <div class="ch-time">
+        <button type="button" class="play" id="ch-play" aria-pressed="false"><span class="play__icon" aria-hidden="true"></span><span class="play__label">Play</span></button>
+        <label class="field field--year"><span>Year <output id="ch-year-out" for="ch-year">2023</output></span>
+          <input type="range" id="ch-year" min="2011" max="2023" step="1" value="2023"></label>
+      </div>
+    </div>
+
+    <div class="chamber__grid">
+      <figure class="chamber__fig">
+        <div id="hemicycle" class="chart chart--hemi" role="img"></div>
+        <figcaption class="hemi-key"><span class="key key--w" aria-hidden="true"></span>Women <span class="key key--m" aria-hidden="true"></span>Men <span class="key key--par" aria-hidden="true"></span>Half the seats</figcaption>
+      </figure>
+      <div class="chamber__read">
+        <p class="read__body" id="ch-name"></p>
+        <p class="read__big"><span id="ch-share">–</span><span class="read__unit">women</span></p>
+        <p class="read__count" id="ch-count" aria-live="polite"></p>
+        <dl class="read__facts">
+          <div><dt>Seats short of half</dt><dd id="ch-gap">–</dd></div>
+          <div><dt>First year in the series</dt><dd id="ch-first">–</dd></div>
+        </dl>
+        <p class="note" id="ch-note"></p>
+        <details class="table-view">
+          <summary>Show every year as a table</summary>
+          <div id="ch-table" class="table-scroll"></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap hero-kpis" aria-label="Headline numbers">
 
     <dl class="kpis" id="kpis" aria-label="Headline numbers, computed from EIGE headcounts">
       <div class="kpi">
@@ -61,9 +118,9 @@
     <p class="note">Every figure on this page is computed in your browser as <em>women &divide; total &times; 100</em> from EIGE headcounts, and matches EIGE's own &ldquo;percent of total&rdquo; to one decimal. <a href="#method-calc">How the numbers are made</a>.</p>
   </section>
 
-  <!-- 01 — Approach -->
+  <!-- 02 — Approach -->
   <section class="sec wrap" id="about" aria-labelledby="about-h">
-    <div class="sec__label"><span class="num">01</span><h2 id="about-h">Approach</h2></div>
+    <div class="sec__label"><span class="num">02</span><h2 id="about-h">Approach</h2></div>
     <div class="sec__body">
       <p class="lede">wipEU looks at how the presence of women in positions of power and decision-making in the EU relates across different roles, and how that relationship has changed over time.</p>
       <p>The project examines the factors that shape who holds influence in the EU, with an emphasis on how these dynamics develop across different periods: progress, persistent gaps and the trends behind them. The aim is to add evidence to discussions, policies and actions for gender equity in European decision-making. Alongside the research question, the project examines open data itself: its quality, legality, ethics and technical form.</p>
@@ -78,9 +135,9 @@
     </div>
   </section>
 
-  <!-- 02 — Findings -->
+  <!-- 03 — Findings -->
   <section class="sec wrap" id="findings" aria-labelledby="findings-h">
-    <div class="sec__label"><span class="num">02</span><h2 id="findings-h">Findings</h2></div>
+    <div class="sec__label"><span class="num">03</span><h2 id="findings-h">Findings</h2></div>
     <div class="sec__body sec__body--wide">
       <h3 class="statement">Every area moved towards parity. None reached it.</h3>
       <p class="lede">Share of women in one headline role per area, EU level. The line at 50% marks parity.</p>
@@ -104,9 +161,28 @@
     </div>
   </section>
 
-  <!-- 03 — Map -->
+  <!-- 04 — Pace to parity -->
+  <section class="sec wrap" id="pace" aria-labelledby="pace-h">
+    <div class="sec__label"><span class="num">04</span><h2 id="pace-h">Pace to parity</h2></div>
+    <div class="sec__body sec__body--wide">
+      <h3 class="statement">If the last ten years simply continued.</h3>
+      <p class="lede">A projection, not a prediction: the year each headline series would cross 50% if it kept the average yearly change of its last ten published years.</p>
+      <div class="pace" id="pace-list" role="list"></div>
+      <details class="table-view">
+        <summary>Show the projection as a table</summary>
+        <div id="pace-table" class="table-scroll"></div>
+      </details>
+      <div class="caveat">
+        <h3 class="h3">How the projection is made, and why to distrust it</h3>
+        <p><strong>Method.</strong> For each series we take the last ten years EIGE published (fewer where the series is shorter: research funding starts in 2017), fit an ordinary least-squares straight line to the yearly share of women, and solve for the year the line reaches 50%. The dashed line in each panel is that fit, extended. Where the slope is zero or negative the answer is &ldquo;not reached&rdquo;. Projections stop at 2100.</p>
+        <p><strong>Limits.</strong> Appointments come in waves, bodies change size, and a straight line has no reason to hold: the fit ignores elections, quotas and mandates. The research funding series jumps in 2018 when EIGE's coverage grew from 628 to 841 board members. Treat each year as a way of describing the recent pace, not as a forecast.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 — Map -->
   <section class="sec wrap" id="map" aria-labelledby="map-h">
-    <div class="sec__label"><span class="num">03</span><h2 id="map-h">Across Europe</h2></div>
+    <div class="sec__label"><span class="num">05</span><h2 id="map-h">Across Europe</h2></div>
     <div class="sec__body sec__body--wide">
       <p class="lede">Three datasets are reported country by country. Choose one, a role and a year.</p>
 
@@ -136,14 +212,53 @@
           <div id="rank" class="chart"></div>
         </figure>
       </div>
-      <p class="note" id="map-note">Grey countries have no value for the selected year: they are outside EIGE's coverage, or EIGE did not publish the figure. The United Kingdom and non-EU EEA and candidate countries are included where EIGE reports them. Many country-level bodies are small (a country may have three to eight major parties, or two or three senior ministers), so one appointment can move its share by twenty points or more. Hover a country or a row, or focus the ranked list and use the arrow keys, for headcounts.</p>
+      <p class="note" id="map-note">Grey countries have no value for the selected year: they are outside EIGE's coverage, or EIGE did not publish the figure. The United Kingdom and non-EU EEA and candidate countries are included where EIGE reports them. Many country-level bodies are small (a country may have three to eight major parties, or two or three senior ministers), so one appointment can move its share by twenty points or more. Hover a country or a row, or focus the ranked list and use the arrow keys, for headcounts. Click a country, or press Enter on a row, to open its profile. The address bar keeps the dataset, role and year, so a view can be shared.</p>
       <div id="map-desc" class="ds-desc"></div>
+
+      <div class="movers">
+        <div class="movers__head">
+          <h3 class="h3" id="movers-h">Biggest movers</h3>
+          <p class="note" id="movers-note"></p>
+        </div>
+        <div class="movers__cols">
+          <figure><figcaption class="fig-cap">Largest rises</figcaption><div id="movers-up" class="chart"></div></figure>
+          <figure><figcaption class="fig-cap">Largest falls</figcaption><div id="movers-down" class="chart"></div></figure>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- 04 — Institutions -->
+  <!-- 06 — Country profiles -->
+  <section class="sec wrap" id="countries" aria-labelledby="countries-h">
+    <div class="sec__label"><span class="num">06</span><h2 id="countries-h">Country profiles</h2></div>
+    <div class="sec__body sec__body--wide">
+      <p class="lede">One country across the three country-level datasets, against the EU-27 and parity. Click a country on the map, or search for one here. Add a second country to compare.</p>
+      <div class="controls" role="group" aria-label="Country profile filters">
+        <label class="field field--search"><span>Country</span>
+          <input type="search" id="cp-country" list="cp-list" autocomplete="off" spellcheck="false" placeholder="Type a name, e.g. Italy"></label>
+        <label class="field field--search"><span>Compare with <span class="muted">(optional)</span></span>
+          <input type="search" id="cp-compare" list="cp-list" autocomplete="off" spellcheck="false" placeholder="e.g. France"></label>
+        <datalist id="cp-list"></datalist>
+        <button type="button" class="btn btn--quiet" id="cp-share">Copy link to this profile</button>
+      </div>
+      <p class="cp-status" id="cp-status" aria-live="polite"></p>
+      <div class="cp" id="cp" hidden>
+        <div class="cp__head">
+          <h3 class="cp__name" id="cp-name"></h3>
+          <p class="fig-cap" id="cp-key"></p>
+        </div>
+        <div class="cp__grid" id="cp-grid"></div>
+        <details class="table-view">
+          <summary>Show the profile as a table</summary>
+          <div id="cp-table" class="table-scroll"></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 — Institutions -->
   <section class="sec wrap" id="institutions" aria-labelledby="inst-h">
-    <div class="sec__label"><span class="num">04</span><h2 id="inst-h">Inside EU institutions</h2></div>
+    <div class="sec__label"><span class="num">07</span><h2 id="inst-h">Inside EU institutions</h2></div>
     <div class="sec__body sec__body--wide">
       <p class="lede">Three datasets describe EU-level bodies rather than countries. Pick a body and a role to follow the share of women over time.</p>
 
@@ -172,15 +287,17 @@
     </div>
   </section>
 
-  <!-- 05 — Method -->
+  <!-- 08 — Method -->
   <section class="sec wrap" id="method" aria-labelledby="method-h">
-    <div class="sec__label"><span class="num">05</span><h2 id="method-h">Method &amp; analyses</h2></div>
+    <div class="sec__label"><span class="num">08</span><h2 id="method-h">Method &amp; analyses</h2></div>
     <div class="sec__body">
       <h3 class="h3" id="method-calc">How the numbers are made</h3>
       <ol class="steps">
         <li><strong>Source.</strong> Six datasets downloaded in January 2024 from the <em>Women and men in decision-making</em> section of EIGE's <a href="https://eige.europa.eu/gender-statistics/dgs">Gender Statistics Database</a>, as .csv and .json. Each was split into women, men and total tables: 18 source files.</li>
         <li><strong>Share.</strong> For every body, role and year: share of women = women &divide; total headcount &times; 100, rounded half up to one decimal. The script <a href="scripts/build_web_data.py"><code>scripts/build_web_data.py</code></a> checks each value against EIGE's published percentage: all match.</li>
         <li><strong>Change.</strong> The difference between two shares, in percentage points (pts), for example 26.8% &minus; 16.0% = +10.8 pts.</li>
+        <li><strong>Seats.</strong> The chamber draws one dot for every person in EIGE's headcount for that body and year; it adds nothing and rounds nothing. &ldquo;Seats short of half&rdquo; is the number of extra women needed for women to hold at least half: &lceil;total &divide; 2&rceil; &minus; women.</li>
+        <li><strong>Movers.</strong> The change in share, in points, between the first year most countries have data for the chosen role (18 or more) and the selected year, for countries with values in both years.</li>
         <li><strong>EU level.</strong> Country datasets use EIGE's <em>EU-27 (from 2020)</em> aggregate. Institution datasets use EIGE's <em>Total</em> across bodies; the Court of Justice series uses the European Court of Justice alone.</li>
       </ol>
 
@@ -210,9 +327,9 @@
     </div>
   </section>
 
-  <!-- 06 — Data -->
+  <!-- 09 — Data -->
   <section class="sec wrap" id="data" aria-labelledby="data-h">
-    <div class="sec__label"><span class="num">06</span><h2 id="data-h">Data &amp; downloads</h2></div>
+    <div class="sec__label"><span class="num">09</span><h2 id="data-h">Data &amp; downloads</h2></div>
     <div class="sec__body sec__body--wide">
       <h3 class="h3">Source datasets</h3>
       <dl class="common">
@@ -268,9 +385,9 @@
     </div>
   </section>
 
-  <!-- 07 — Credits -->
+  <!-- 10 — Credits -->
   <section class="sec wrap" id="credits" aria-labelledby="credits-h">
-    <div class="sec__label"><span class="num">07</span><h2 id="credits-h">Credits</h2></div>
+    <div class="sec__label"><span class="num">10</span><h2 id="credits-h">Credits</h2></div>
     <div class="sec__body sec__body--wide">
       <ul class="team">
         <li>
@@ -309,7 +426,7 @@
             <dt>Mashup datasets</dt><dd>CC BY 4.0 International</dd>
             <dt>Code</dt><dd><a href="LICENSE.md">MIT</a></dd>
             <dt>Charts</dt><dd>D3.js, ISC licence, Mike Bostock</dd>
-            <dt>Typeface</dt><dd>Instrument Sans, SIL Open Font Licence</dd>
+            <dt>Typefaces</dt><dd>Newsreader (Production Type) and Public Sans (USWDS), SIL Open Font Licence</dd>
             <dt>Earlier version</dt><dd>Built on the HTML5 template &ldquo;Bizland&rdquo; by <a href="https://bootstrapmade.com/">BootstrapMade</a> (MIT), with Leaflet (BSD 2-Clause, &copy; 2010–2023 Volodymyr Agafonkin, &copy; 2010–2011 CloudMade) and Plotly.js (MIT, &copy; 2021 Plotly, Inc.)</dd>
           </dl>
         </div>
