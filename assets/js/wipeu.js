@@ -240,7 +240,8 @@
     const lift = dotR + 6;
     svg.select(".midline").attr("x1", cx).attr("x2", cx).attr("y1", cy - R * r0 + dotR + 4).attr("y2", cy - R - lift + 2);
     svg.select(".mid-t").attr("x", cx).attr("y", cy - R - lift - 4);
-    svg.select(".yr").attr("x", cx).attr("y", cy - 22).style("font-size", Math.round(Math.min(64, R * r0 * 0.62)) + "px").text(d.y);
+    const yrSize = Math.round(Math.min(64, R * r0 * 0.42));
+    svg.select(".yr").attr("x", cx).attr("y", cy - 8 - Math.max(13, yrSize * 0.32)).style("font-size", yrSize + "px").text(d.y);
     svg.select(".yr-sub").attr("x", cx).attr("y", cy - 2).text(`${d.w} of ${d.t} seats`);
     const move = animate && !reduced();
     const sel = svg.select(".seats").selectAll("circle").data(seats, (q, i) => i);
@@ -775,6 +776,7 @@
     svg.append("g").selectAll("text").data(xt).join("text").attr("x", x).attr("y", H - 4).attr("text-anchor", (d, i) => (i === 0 ? "start" : i === xt.length - 1 ? "end" : "middle")).text((d) => d);
     svg.append("line").attr("class", "base").attr("x1", m.l).attr("x2", W - m.r).attr("y1", y(0)).attr("y2", y(0));
     svg.append("line").attr("class", "parity").attr("x1", m.l).attr("x2", W - m.r).attr("y1", y(PARITY)).attr("y2", y(PARITY));
+    svg.append("text").attr("class", "parity-t").attr("x", m.l + 4).attr("y", y(PARITY) - 5).text("Parity");
     const ln = d3.line().x((d) => x(d.y)).y((d) => y(d.p));
     lines.slice().reverse().forEach((l) => {
       svg.append("path").attr("class", "ln" + l.cls).attr("d", ln(l.s));
