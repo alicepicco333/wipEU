@@ -167,28 +167,31 @@
     const host = $("#dumbbell");
     const rows = DATA.areas.map((a) => {
       const s = series(a.ds, a.pos, a.key);
-      return { a, from: at(s, 2017), to: latest(s) };
+      const from = at(s, 2017), to = latest(s);
+      return { a, from, to, d: halfUp(to.p) - halfUp(from.p) };
     }).sort((p, q) => q.to.p - p.to.p);
     const draw = (W) => {
-      const rowH = 58, m = { l: 0, r: 12, t: 6, b: 24 }, H = m.t + rows.length * rowH + m.b;
+      const narrow = W < 520, rowH = narrow ? 74 : 58, ty = narrow ? 52 : 36, m = { l: 0, r: 12, t: 6, b: 24 }, H = m.t + rows.length * rowH + m.b;
       const x = d3.scaleLinear().domain([0, 60]).range([m.l + 4, W - m.r]);
       host.replaceChildren();
       const svg = d3.select(host).append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("width", W).attr("height", H);
-      svg.append("g").attr("class", "grid").selectAll("line").data([0, 10, 20, 30, 40, 60]).join("line")
-        .attr("x1", x).attr("x2", x).attr("y1", m.t).attr("y2", H - m.b);
-      svg.append("g").selectAll("text").data([0, 10, 20, 30, 40, 50, 60]).join("text").attr("x", x).attr("y", H - 6).attr("text-anchor", "middle").text((d) => d + "%");
-      svg.append("line").attr("class", "parity").attr("x1", x(PARITY)).attr("x2", x(PARITY)).attr("y1", m.t).attr("y2", H - m.b);
+      rows.forEach((r, i) => {
+        const y0 = m.t + i * rowH + ty - 10, y1 = m.t + i * rowH + ty + 10;
+        svg.append("g").attr("class", "grid").selectAll("line").data([0, 10, 20, 30, 40, 60]).join("line").attr("x1", x).attr("x2", x).attr("y1", y0).attr("y2", y1);
+        svg.append("line").attr("class", "parity").attr("x1", x(PARITY)).attr("x2", x(PARITY)).attr("y1", y0).attr("y2", y1);
+      });
+      svg.append("g").selectAll("text").data([0, 10, 20, 30, 40, 60]).join("text").attr("x", x).attr("y", H - 6).attr("text-anchor", "middle").text((d) => d + "%");
       const g = svg.append("g").selectAll("g").data(rows).join("g").attr("transform", (d, i) => `translate(0,${m.t + i * rowH})`);
       g.append("text").attr("class", "t-ink").attr("x", 0).attr("y", 16).style("font-size", "14px").style("font-weight", 600).text((d) => d.a.area);
-      g.append("text").attr("x", W - m.r).attr("y", 16).attr("text-anchor", "end").style("font-size", "13px")
-        .text((d) => `${f1(d.from.p)}% → ${f1(d.to.p)}%${d.to.y !== 2023 ? " (" + d.to.y + ")" : ""}  ${pts(d.to.p - d.from.p)}`);
-      g.append("line").attr("class", "bar-link").attr("x1", (d) => x(d.from.p)).attr("x2", (d) => x(d.to.p)).attr("y1", 36).attr("y2", 36);
-      g.append("circle").attr("class", "dot-from").attr("r", 6).attr("cx", (d) => x(d.from.p)).attr("cy", 36);
-      g.append("circle").attr("class", "dot-to").attr("r", 6).attr("cx", (d) => x(d.to.p)).attr("cy", 36);
+      g.append("text").attr("x", narrow ? 0 : W - m.r).attr("y", narrow ? 33 : 16).attr("text-anchor", narrow ? "start" : "end").style("font-size", "13px")
+        .text((d) => `${f1(d.from.p)}% → ${f1(d.to.p)}%${d.to.y !== 2023 ? " (" + d.to.y + ")" : ""}  ${pts(d.d)}`);
+      g.append("line").attr("class", "bar-link").attr("x1", (d) => x(d.from.p)).attr("x2", (d) => x(d.to.p)).attr("y1", ty).attr("y2", ty);
+      g.append("circle").attr("class", "dot-from").attr("r", 6).attr("cx", (d) => x(d.from.p)).attr("cy", ty);
+      g.append("circle").attr("class", "dot-to").attr("r", 6).attr("cx", (d) => x(d.to.p)).attr("cy", ty);
       g.append("rect").attr("x", 0).attr("y", 0).attr("width", W).attr("height", rowH).attr("fill", "transparent")
-        .on("pointermove", (ev, d) => showTip([pts(d.to.p - d.from.p), `2017: ${f1(d.from.p)}% (${d.from.w}/${d.from.t})`, `${d.to.y}: ${f1(d.to.p)}% (${d.to.w}/${d.to.t})`, d.a.label], ev.clientX, ev.clientY))
+        .on("pointermove", (ev, d) => showTip([pts(d.d), `2017: ${f1(d.from.p)}% (${d.from.w}/${d.from.t})`, `${d.to.y}: ${f1(d.to.p)}% (${d.to.w}/${d.to.t})`, d.a.label], ev.clientX, ev.clientY))
         .on("pointerleave", hideTip);
-      svg.append("text").attr("class", "parity-t").attr("x", x(PARITY) + 4).attr("y", H - m.b - 4).text("Parity");
+      svg.append("text").attr("class", "parity-t").attr("x", x(PARITY)).attr("y", H - 6).attr("text-anchor", "middle").style("font-weight", 600).text("50% parity");
     };
     onResize(host, draw);
     host.setAttribute("aria-label", "Share of women, 2017 and latest year: " + rows.map((d) => `${d.a.area} ${f1(d.from.p)}% to ${f1(d.to.p)}% (${d.to.y})`).join("; ") + ".");
@@ -200,6 +203,13 @@
     D6: ["D6 — Major political parties: leaders and deputy leaders", "The gender distribution of leaders of the major political parties in each country: who is at the helm of the parties that shape political leadership in the EU."],
     D4: ["D4 — National ministries dealing with environment and climate change", "The gender composition of ministers and senior administrators in the national ministries responsible for environment and climate policy: the people who shape and implement climate action in each country. EIGE has published this series up to 2022."],
     D3: ["D3 — Research funding organisations: presidents and members", "The gender distribution among presidents and board members of the organisations that fund research in each country, pivotal to advancing scientific knowledge and innovation. EIGE has no 2023 data for some countries."],
+  };
+  const ROLE_PLURAL = {
+    PRES_PART: "leaders of major political parties", PRES_DEP_PART: "deputy leaders of major political parties",
+    MEMB_GOV: "members of government in environment and climate ministries", MEMB_GOV_SEN: "senior ministers for environment and climate",
+    MEMB_GOV_JUN: "junior ministers for environment and climate", ADMIN: "senior administrators in environment and climate ministries",
+    ADMIN_L1: "level 1 administrators in environment and climate ministries", ADMIN_L2: "level 2 administrators in environment and climate ministries",
+    MEMB_HDM: "board members of research funding organisations", PRES_CHAIR: "presidents or chairs of research funding organisations",
   };
   const BINS = [10, 20, 30, 40, 50];
   const bin = (p) => { let i = 0; while (i < BINS.length && p >= BINS[i]) i++; return i; };
@@ -291,7 +301,7 @@
 
   function caption(vals) {
     const eu = at(series(mapState.ds, mapState.pos, "EU27_2020"), mapState.year);
-    const role = DATA.datasets[mapState.ds].positions[mapState.pos].replace(/^Members of the government: /, "").toLowerCase();
+    const role = ROLE_PLURAL[mapState.pos] || DATA.datasets[mapState.ds].positions[mapState.pos].toLowerCase();
     const list = [...vals.values()];
     const none = list.filter((v) => v.w === 0).length;
     const top = list.slice().sort((a, b) => b.p - a.p || a.name.localeCompare(b.name));
@@ -310,10 +320,11 @@
     const W = host.clientWidth || 360;
     const from = mapState.year > 2017 ? mapValues(2017) : null;
     $("#rank-to").textContent = mapState.year;
-    $("#rank-from").textContent = from ? "2017" : "(no comparison before 2018)";
+    $("#rank-from").textContent = from ? "2017" : "(2017 comparison shown from 2018 on)";
+    document.querySelector(".rankfig .key--from").style.visibility = from ? "" : "hidden";
     const rows = [...vals.values()].sort((a, b) => b.p - a.p || a.name.localeCompare(b.name));
     const eu = at(series(mapState.ds, mapState.pos, "EU27_2020"), mapState.year);
-    const rowH = 22, nameW = Math.min(150, Math.max(104, W * 0.3)), valW = 46, m = { t: 4, b: 22 };
+    const rowH = 22, nameW = W > 420 ? 168 : 128, valW = 46, m = { t: 4, b: 22 };
     const H = m.t + rows.length * rowH + m.b;
     const x = d3.scaleLinear().domain([0, 100]).range([nameW + 6, W - valW - 8]);
     host.replaceChildren();
@@ -327,7 +338,7 @@
     const g = svg.selectAll("g.row").data(rows).join("g").attr("class", (d) => "row" + (mapState.hot === d.k ? " is-hot" : "")).attr("data-k", (d) => d.k)
       .attr("transform", (d, i) => `translate(0,${m.t + i * rowH})`);
     g.append("rect").attr("class", "row-hit").attr("x", 0).attr("y", 0).attr("width", W).attr("height", rowH);
-    g.append("text").attr("class", "t-ink").attr("x", 0).attr("y", 15).style("font-size", "13px").text((d) => d.name.length > 22 ? d.name.slice(0, 21) + "…" : d.name);
+    g.append("text").attr("class", "t-ink").attr("x", 0).attr("y", 15).style("font-size", "13px").text((d) => d.name.length > (W > 420 ? 24 : 17) ? d.name.slice(0, W > 420 ? 23 : 16) + "…" : d.name);
     g.append("text").attr("class", "t-ink").attr("x", W).attr("y", 15).attr("text-anchor", "end").style("font-size", "13px").text((d) => f1(d.p) + "%");
     g.each(function (d) {
       const row = d3.select(this), f = from && from.get(d.k);
@@ -414,7 +425,7 @@
     const box = $("#inst-desc");
     box.replaceChildren(el("h3", null, name), el("p", null, desc[ent] || desc._));
     const last = latest(s);
-    box.appendChild(el("p", "muted", `${last.y}: ${last.w} women of ${last.t} (${f1(last.p)}%). Small bodies change in large steps: one appointment in a group of three moves the share by 33 points.`));
+    box.appendChild(el("p", "muted", `${last.y}: ${last.w} women of ${last.t} (${f1(last.p)}%).` + (last.t <= 10 ? ` In a body of ${last.t}, one appointment moves the share by ${f1(100 / last.t)} points.` : "")));
     $("#inst-table").replaceChildren(table(["Year", "Women", "Total", "Share of women"], s.map((d) => [String(d.y), String(d.w), String(d.t), f1(d.p) + "%"])));
   }
 

@@ -265,6 +265,7 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
   .doc { grid-template-columns: 1fr; }
   .kpis { grid-template-columns: 1fr; }
   .kpi dt { min-height: 0; }
+  .field, .field select { width: 100%; }
   .seg span { font-size: 14px; padding: 8px 10px; }
   .team { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .team li:last-child { grid-column: 1 / -1; max-width: calc(50% - 8px); }
