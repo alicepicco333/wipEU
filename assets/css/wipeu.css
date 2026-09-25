@@ -266,6 +266,12 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
   .kpis { grid-template-columns: 1fr; }
   .kpi dt { min-height: 0; }
   .field, .field select { width: 100%; }
+  .dstable thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .dstable, .dstable tbody, .dstable tr, .dstable th, .dstable td { display: block; width: 100%; }
+  .dstable tr { border-top: 1px solid var(--ink); padding: 10px 0 14px; }
+  .dstable th, .dstable td { border: 0; padding: 3px 0; }
+  .dstable td:nth-child(2) { min-width: 0; }
+  .dstable td[data-label]:not(:nth-child(2))::before { content: attr(data-label); display: block; font-size: 12px; color: var(--muted); }
   .seg span { font-size: 14px; padding: 8px 10px; }
   .team { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .team li:last-child { grid-column: 1 / -1; max-width: calc(50% - 8px); }
