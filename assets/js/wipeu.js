@@ -1,6 +1,6 @@
 /* wipEU — charts. Data: data/web/wipeu.json (built by scripts/build_web_data.py from the EIGE
    exports in datav/ and databar/). Share of women = women / total headcount * 100.
-   Every colour is a CSS custom property, so a theme switch re-colours every chart without JS. */
+   Every colour is a CSS custom property, so every chart takes the dark theme from the stylesheet. */
 (function () {
   "use strict";
 
@@ -15,20 +15,6 @@
   const EU27 = ["AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE"];
 
   let DATA, GEO;
-
-  /* ---------- theme switch (auto / light / dark) ---------- */
-  function setupTheme() {
-    const root = document.documentElement;
-    let saved = "auto";
-    try { saved = localStorage.getItem("wipeu-theme") || "auto"; } catch (e) { /* storage blocked */ }
-    const radios = $$('input[name="theme"]');
-    radios.forEach((r) => { r.checked = r.value === saved; });
-    radios.forEach((r) => r.addEventListener("change", () => {
-      if (!r.checked) return;
-      if (r.value === "auto") root.removeAttribute("data-theme"); else root.setAttribute("data-theme", r.value);
-      try { if (r.value === "auto") localStorage.removeItem("wipeu-theme"); else localStorage.setItem("wipeu-theme", r.value); } catch (e) { /* storage blocked */ }
-    }));
-  }
 
   /* ---------- data access ---------- */
   function series(ds, pos, key) {
@@ -687,11 +673,6 @@
       inp.addEventListener("keydown", (ev) => { if (ev.key === "Enter") { ev.preventDefault(); commit(inp, which); } });
       inp.addEventListener("input", () => { const k = find(inp.value); if (k && [...COUNTRIES.values()].some((n) => n === inp.value)) commit(inp, which); if (which === "b" && inp.value === "") { cpState.b = null; renderProfile(); url.write(); } });
     });
-    $("#cp-share").addEventListener("click", async () => {
-      url.write();
-      try { await navigator.clipboard.writeText(location.href); $("#cp-status").textContent = "Link copied to the clipboard."; }
-      catch (e) { $("#cp-status").textContent = "Copy the address from the address bar: it holds this view."; }
-    });
     onResize($("#cp-grid"), () => renderProfile());
   }
   function openProfile(k, o = {}) {
@@ -870,7 +851,6 @@
   }
 
   /* ---------- boot ---------- */
-  setupTheme();
   Promise.all([
     fetch("data/web/wipeu.json").then((r) => r.json()),
     fetch("data/web/europe.min.geojson").then((r) => r.json()),
