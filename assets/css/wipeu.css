@@ -1,5 +1,5 @@
 /* wipEU — "the chamber". Editorial serif (Newsreader) for display, Public Sans for UI and small text.
-   Paper and EU navy; women in a warm amber, men in a mid navy. Palettes validated with the dataviz
+   Paper and EU navy; women in rose, men in a mid navy, the comparison country in teal. Palettes validated with the dataviz
    skill's validate_palette.js (categorical, ordinal ramps) in both themes. */
 :root {
   color-scheme: light;
@@ -13,13 +13,13 @@
   --grid: #e0ddd2;
   --accent: #1d3c8f;         /* EU navy: links, focus, 9.0:1 */
   --accent-ink: #ffffff;     /* 10.0:1 on --accent */
-  --women: #b85a0d;          /* amber, 4.2:1 as a mark */
+  --women: #c2336b;          /* rose */
   --men: #34529c;            /* navy, 6.7:1 */
-  --cmp: #804699;            /* comparison country, plum */
+  --cmp: #008a7e;            /* comparison country, teal */
   --ref: #394257;            /* EU-27 reference line */
   --nodata: #dcd9cf;
-  --seq-0: #e09e62; --seq-1: #cc7f32; --seq-2: #b36300;
-  --seq-3: #944c00; --seq-4: #733900; --seq-5: #502900;
+  --seq-0: #eba3bd; --seq-1: #dc7699; --seq-2: #c74d7a;
+  --seq-3: #a8325e; --seq-4: #832147; --seq-5: #5c1231;
   --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
   --sans: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --gut: 24px;
@@ -31,10 +31,10 @@
     --bg: #0f1424; --bg-2: #182036; --ink: #eef0f6; --ink-2: #c4cad8; --muted: #9aa3b8;
     --rule: #2c3550; --rule-strong: #c4cad8; --grid: #1f2740;
     --accent: #a9bdf5; --accent-ink: #0f1424;
-    --women: #d9782b; --men: #7390dc; --cmp: #b078c9; --ref: #c4cad8;
+    --women: #d85b8e; --men: #7390dc; --cmp: #1fa192; --ref: #c4cad8;
     --nodata: #232b42;
-    --seq-0: #6f451c; --seq-1: #935714; --seq-2: #b66c18;
-    --seq-3: #d2863a; --seq-4: #e7a468; --seq-5: #f6c49a;
+    --seq-0: #5c1231; --seq-1: #832147; --seq-2: #a8325e;
+    --seq-3: #c74d7a; --seq-4: #dc7699; --seq-5: #f0b3c8;
   }
 }
 :root[data-theme="dark"] {
@@ -42,10 +42,10 @@
   --bg: #0f1424; --bg-2: #182036; --ink: #eef0f6; --ink-2: #c4cad8; --muted: #9aa3b8;
   --rule: #2c3550; --rule-strong: #c4cad8; --grid: #1f2740;
   --accent: #a9bdf5; --accent-ink: #0f1424;
-  --women: #d9782b; --men: #7390dc; --cmp: #b078c9; --ref: #c4cad8;
+  --women: #d85b8e; --men: #7390dc; --cmp: #1fa192; --ref: #c4cad8;
   --nodata: #232b42;
-  --seq-0: #6f451c; --seq-1: #935714; --seq-2: #b66c18;
-  --seq-3: #d2863a; --seq-4: #e7a468; --seq-5: #f6c49a;
+  --seq-0: #5c1231; --seq-1: #832147; --seq-2: #a8325e;
+  --seq-3: #c74d7a; --seq-4: #dc7699; --seq-5: #f0b3c8;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -90,7 +90,12 @@ section[id], [id="method-calc"], [id="documentation"] { scroll-margin-top: 64px;
 .theme input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: -4px; }
 
 /* ---------- Hero ---------- */
-.hero { padding-top: clamp(32px, 4.5vw, 64px); padding-bottom: 0; }
+.hero { position: relative; padding-top: clamp(32px, 4.5vw, 64px); padding-bottom: 0; }
+.hero > :not(.hero__sym) { position: relative; z-index: 1; }
+.hero__sym { position: absolute; right: 0; top: clamp(8px, 2vw, 32px); width: clamp(110px, 20vw, 300px); height: auto; color: var(--women); opacity: 0.9; pointer-events: none; }
+.hero h1 .w { color: var(--women); }
+@media (max-width: 720px) { .hero__sym { position: static; display: block; width: 96px; margin-bottom: 20px; } }
+@media (min-width: 721px) { .hero h1, .hero .eyebrow, .hero__sub { padding-right: clamp(130px, 22vw, 330px); } }
 .eyebrow { font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
 .hero h1 {
   font: 450 clamp(2.1rem, 1rem + 3.3vw, 4.1rem)/1.04 var(--serif); letter-spacing: -0.018em;
