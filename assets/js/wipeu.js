@@ -217,7 +217,6 @@
       svg = d3.select(host).append("svg").attr("aria-hidden", "true");
       svg.append("g").attr("class", "seats");
       svg.append("line").attr("class", "midline");
-      svg.append("text").attr("class", "mid-t").attr("text-anchor", "middle").text("Half");
       svg.append("text").attr("class", "yr").attr("text-anchor", "middle");
       svg.append("text").attr("class", "yr-sub").attr("text-anchor", "middle");
       animate = false;
@@ -225,7 +224,6 @@
     svg.attr("data-w", W).attr("viewBox", `0 0 ${W} ${H}`).attr("width", W).attr("height", H);
     const lift = dotR + 6;
     svg.select(".midline").attr("x1", cx).attr("x2", cx).attr("y1", cy - R * r0 + dotR + 4).attr("y2", cy - R - lift + 2);
-    svg.select(".mid-t").attr("x", cx).attr("y", cy - R - lift - 4);
     const yrSize = Math.round(Math.min(64, R * r0 * 0.42));
     svg.select(".yr").attr("x", cx).attr("y", cy - 8 - Math.max(13, yrSize * 0.32)).style("font-size", yrSize + "px").text(d.y);
     svg.select(".yr-sub").attr("x", cx).attr("y", cy - 2).text(`${d.w} of ${d.t} seats`);
