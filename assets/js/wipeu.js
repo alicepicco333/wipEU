@@ -992,7 +992,8 @@
     const t = Math.abs(rho) < 1 ? Math.abs(rho) * Math.sqrt((n - 2) / (1 - rho * rho)) : Infinity;
     return { rho, n, pts: pts_, clear: t > (T_CRIT[n - 2] || 2.0) };
   }
-  const strength = (r) => { const a = Math.abs(r); return a < 0.2 ? "no clear relation" : a < 0.4 ? "weak" : a < 0.6 ? "moderate" : "strong"; };
+  const strength = (r) => { const a = Math.abs(r); return a < 0.2 ? "no link" : a < 0.4 ? "weak" : a < 0.6 ? "moderate" : "strong"; };
+  const clearTxt = (c) => (c.clear ? "clearly linked" : "could be a coincidence");
   const rhoTxt = (r) => (r >= 0 ? "+" : "−") + Math.abs(r).toFixed(2);
   const corrBin = (r) => { const a = Math.abs(r), s = r < 0 ? "n" : "p"; return a < 0.2 ? "c-0" : a < 0.4 ? `c-${s}1` : a < 0.6 ? `c-${s}2` : `c-${s}3`; };
   const corrState = { year: 2022, a: 4, b: 0 };
@@ -1058,10 +1059,11 @@
           if (!c) { td.appendChild(el("span", "corr-na", "–")); td.title = "No data for this year"; }
           else {
             pairsAll++; if (c.clear) pairsClear++;
-            const b = el("button", `corr-c ${corrBin(c.rho)}${c.clear ? " is-clear" : ""}${A.ds === B.ds ? " is-same" : ""}`, rhoTxt(c.rho));
+            const b = el("button", `corr-c ${corrBin(c.rho)}${c.clear ? " is-clear" : ""}${A.ds === B.ds ? " is-same" : ""}`);
+            b.append(el("span", null, rhoTxt(c.rho)), el("small", null, strength(c.rho)));
             b.type = "button"; b.dataset.i = i; b.dataset.j = j;
             b.setAttribute("aria-pressed", String(corrState.a === i && corrState.b === j));
-            b.setAttribute("aria-label", `${A.name} and ${B.name}, ${y}: rho ${rhoTxt(c.rho)}, ${strength(c.rho)}${c.clear ? ", stronger than chance" : ", could be chance"}, ${c.n} countries. Show the scatter plot.`);
+            b.setAttribute("aria-label", `${A.name} and ${B.name}, ${y}: match score ${rhoTxt(c.rho)}, ${strength(c.rho)}, ${clearTxt(c)}, ${c.n} countries. Show the countries.`);
             td.appendChild(b);
           }
         }
@@ -1091,11 +1093,12 @@
     CORR_ROLES.forEach((A, i) => CORR_ROLES.forEach((B, j) => { if (j < i && A.ds !== B.ds) { const c = corrPair(A, B, y); if (c) cross.push({ A, B, c }); } }));
     const pos = cross.filter((x) => x.c.clear && x.c.rho > 0), neg = cross.filter((x) => x.c.rho < -0.2);
     const top = cross.slice().sort((p, q) => q.c.rho - p.c.rho)[0];
+    const strongestNeg = neg.slice().sort((p, q) => p.c.rho - q.c.rho)[0];
     $("#corr-summary").textContent = cross.length
-      ? `In ${y}, ${pos.length} of ${cross.length} pairs of roles from different areas line up more than chance would give` +
-        (top ? `; the closest is ${top.A.name.toLowerCase()} and ${top.B.name.toLowerCase()} (ρ ${rhoTxt(top.c.rho)})` : "") + ". " +
-        (neg.length ? `${neg.length === 1 ? "One pair runs" : cap1(neg.length) + " pairs run"} the other way: ${neg.map((x) => `${x.A.name.toLowerCase()} and ${x.B.name.toLowerCase()} (${rhoTxt(x.c.rho)})`).join("; ")}.` : "")
-      : `In ${y}, too few roles are published to compare across areas.`;
+      ? `In ${y}, ${pos.length <= cross.length / 3 ? "only " : ""}${pos.length} of the ${cross.length} pairs of roles from different kinds of body are clearly linked.` +
+        (top && top.c.rho > 0.2 ? ` The strongest: countries with more women among ${top.A.name.toLowerCase()} also tend to have more women among ${top.B.name.toLowerCase()} (${rhoTxt(top.c.rho)}).` : "") +
+        (strongestNeg ? ` The opposite also happens: countries with more women among ${strongestNeg.A.name.toLowerCase()} tend to have fewer among ${strongestNeg.B.name.toLowerCase()} (${rhoTxt(strongestNeg.c.rho)}).` : "")
+      : `In ${y}, too few roles are published to compare different kinds of body.`;
     renderScatter();
   }
 
@@ -1104,7 +1107,8 @@
     const c = corrPair(A, B, y), host = $("#corr-scatter");
     if (!c) { host.replaceChildren(); return; }
     $("#corr-title").textContent = `${A.name} and ${B.name}, ${y}`;
-    $("#corr-rho").innerHTML = `ρ <b>${rhoTxt(c.rho)}</b> <span>${strength(c.rho)} · ${c.clear ? "stronger than chance" : "could be chance"} · ${c.n} countries</span>`;
+    $("#corr-rho").innerHTML = `Match score <b>${rhoTxt(c.rho)}</b> <span>${strength(c.rho)} · ${clearTxt(c)} · ${c.n} countries</span>`;
+    $("#corr-howto").textContent = `Each dot is a country. Further right: more women among ${A.name.toLowerCase()}. Higher up: more women among ${B.name.toLowerCase()}. If the dots rise from bottom left to top right, the two roles move together; a shapeless cloud means they don't.`;
     const dir = c.rho > 0 ? "more" : "fewer";
     $("#corr-read").textContent = Math.abs(c.rho) < 0.2
       ? `Knowing how many ${A.name.toLowerCase()} are women tells you almost nothing about the ${B.name.toLowerCase()}.`

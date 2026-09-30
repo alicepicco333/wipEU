@@ -381,7 +381,7 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
 .chart--hemi .gain.is-loss { fill: var(--muted); opacity: 0.22; }
 .key--front { width: 18px; height: 0; border-radius: 0; border-top: 2px dashed var(--ink); vertical-align: middle; margin-left: 14px; }
 
-.ladder-block { margin-top: 80px; }
+.ladder-block { margin-top: 120px; padding-top: 32px; border-top: 1px solid var(--rule); }
 .chart .lad-link { stroke: var(--women); stroke-width: 2; opacity: 0.55; }
 .chart .lad-link.is-small { stroke-dasharray: 4 3; }
 .chart .lad-lo { fill: var(--bg); stroke: var(--women); stroke-width: 2.5; }
@@ -393,8 +393,8 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
 table.corr-t { border-collapse: separate; border-spacing: 4px; min-width: 520px; }
 .corr-t thead th { font: 500 12.5px/1.25 var(--sans); color: var(--ink-2); vertical-align: bottom; text-align: center; padding: 0 2px 6px; width: 84px; }
 .corr-t tbody th { font: 500 14px/1.25 var(--sans); text-align: right; padding-right: 10px; white-space: nowrap; }
-.corr-t td { width: 84px; height: 50px; padding: 0; }
-.corr-c { width: 100%; height: 50px; border: 0; border-radius: 4px; font: 600 15px/1 var(--sans); font-variant-numeric: tabular-nums; color: var(--ink); cursor: pointer; background: var(--bg-2); }
+.corr-t td { width: 84px; height: 58px; padding: 0; }
+.corr-c { width: 100%; height: 58px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; border: 0; border-radius: 4px; font: 600 15px/1 var(--sans); font-variant-numeric: tabular-nums; color: var(--ink); cursor: pointer; background: var(--bg-2); }
 .corr-c.c-p1 { background: color-mix(in srgb, var(--pos) 35%, var(--bg-2)); }
 .corr-c.c-p2 { background: color-mix(in srgb, var(--pos) 60%, var(--bg-2)); }
 .corr-c.c-p3 { background: var(--pos); color: var(--bg); }
@@ -422,7 +422,11 @@ table.corr-t { border-collapse: separate; border-spacing: 4px; min-width: 520px;
 .chart .sc-dot { fill: var(--ink-2); stroke: var(--bg); stroke-width: 1.5; }
 .chart .sc-pt:hover .sc-dot, .chart .sc-dot.is-hot { fill: var(--accent); }
 .chart .sc-lbl { fill: var(--muted); font: 500 11px var(--sans); }
-#corr-summary { max-width: 48em; color: var(--ink-2); }
+.corr-summary { max-width: 46em; font-size: 17px; border-left: 3px solid var(--pos); padding: 2px 0 2px 14px; margin: 20px 0 8px; }
+.corr-c small { font: 500 11px/1 var(--sans); opacity: 0.85; }
+.howto-steps { max-width: 46em; margin: 8px 0 0; padding-left: 1.3em; color: var(--ink-2); }
+.howto-steps li { margin-bottom: 8px; }
+.howto-steps b { color: var(--ink); font-weight: 600; }
 
 @media (max-width: 900px) {
   .corr { grid-template-columns: minmax(0, 1fr); }
