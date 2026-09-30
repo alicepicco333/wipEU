@@ -24,6 +24,7 @@
       <ul class="nav">
         <li><a href="#chamber">Chamber</a></li>
         <li><a href="#findings">Findings</a></li>
+        <li><a href="#roles">Correlations</a></li>
         <li><a href="#pace">Pace</a></li>
         <li><a href="#map">Map</a></li>
         <li><a href="#countries">Countries</a></li>
@@ -58,6 +59,10 @@
       <fieldset class="seg seg--bodies" id="ch-body">
         <legend>Body</legend>
       </fieldset>
+      <div class="ch-where">
+        <label class="field"><span>Where</span><select id="ch-where"></select></label>
+        <button type="button" class="pill-btn" id="ch-compare" aria-pressed="false">Compare with <span id="ch-compare-y">2011</span></button>
+      </div>
       <div class="ch-time">
         <button type="button" class="play" id="ch-play" aria-pressed="false"><span class="play__icon" aria-hidden="true"></span><span class="play__label">Play</span></button>
         <label class="field field--year"><span>Year <output id="ch-year-out" for="ch-year">2023</output></span>
@@ -68,7 +73,7 @@
     <div class="chamber__grid">
       <figure class="chamber__fig">
         <div id="hemicycle" class="chart chart--hemi" role="img"></div>
-        <figcaption class="hemi-key"><span class="key key--w" aria-hidden="true"></span>Women <span class="key key--m" aria-hidden="true"></span>Men <span class="key key--par" aria-hidden="true"></span>Half the seats</figcaption>
+        <figcaption class="hemi-key"><span class="key key--w" aria-hidden="true"></span>Women <span class="key key--m" aria-hidden="true"></span>Men <span class="key key--par" aria-hidden="true"></span>Half the seats <span id="ch-front-key" hidden><span class="key key--front" aria-hidden="true"></span><span id="ch-front-txt"></span></span></figcaption>
       </figure>
       <div class="chamber__read">
         <p class="read__body" id="ch-name"></p>
@@ -150,12 +155,65 @@
           <div id="dumbbell" class="chart" role="img" aria-label="Dumbbell chart of the share of women in 2017 and in the latest year for six areas"></div>
         </figure>
       </div>
+
+      <div class="ladder-block">
+        <h3 class="statement">The higher the seat, the fewer the women.</h3>
+        <p class="lede" id="ladder-lede"></p>
+        <figure>
+          <figcaption class="fig-cap"><span class="key key--lo" aria-hidden="true"></span>Level below <span class="key key--hi" aria-hidden="true"></span>Top level <span class="key key--par" aria-hidden="true"></span>Parity</figcaption>
+          <div id="ladder" class="chart" role="img"></div>
+        </figure>
+        <details class="table-view">
+          <summary>Show the values as a table</summary>
+          <div id="ladder-table" class="table-scroll"></div>
+        </details>
+        <p class="note">Each row compares two levels of the same body in the latest year EIGE published both. Where the top level has only a handful of seats (the three EU financial institutions, the presidents of the EU courts), one appointment moves its share by 30 points or more; those rows are drawn with a dashed link.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 — Do the roles move together? -->
+  <section class="sec wrap" id="roles" aria-labelledby="roles-h">
+    <div class="sec__label"><span class="num">04</span><h2 id="roles-h">Do the roles move together?</h2></div>
+    <div class="sec__body sec__body--wide">
+      <h3 class="statement">Loosely, and not always in the same direction.</h3>
+      <p class="lede">This is the project's question. Six roles are reported country by country. For each pair, the EU-27 countries are ranked by the share of women in each role, and Spearman's &rho; measures how closely the two rankings agree: +1 is the same order, 0 no relation, &minus;1 the opposite order.</p>
+      <p id="corr-summary"></p>
+      <div class="controls" role="group" aria-label="Correlation controls">
+        <label class="field field--year"><span>Year <output id="corr-year-out" for="corr-year">2022</output></span>
+          <input type="range" id="corr-year" min="2017" max="2023" step="1" value="2022"></label>
+      </div>
+      <div class="corr">
+        <div class="corr__matrix">
+          <div id="corr-matrix" class="table-scroll"></div>
+          <div class="corr-key" aria-hidden="true">
+            <span class="corr-key__ramp"><i class="c-n3"></i><i class="c-n2"></i><i class="c-n1"></i><i class="c-0"></i><i class="c-p1"></i><i class="c-p2"></i><i class="c-p3"></i></span>
+            <span class="corr-key__lab"><span>&minus;1 opposite order</span><span>0</span><span>+1 same order</span></span>
+            <span class="corr-key__sig"><i></i>Outlined: stronger than chance alone would give (5% level)</span>
+          </div>
+        </div>
+        <figure class="corr__scatter">
+          <p class="read__body" id="corr-title"></p>
+          <p class="corr__rho" id="corr-rho"></p>
+          <p class="corr__read" id="corr-read" aria-live="polite"></p>
+          <div id="corr-scatter" class="chart" tabindex="0" role="img"></div>
+        </figure>
+      </div>
+      <details class="table-view">
+        <summary>Show every pair and year as a table</summary>
+        <div id="corr-table" class="table-scroll"></div>
+      </details>
+      <div class="caveat">
+        <h3 class="h3">How to read this, and its limits</h3>
+        <p>A rank correlation says whether countries line up in the same order, not whether one causes the other. With about 27 countries, only values beyond roughly &plusmn;0.38 are unlikely to come from chance alone; those cells are outlined.</p>
+        <p id="corr-caveat"></p>
+      </div>
     </div>
   </section>
 
   <!-- 04 — Pace to parity -->
   <section class="sec wrap" id="pace" aria-labelledby="pace-h">
-    <div class="sec__label"><span class="num">04</span><h2 id="pace-h">Pace to parity</h2></div>
+    <div class="sec__label"><span class="num">05</span><h2 id="pace-h">Pace to parity</h2></div>
     <div class="sec__body sec__body--wide">
       <h3 class="statement">If the last ten years simply continued.</h3>
       <p class="lede">A projection, not a prediction: the year each headline series would cross 50% if it kept the average yearly change of its last ten published years.</p>
@@ -174,7 +232,7 @@
 
   <!-- 05 — Map -->
   <section class="sec wrap" id="map" aria-labelledby="map-h">
-    <div class="sec__label"><span class="num">05</span><h2 id="map-h">Across Europe</h2></div>
+    <div class="sec__label"><span class="num">06</span><h2 id="map-h">Across Europe</h2></div>
     <div class="sec__body sec__body--wide">
       <p class="lede">Three datasets are reported country by country. Choose one, a role and a year.</p>
 
@@ -222,7 +280,7 @@
 
   <!-- 06 — Country profiles -->
   <section class="sec wrap" id="countries" aria-labelledby="countries-h">
-    <div class="sec__label"><span class="num">06</span><h2 id="countries-h">Country profiles</h2></div>
+    <div class="sec__label"><span class="num">07</span><h2 id="countries-h">Country profiles</h2></div>
     <div class="sec__body sec__body--wide">
       <p class="lede">One country across the three country-level datasets, against the EU-27 and parity. Click a country on the map, or search for one here. Add a second country to compare.</p>
       <div class="controls" role="group" aria-label="Country profile filters">
@@ -249,7 +307,7 @@
 
   <!-- 07 — Institutions -->
   <section class="sec wrap" id="institutions" aria-labelledby="inst-h">
-    <div class="sec__label"><span class="num">07</span><h2 id="inst-h">Inside EU institutions</h2></div>
+    <div class="sec__label"><span class="num">08</span><h2 id="inst-h">Inside EU institutions</h2></div>
     <div class="sec__body sec__body--wide">
       <p class="lede">Three datasets describe EU-level bodies rather than countries. Pick a body and a role to follow the share of women over time.</p>
 
@@ -273,14 +331,14 @@
             <div id="inst-table" class="table-scroll"></div>
           </details>
         </figure>
-        <aside class="instdesc" id="inst-desc" aria-live="polite"></aside>
+        <div class="instdesc" id="inst-desc" aria-live="polite"></div>
       </div>
     </div>
   </section>
 
   <!-- 08 — Method -->
   <section class="sec wrap" id="method" aria-labelledby="method-h">
-    <div class="sec__label"><span class="num">08</span><h2 id="method-h">Method &amp; analyses</h2></div>
+    <div class="sec__label"><span class="num">09</span><h2 id="method-h">Method &amp; analyses</h2></div>
     <div class="sec__body">
       <h3 class="h3" id="method-calc">How the numbers are made</h3>
       <ol class="steps">
@@ -296,7 +354,7 @@
       <p>The team built two mashups, separated by the parameter that organises them. <strong>MD1</strong> joins the country-level data (space): countries are the rows, suited to maps and spatial analysis. <strong>MD2</strong> joins the organisation-level data (time): EU agencies and bodies are the rows, suited to timelines and change over time. Keeping them apart let each follow its own structure and visualisation technique, geoJSON and choropleths for one and temporal charts for the other, while leaving room to combine the spatial and temporal views of EU structures.</p>
 
       <h3 class="h3">Correlations and clusters</h3>
-      <p>Correlation measures how strongly two variables change together; it does not imply causation. The team used Spearman's rank correlation, which captures monotonic relationships without assuming a straight line. Clustering groups data points with similar characteristics, here countries and agencies with similar temporal patterns. The <a href="#documentation">documentation</a> reports high correlations within the same category across years, varied correlations between categories in the same year, and some negative year-to-year correlations, where a rise in one category coincides with a fall in another.</p>
+      <p>Correlation measures how strongly two variables change together; it does not imply causation. The team used Spearman's rank correlation, which captures monotonic relationships without assuming a straight line. Clustering groups data points with similar characteristics, here countries and agencies with similar temporal patterns. The <a href="#documentation">documentation</a> reports high correlations within the same category across years, varied correlations between categories in the same year, and some negative year-to-year correlations, where a rise in one category coincides with a fall in another. <a href="#roles">Section 04</a> recomputes the country-level correlations for every year, directly from the EIGE headcounts.</p>
       <div class="figs">
         <figure><img src="technical_analysis/Correlations/output1.png" alt="Spearman correlation matrix for the country mashup MD1, 2017 to 2023, coloured from blue (low) to red (high)." loading="lazy" width="801" height="718"><figcaption>Spearman correlation matrix, MD1 (countries)</figcaption></figure>
         <figure><img src="technical_analysis/Correlations/output2.png" alt="Spearman correlation matrix for the agency mashup MD2, 2018 to 2023, with some near-zero and negative values between categories." loading="lazy" width="801" height="718"><figcaption>Spearman correlation matrix, MD2 (agencies)</figcaption></figure>
@@ -320,7 +378,7 @@
 
   <!-- 09 — Data -->
   <section class="sec wrap" id="data" aria-labelledby="data-h">
-    <div class="sec__label"><span class="num">09</span><h2 id="data-h">Data &amp; downloads</h2></div>
+    <div class="sec__label"><span class="num">10</span><h2 id="data-h">Data &amp; downloads</h2></div>
     <div class="sec__body sec__body--wide">
       <h3 class="h3">Source datasets</h3>
       <dl class="common">
@@ -378,7 +436,7 @@
 
   <!-- 10 — Credits -->
   <section class="sec wrap" id="credits" aria-labelledby="credits-h">
-    <div class="sec__label"><span class="num">10</span><h2 id="credits-h">Credits</h2></div>
+    <div class="sec__label"><span class="num">11</span><h2 id="credits-h">Credits</h2></div>
     <div class="sec__body sec__body--wide">
       <ul class="team">
         <li>

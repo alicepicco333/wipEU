@@ -109,7 +109,8 @@
   /* ---------- the chamber: hemicycle, one dot per person ---------- */
   const CH_ORDER = ["politics", "environment", "research", "admin", "finance", "law"];
   const CH_SHORT = { politics: "Party leaders", environment: "Environment ministers", research: "Research boards", admin: "EU agency boards", finance: "EU finance boards", law: "Court of Justice" };
-  const chState = { id: "politics", year: 2023, playing: false, timer: 0, prevN: 0 };
+  const chState = { id: "politics", year: 2023, playing: false, timer: 0, prevN: 0, where: "", compare: false };
+  const COUNTRY_DS = ["D6", "D4", "D3"];   // datasets EIGE reports country by country
 
   /* Seat layout for N seats in `rows` concentric arcs (inner radius r0, outer 1).
      Seats are allotted to rows in proportion to arc length, then ordered left to right by angle. */
@@ -148,10 +149,31 @@
       const lab = el("label"), inp = el("input"), sp = el("span", null, CH_SHORT[id]);
       inp.type = "radio"; inp.name = "chbody"; inp.value = id; inp.checked = id === chState.id;
       inp.setAttribute("aria-label", `${CH_SHORT[id]}: ${a.label}, ${a.scope}`);
-      inp.addEventListener("change", () => { chState.id = id; stop(); fitYears(); renderChamber(true); });
+      inp.addEventListener("change", () => { chState.id = id; stop(); fillWhere(); fitYears(); renderChamber(true); });
       lab.append(inp, sp); box.appendChild(lab);
     });
     const yr = $("#ch-year"), out = $("#ch-year-out"), play = $("#ch-play");
+    const where = $("#ch-where"), cmp = $("#ch-compare");
+    // where: the EU-27 total, or one country, for the bodies EIGE reports country by country
+    function fillWhere() {
+      const a = chArea();
+      where.replaceChildren();
+      if (!COUNTRY_DS.includes(a.ds)) {
+        const o = el("option", null, "EU body: not reported by country"); o.value = ""; where.appendChild(o);
+        where.disabled = true; chState.where = ""; return;
+      }
+      where.disabled = false;
+      const ds = DATA.datasets[a.ds];
+      const eu = el("option", null, "EU-27, all member states"); eu.value = ""; where.appendChild(eu);
+      Object.keys(ds.series[a.pos] || {})
+        .filter((k) => !ds.aggregates.includes(k) && series(a.ds, a.pos, k).length)
+        .sort((p, q) => keyName(a.ds, p).localeCompare(keyName(a.ds, q)))
+        .forEach((k) => { const o = el("option", null, keyName(a.ds, k)); o.value = k; where.appendChild(o); });
+      if (![...where.options].some((o) => o.value === chState.where)) chState.where = "";
+      where.value = chState.where;
+    }
+    where.addEventListener("change", () => { chState.where = where.value; stop(); fitYears(); renderChamber(true); });
+    cmp.addEventListener("click", () => { chState.compare = !chState.compare; cmp.setAttribute("aria-pressed", String(chState.compare)); renderChamber(false); });
     function fitYears() {
       const s = chSeries();
       const ys = s.map((d) => d.y);
@@ -160,7 +182,8 @@
       yr.value = chState.year; out.textContent = chState.year;
       const a = chArea();
       $("#ch-table").replaceChildren(table(["Year", "Women", "Men", "Total", "Share of women"], s.map((d) => [String(d.y), String(d.w), String(d.t - d.w), String(d.t), f1(d.p) + "%"])));
-      $("#ch-name").textContent = `${a.label} · ${a.scope} (${a.ds})`;
+      $("#ch-name").textContent = `${a.label} · ${chState.where ? keyName(a.ds, chState.where) : a.scope} (${a.ds})`;
+      $("#ch-compare-y").textContent = s[0].y;
       chState.rows = rowsFor(d3.max(s, (d) => d.t), 0.36);
     }
     yr.addEventListener("input", () => {
@@ -192,17 +215,18 @@
     }
     play.addEventListener("click", () => (chState.playing ? stop() : start()));
     chState.stop = stop; chState.start = start;
+    fillWhere();
     fitYears();
     onResize($("#hemicycle"), () => renderChamber(false));
   }
   const chArea = () => DATA.areas.find((a) => a.id === chState.id);
-  const chSeries = () => { const a = chArea(); return series(a.ds, a.pos, a.key); };
+  const chKey = () => { const a = chArea(); return COUNTRY_DS.includes(a.ds) && chState.where ? chState.where : a.key; };
+  const chSeries = () => { const a = chArea(); return series(a.ds, a.pos, chKey()); };
 
   function renderChamber(animate) {
     const host = $("#hemicycle");
     const s = chSeries(), d = at(s, chState.year), a = chArea();
     const W = host.clientWidth || 700;
-    const R = W / 2 - 4, H = R + 16, cx = W / 2, cy = R + 4;
     const r0 = 0.36, rows = chState.rows;
     const seats = hemiLayout(d.t, rows, r0);
     const spacing = rows === 1 ? 1 - r0 : (1 - r0) / (rows - 1);
@@ -210,12 +234,19 @@
       const r = rows === 1 ? 1 : r0 + spacing * i, k = seats.filter((q) => Math.abs(q.r - r) < 1e-9).length;
       return k > 1 ? (Math.PI * r) / (k - 1) : Infinity;
     });
-    const dotR = Math.max(1.2, 0.42 * R * Math.min(spacing, arcStep));
+    // dot size as a share of the radius, capped so a body of five seats does not fill the page,
+    // and the arc shrunk by that much so the outer dots stay inside the chart
+    const dotK = Math.min(0.09, 0.42 * Math.min(spacing, arcStep));
+    const R = (W / 2 - 4) / (1 + dotK), dotR = Math.max(1.2, dotK * R);
+    const cx = W / 2, cy = R + dotR + 4, H = cy + Math.max(12, dotR + 4);
     let svg = d3.select(host).select("svg");
     if (svg.empty() || +svg.attr("data-w") !== W) {
       host.replaceChildren();
       svg = d3.select(host).append("svg").attr("aria-hidden", "true");
+      svg.append("path").attr("class", "gain");
       svg.append("g").attr("class", "seats");
+      svg.append("line").attr("class", "front");
+      svg.append("text").attr("class", "front-t");
       svg.append("line").attr("class", "midline");
       svg.append("text").attr("class", "yr").attr("text-anchor", "middle");
       svg.append("text").attr("class", "yr-sub").attr("text-anchor", "middle");
@@ -236,8 +267,32 @@
       .attr("class", (q, i) => "seat " + (i < d.w ? "w" : "m"));
     (move ? all.transition().duration(650).ease(d3.easeCubicInOut) : all)
       .attr("cx", (q) => cx + q.x * R).attr("cy", (q) => cy - q.y * R).attr("r", dotR);
+    // two years at once: the first year's women/men boundary, and the ground gained or lost since.
+    // Seats fill from the left, so a share p ends at the angle pi * (1 - p/100) from the right-hand end.
+    const first = s[0], showCmp = chState.compare && first.y !== d.y;
+    const ang = (p) => Math.PI * (1 - p / 100);
+    const polar = (a, r) => [cx + r * Math.cos(a), cy - r * Math.sin(a)];
+    const rIn = R * r0 - dotR - 3, rOut = R + dotR + 3;
+    if (chState.compare) {
+      const a0 = ang(first.p), [x0, y0] = polar(a0, rIn), [x1, y1] = polar(a0, rOut + 8);
+      svg.select(".front").style("display", null).attr("x1", x0).attr("y1", y0).attr("x2", x1).attr("y2", y1);
+      // the label sits past the end of the line; near either end of the arc it moves up, inside the chart
+      let [tx, ty] = polar(a0, rOut + 14), anchor = Math.cos(a0) > 0.2 ? "start" : Math.cos(a0) < -0.2 ? "end" : "middle";
+      if (anchor === "end" && tx < 110) { anchor = "start"; tx = 2; ty = Math.min(ty, y1) - 14; }
+      if (anchor === "start" && tx > W - 110) { anchor = "end"; tx = W - 2; ty = Math.min(ty, y1) - 14; }
+      svg.select(".front-t").style("display", null).attr("x", tx).attr("y", ty).attr("text-anchor", anchor).text(`${first.y}: ${f1(first.p)}%`);
+      const lo = Math.min(first.p, d.p), hi = Math.max(first.p, d.p);
+      svg.select(".gain").style("display", showCmp ? null : "none").attr("class", "gain" + (d.p < first.p ? " is-loss" : ""))
+        .attr("transform", `translate(${cx},${cy})`)
+        .attr("d", d3.arc().innerRadius(rIn).outerRadius(rOut).startAngle(Math.PI / 2 - ang(lo)).endAngle(Math.PI / 2 - ang(hi))());
+      $("#ch-front-key").hidden = false;
+      $("#ch-front-txt").textContent = `${first.y}${showCmp ? `, ${pts(halfUp(d.p) - halfUp(first.p))} since` : ""}`;
+    } else {
+      svg.selectAll(".front, .front-t, .gain").style("display", "none");
+      $("#ch-front-key").hidden = true;
+    }
     // read-out
-    const need = Math.max(0, Math.ceil(d.t / 2) - d.w), first = s[0];
+    const need = Math.max(0, Math.ceil(d.t / 2) - d.w);
     $("#ch-share").textContent = f1(d.p) + "%";
     $("#ch-count").textContent = `${d.y}: ${d.w} women and ${d.t - d.w} men, ${d.t} seats in all.`;
     $("#ch-gap").textContent = need ? `${need} ${need === 1 ? "seat" : "seats"}` : "None";
@@ -250,8 +305,12 @@
       environment: "Senior and junior ministers in the ministries responsible for environment and climate, EU-27 member states. EIGE has published up to 2022.",
       politics: "Leaders of the major political parties in the EU-27 member states.",
     };
-    $("#ch-note").textContent = notes[a.id];
-    host.setAttribute("aria-label", `Hemicycle of ${d.t} seats, ${a.label}, ${d.y}: ${d.w} women (${f1(d.p)}%) and ${d.t - d.w} men. The table below lists every year.`);
+    const place = chState.where ? keyName(a.ds, chState.where) : "";
+    $("#ch-note").textContent = place
+      ? `${a.label} in ${place}: ${d.t} seats in ${d.y}. ` + (d.t <= 30 ? `In a body this small, one appointment moves the share by ${f1(100 / d.t)} points.` : "")
+      : notes[a.id];
+    host.setAttribute("aria-label", `Hemicycle of ${d.t} seats, ${a.label}${place ? " in " + place : ""}, ${d.y}: ${d.w} women (${f1(d.p)}%) and ${d.t - d.w} men.` +
+      (showCmp ? ` In ${first.y}, women held ${f1(first.p)}%.` : "") + " The table below lists every year.");
   }
 
   /* ---------- small multiples ---------- */
@@ -848,6 +907,251 @@
     $("#inst-table").replaceChildren(table(["Year", "Women", "Total", "Share of women"], s.map((d) => [String(d.y), String(d.w), String(d.t), f1(d.p) + "%"])));
   }
 
+  /* ---------- the glass ceiling: the level below vs the top level of the same body ---------- */
+  const LADDER = [
+    { area: "Politics", scope: "EU-27", ds: "D6", key: "EU27_2020", lo: "PRES_DEP_PART", hi: "PRES_PART", loN: "Deputy party leaders", hiN: "Party leaders" },
+    { area: "Environment & climate", scope: "EU-27", ds: "D4", key: "EU27_2020", lo: "MEMB_GOV_JUN", hi: "MEMB_GOV_SEN", loN: "Junior ministers", hiN: "Senior ministers" },
+    { area: "Environment & climate", scope: "EU-27", ds: "D4", key: "EU27_2020", lo: "ADMIN_L2", hi: "ADMIN_L1", loN: "Level 2 civil servants", hiN: "Level 1 civil servants" },
+    { area: "Research funding", scope: "EU-27", ds: "D3", key: "EU27_2020", lo: "MEMB_HDM", hi: "PRES_CHAIR", loN: "Board members", hiN: "Presidents and chairs" },
+    { area: "EU agencies", scope: "all agencies", ds: "D2", key: "TOT", lo: "MEMB_HDM", hi: "PRES_CHAIR", loN: "Board members", hiN: "Board chairs" },
+    { area: "EU agencies", scope: "all agencies", ds: "D2", key: "TOT", lo: "MEMB_HDM", hi: "EXEC_HEAD", loN: "Board members", hiN: "Executive heads" },
+    { area: "EU finance", scope: "ECB, EIB, EIF", ds: "D1", key: "TOT", lo: "MEMB_HDM", hi: "PRES_CHAIR", loN: "Board members", hiN: "Presidents and chairs" },
+    { area: "EU courts", scope: "Court of Justice of the EU", ds: "D5", key: "CJEU", lo: "MEMB_CRT", hi: "PRES_CRT", loN: "Judges", hiN: "Presidents" },
+  ];
+  function ladder() {
+    const rows = LADDER.map((r) => {
+      const a = series(r.ds, r.lo, r.key), b = series(r.ds, r.hi, r.key);
+      const y = d3.max(a.filter((d) => at(b, d.y)), (d) => d.y);
+      return y ? { ...r, y, lo: at(a, y), hi: at(b, y), d: halfUp(at(b, y).p) - halfUp(at(a, y).p), small: at(b, y).t <= 5 } : null;
+    }).filter(Boolean);
+    const fewer = rows.filter((r) => r.d < 0), more = rows.filter((r) => r.d > 0);
+    const big = fewer.filter((r) => !r.small);
+    $("#ladder-lede").textContent = `In ${fewer.length} of ${rows.length} bodies, women hold a smaller share of the top seats than of the level just below` +
+      (big.length ? `, from ${pts(d3.max(big, (r) => r.d))} to ${pts(d3.min(big, (r) => r.d))} among the larger bodies` : "") + ". " +
+      (more.length ? `The exceptions: ${more.map((r) => `${r.hiN.toLowerCase()} in ${r.area === "EU finance" ? "EU finance" : r.area.toLowerCase().replace("eu ", "EU ")} (${r.hi.w} of ${r.hi.t})`).join(", ")}.` : "");
+    const host = $("#ladder");
+    const draw = (W) => {
+      const narrow = W < 560, rowH = 78, labW = 0, m = { t: 6, b: 26, r: 14 };
+      const H = m.t + rows.length * rowH + m.b, ty = 56;
+      const x = d3.scaleLinear().domain([0, 70]).range([labW + 8, W - m.r]);
+      host.replaceChildren();
+      const svg = d3.select(host).append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("width", W).attr("height", H);
+      svg.append("g").attr("class", "grid").selectAll("line").data([0, 10, 20, 30, 40, 60, 70]).join("line").attr("x1", x).attr("x2", x).attr("y1", m.t).attr("y2", H - m.b);
+      svg.append("line").attr("class", "parity").attr("x1", x(PARITY)).attr("x2", x(PARITY)).attr("y1", m.t).attr("y2", H - m.b);
+      svg.append("g").selectAll("text").data(narrow ? [0, 20, 40, 70] : [0, 10, 20, 30, 40, 60, 70]).join("text").attr("x", x).attr("y", H - 6).attr("text-anchor", (d) => (d === 0 ? "start" : d === 70 ? "end" : "middle")).text((d) => d + "%");
+      svg.append("text").attr("class", "parity-t").attr("x", x(PARITY)).attr("y", H - 6).attr("text-anchor", "middle").style("font-weight", 600).text("50% parity");
+      const g = svg.append("g").selectAll("g").data(rows).join("g").attr("class", "row").attr("transform", (d, i) => `translate(0,${m.t + i * rowH})`);
+      g.append("rect").attr("class", "row-hit").attr("x", 0).attr("y", 0).attr("width", W).attr("height", rowH - 4);
+      g.append("text").attr("class", "t-ink").attr("x", 0).attr("y", 16).style("font-size", "14px").style("font-weight", 600).text((d) => (narrow ? `${d.area}: ${d.hiN.toLowerCase()}` : `${d.area} · ${d.hiN}`));
+      g.append("text").attr("x", 0).attr("y", 34).style("font-size", "12.5px")
+        .text((d) => narrow
+          ? `${f1(d.lo.p)}% → ${f1(d.hi.p)}%, ${pts(d.d)}${d.small ? ` (${d.hi.w} of ${d.hi.t})` : ""}${d.y !== 2023 ? ` · ${d.y}` : ""}`
+          : `${d.loN} ${f1(d.lo.p)}% → ${d.hiN.toLowerCase()} ${f1(d.hi.p)}%  ${pts(d.d)}${d.small ? `  (${d.hi.w} of ${d.hi.t})` : ""}${d.y !== 2023 ? `  · ${d.y}` : ""}`);
+      g.append("line").attr("class", (d) => "lad-link" + (d.small ? " is-small" : "")).attr("x1", (d) => x(d.lo.p)).attr("x2", (d) => x(d.hi.p)).attr("y1", ty).attr("y2", ty);
+      g.append("circle").attr("class", "lad-lo").attr("r", 6).attr("cx", (d) => x(d.lo.p)).attr("cy", ty);
+      g.append("circle").attr("class", "lad-hi").attr("r", 6.5).attr("cx", (d) => x(d.hi.p)).attr("cy", ty);
+      g.on("pointermove", (ev, d) => showTip([`${d.area}: ${pts(d.d)}`, `${d.loN}: ${f1(d.lo.p)}% (${d.lo.w} of ${d.lo.t})`, `${d.hiN}: ${f1(d.hi.p)}% (${d.hi.w} of ${d.hi.t})`, `${d.scope}, ${d.y}`], ev.clientX, ev.clientY))
+        .on("pointerleave", hideTip);
+    };
+    onResize(host, draw);
+    host.setAttribute("aria-label", "Share of women at two levels of the same body: " + rows.map((r) => `${r.area}, ${r.loN} ${f1(r.lo.p)}% and ${r.hiN} ${f1(r.hi.p)}% (${r.y})`).join("; ") + ".");
+    $("#ladder-table").appendChild(table(["Body", "Year", "Level below", "Share", "Top level", "Share", "Change"],
+      rows.map((r) => [`${r.area} (${r.scope})`, String(r.y), r.loN, `${f1(r.lo.p)}% (${r.lo.w}/${r.lo.t})`, r.hiN, `${f1(r.hi.p)}% (${r.hi.w}/${r.hi.t})`, pts(r.d)]), 1));
+  }
+
+  /* ---------- correlations: do the roles move together across countries? ---------- */
+  const CORR_ROLES = [
+    { ds: "D6", pos: "PRES_PART", name: "Party leaders", col: "Party leaders" },
+    { ds: "D6", pos: "PRES_DEP_PART", name: "Deputy party leaders", col: "Deputy leaders" },
+    { ds: "D4", pos: "MEMB_GOV_SEN", name: "Senior environment ministers", col: "Env. ministers" },
+    { ds: "D4", pos: "ADMIN", name: "Senior environment civil servants", col: "Env. civil servants" },
+    { ds: "D3", pos: "PRES_CHAIR", name: "Research board presidents", col: "Research presidents" },
+    { ds: "D3", pos: "MEMB_HDM", name: "Research board members", col: "Research members" },
+  ];
+  const T_CRIT = { 8: 2.306, 9: 2.262, 10: 2.228, 11: 2.201, 12: 2.179, 13: 2.16, 14: 2.145, 15: 2.131, 16: 2.12, 17: 2.11, 18: 2.101, 19: 2.093, 20: 2.086, 21: 2.08, 22: 2.074, 23: 2.069, 24: 2.064, 25: 2.06, 26: 2.056, 27: 2.052, 28: 2.048 };
+  function ranks(v) {
+    const o = v.map((x, i) => [x, i]).sort((a, b) => a[0] - b[0]), r = new Array(v.length);
+    for (let i = 0; i < o.length;) {
+      let j = i; while (j + 1 < o.length && o[j + 1][0] === o[i][0]) j++;
+      for (let k = i; k <= j; k++) r[o[k][1]] = (i + j) / 2;
+      i = j + 1;
+    }
+    return r;
+  }
+  function spearman(a, b) {
+    const ra = ranks(a), rb = ranks(b), ma = d3.mean(ra), mb = d3.mean(rb);
+    const cov = d3.sum(ra, (x, i) => (x - ma) * (rb[i] - mb));
+    const va = Math.sqrt(d3.sum(ra, (x) => (x - ma) ** 2)), vb = Math.sqrt(d3.sum(rb, (x) => (x - mb) ** 2));
+    return va && vb ? cov / (va * vb) : NaN;
+  }
+  const roleShare = (r, k, y) => { const d = at(series(r.ds, r.pos, k), y); return d ? d : null; };
+  function corrPair(A, B, y) {
+    const pts_ = EU27.map((k) => ({ k, a: roleShare(A, k, y), b: roleShare(B, k, y) })).filter((q) => q.a && q.b);
+    if (pts_.length < 10) return null;
+    const rho = spearman(pts_.map((q) => q.a.p), pts_.map((q) => q.b.p)), n = pts_.length;
+    const t = Math.abs(rho) < 1 ? Math.abs(rho) * Math.sqrt((n - 2) / (1 - rho * rho)) : Infinity;
+    return { rho, n, pts: pts_, clear: t > (T_CRIT[n - 2] || 2.0) };
+  }
+  const strength = (r) => { const a = Math.abs(r); return a < 0.2 ? "no clear relation" : a < 0.4 ? "weak" : a < 0.6 ? "moderate" : "strong"; };
+  const rhoTxt = (r) => (r >= 0 ? "+" : "−") + Math.abs(r).toFixed(2);
+  const corrBin = (r) => { const a = Math.abs(r), s = r < 0 ? "n" : "p"; return a < 0.2 ? "c-0" : a < 0.4 ? `c-${s}1` : a < 0.6 ? `c-${s}2` : `c-${s}3`; };
+  const corrState = { year: 2022, a: 4, b: 0 };
+  const WORDS = ["No", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve"];
+  const cap1 = (n) => WORDS[n] || String(n);
+  const corrYears = () => d3.range(2017, 2024).filter((y) => CORR_ROLES.some((A, i) => CORR_ROLES.some((B, j) => j < i && corrPair(A, B, y))));
+
+  function correlations() {
+    const years = corrYears();
+    const yr = $("#corr-year"), out = $("#corr-year-out");
+    yr.min = years[0]; yr.max = years[years.length - 1];
+    // default: the latest year every role is published, and its strongest pair across two different areas
+    corrState.year = d3.max(years.filter((y) => CORR_ROLES.every((A, i) => CORR_ROLES.every((B, j) => j >= i || corrPair(A, B, y)))));
+    let best = null;
+    CORR_ROLES.forEach((A, i) => CORR_ROLES.forEach((B, j) => {
+      if (j >= i || A.ds === B.ds) return;
+      const c = corrPair(A, B, corrState.year);
+      if (c && (!best || Math.abs(c.rho) > Math.abs(best.c.rho))) best = { i, j, c };
+    }));
+    if (best) { corrState.a = best.i; corrState.b = best.j; }
+    yr.value = corrState.year; out.textContent = corrState.year;
+    yr.addEventListener("input", () => { corrState.year = +yr.value; out.textContent = yr.value; renderCorr(); });
+    onResize($("#corr-scatter"), () => renderScatter());
+    renderCorr();
+    // the table: every pair, every year
+    const pairs = [];
+    CORR_ROLES.forEach((A, i) => CORR_ROLES.forEach((B, j) => { if (j < i) pairs.push([A, B]); }));
+    $("#corr-table").appendChild(table(["Pair", ...years.map(String)], pairs.map(([A, B]) => [`${A.name} × ${B.name}`, ...years.map((y) => { const c = corrPair(A, B, y); return c ? `${rhoTxt(c.rho)} (${c.n})${c.clear ? " *" : ""}` : "–"; })])));
+    // caveat: how stable is a single role's country ranking from year to year?
+    const stab = CORR_ROLES.map((R) => {
+      const ys = years.filter((y) => EU27.some((k) => roleShare(R, k, y)));
+      const y0 = ys[0], y1 = ys[ys.length - 1];
+      const p = EU27.map((k) => ({ a: roleShare(R, k, y0), b: roleShare(R, k, y1) })).filter((q) => q.a && q.b);
+      return p.length >= 10 && y1 > y0 ? { R, c: { rho: spearman(p.map((q) => q.a.p), p.map((q) => q.b.p)), y0, y1 } } : null;
+    }).filter(Boolean);
+    const lo = stab.reduce((p, q) => (q.c.rho < p.c.rho ? q : p)), hi = stab.reduce((p, q) => (q.c.rho > p.c.rho ? q : p));
+    $("#corr-caveat").textContent = `The rankings are noisy because the bodies are small: a country may have three to eight party leaders or two senior ministers, so one appointment reorders it. Even the same role's ranking changes a lot over time: comparing each role's first and last published year, ρ runs from ${rhoTxt(lo.c.rho)} (${lo.R.name.toLowerCase()}, ${lo.c.y0}–${lo.c.y1}) to ${rhoTxt(hi.c.rho)} (${hi.R.name.toLowerCase()}, ${hi.c.y0}–${hi.c.y1}). Read single cells with care, and look for patterns that hold across years in the table.`;
+    $(".corr__matrix").addEventListener("click", (ev) => {
+      const b = ev.target.closest("button[data-i]");
+      if (!b) return;
+      corrState.a = +b.dataset.i; corrState.b = +b.dataset.j; renderCorr();
+    });
+  }
+
+  function renderCorr() {
+    const y = corrState.year;
+    const t = el("table", "corr-t");
+    const cap = el("caption", "vh", `Spearman rank correlations between the share of women in six roles across EU-27 countries, ${y}. Select a cell to see its scatter plot.`);
+    const head = el("tr");
+    head.appendChild(el("td"));
+    CORR_ROLES.slice(0, -1).forEach((R) => { const th = el("th", null, R.col); th.scope = "col"; head.appendChild(th); });
+    const thead = el("thead"); thead.appendChild(head);
+    const tb = el("tbody");
+    let pairsClear = 0, pairsAll = 0;
+    CORR_ROLES.forEach((A, i) => {
+      if (i === 0) return;
+      const tr = el("tr");
+      const th = el("th", null, A.name); th.scope = "row"; tr.appendChild(th);
+      CORR_ROLES.slice(0, -1).forEach((B, j) => {
+        const td = el("td");
+        if (j < i) {
+          const c = corrPair(A, B, y);
+          if (!c) { td.appendChild(el("span", "corr-na", "–")); td.title = "No data for this year"; }
+          else {
+            pairsAll++; if (c.clear) pairsClear++;
+            const b = el("button", `corr-c ${corrBin(c.rho)}${c.clear ? " is-clear" : ""}${A.ds === B.ds ? " is-same" : ""}`, rhoTxt(c.rho));
+            b.type = "button"; b.dataset.i = i; b.dataset.j = j;
+            b.setAttribute("aria-pressed", String(corrState.a === i && corrState.b === j));
+            b.setAttribute("aria-label", `${A.name} and ${B.name}, ${y}: rho ${rhoTxt(c.rho)}, ${strength(c.rho)}${c.clear ? ", stronger than chance" : ", could be chance"}, ${c.n} countries. Show the scatter plot.`);
+            td.appendChild(b);
+          }
+        }
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    t.append(cap, thead, tb);
+    $("#corr-matrix").replaceChildren(t);
+    // keep the selection on a pair that exists this year; otherwise the year's strongest pair across two areas
+    if (!corrPair(CORR_ROLES[corrState.a], CORR_ROLES[corrState.b], y)) {
+      let best = null;
+      CORR_ROLES.forEach((A, i) => CORR_ROLES.forEach((B, j) => {
+        if (j >= i) return;
+        const c = corrPair(A, B, y);
+        const score = c ? Math.abs(c.rho) + (A.ds !== B.ds ? 1 : 0) : -1;
+        if (c && (!best || score > best.score)) best = { i, j, score };
+      }));
+      if (best) {
+        corrState.a = best.i; corrState.b = best.j;
+        const btn = $(`#corr-matrix button[data-i="${best.i}"][data-j="${best.j}"]`);
+        if (btn) btn.setAttribute("aria-pressed", "true");
+      }
+    }
+    // a summary sentence for the year, across different areas only
+    const cross = [];
+    CORR_ROLES.forEach((A, i) => CORR_ROLES.forEach((B, j) => { if (j < i && A.ds !== B.ds) { const c = corrPair(A, B, y); if (c) cross.push({ A, B, c }); } }));
+    const pos = cross.filter((x) => x.c.clear && x.c.rho > 0), neg = cross.filter((x) => x.c.rho < -0.2);
+    const top = cross.slice().sort((p, q) => q.c.rho - p.c.rho)[0];
+    $("#corr-summary").textContent = cross.length
+      ? `In ${y}, ${pos.length} of ${cross.length} pairs of roles from different areas line up more than chance would give` +
+        (top ? `; the closest is ${top.A.name.toLowerCase()} and ${top.B.name.toLowerCase()} (ρ ${rhoTxt(top.c.rho)})` : "") + ". " +
+        (neg.length ? `${neg.length === 1 ? "One pair runs" : cap1(neg.length) + " pairs run"} the other way: ${neg.map((x) => `${x.A.name.toLowerCase()} and ${x.B.name.toLowerCase()} (${rhoTxt(x.c.rho)})`).join("; ")}.` : "")
+      : `In ${y}, too few roles are published to compare across areas.`;
+    renderScatter();
+  }
+
+  function renderScatter() {
+    const A = CORR_ROLES[corrState.a], B = CORR_ROLES[corrState.b], y = corrState.year;
+    const c = corrPair(A, B, y), host = $("#corr-scatter");
+    if (!c) { host.replaceChildren(); return; }
+    $("#corr-title").textContent = `${A.name} and ${B.name}, ${y}`;
+    $("#corr-rho").innerHTML = `ρ <b>${rhoTxt(c.rho)}</b> <span>${strength(c.rho)} · ${c.clear ? "stronger than chance" : "could be chance"} · ${c.n} countries</span>`;
+    const dir = c.rho > 0 ? "more" : "fewer";
+    $("#corr-read").textContent = Math.abs(c.rho) < 0.2
+      ? `Knowing how many ${A.name.toLowerCase()} are women tells you almost nothing about the ${B.name.toLowerCase()}.`
+      : `Countries where more ${A.name.toLowerCase()} are women tend to have ${dir} women among ${B.name.toLowerCase()}, ${Math.abs(c.rho) < 0.4 ? "but only slightly, and with many exceptions" : Math.abs(c.rho) < 0.6 ? "with plenty of exceptions" : "fairly consistently"}.` + (A.ds === B.ds ? " Both roles belong to the same kind of body, so some link is expected." : "");
+    const W = host.clientWidth || 480, H = Math.round(Math.min(460, Math.max(320, W * 0.8)));
+    const m = { l: 44, r: 16, t: 14, b: 44 };
+    const max = Math.min(100, Math.ceil((d3.max(c.pts, (q) => Math.max(q.a.p, q.b.p)) + 5) / 10) * 10);
+    const x = d3.scaleLinear().domain([0, Math.max(60, max)]).range([m.l, W - m.r]);
+    const yS = d3.scaleLinear().domain([0, Math.max(60, max)]).range([H - m.b, m.t]);
+    host.replaceChildren();
+    const svg = d3.select(host).append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("width", W).attr("height", H);
+    const ticks = x.ticks(5);
+    svg.append("g").attr("class", "grid").selectAll("line").data(ticks).join("line").attr("x1", x).attr("x2", x).attr("y1", m.t).attr("y2", H - m.b);
+    svg.append("g").attr("class", "grid").selectAll("line").data(ticks).join("line").attr("y1", yS).attr("y2", yS).attr("x1", m.l).attr("x2", W - m.r);
+    svg.append("g").selectAll("text").data(ticks).join("text").attr("x", x).attr("y", H - m.b + 16).attr("text-anchor", "middle").text((d) => d + "%");
+    svg.append("g").selectAll("text").data(ticks.filter((d) => d > 0)).join("text").attr("x", m.l - 6).attr("y", (d) => yS(d) + 4).attr("text-anchor", "end").text((d) => d + "%");
+    svg.append("line").attr("class", "parity").attr("x1", x(PARITY)).attr("x2", x(PARITY)).attr("y1", m.t).attr("y2", H - m.b);
+    svg.append("line").attr("class", "parity").attr("y1", yS(PARITY)).attr("y2", yS(PARITY)).attr("x1", m.l).attr("x2", W - m.r);
+    svg.append("text").attr("class", "t-ink").attr("x", W - m.r).attr("y", H - 6).attr("text-anchor", "end").style("font-size", "12.5px").text(`${A.name}: share of women →`);
+    svg.append("text").attr("class", "t-ink").attr("x", m.l + 4).attr("y", m.t + 12).style("font-size", "12.5px").text(`↑ ${B.name}`);
+    const nodes = c.pts.map((q) => ({ ...q, cx: x(q.a.p), cy: yS(q.b.p) }));
+    const g = svg.append("g").selectAll("g").data(nodes).join("g").attr("class", "sc-pt");
+    g.append("circle").attr("class", "sc-dot").attr("r", 5.5).attr("cx", (d) => d.cx).attr("cy", (d) => d.cy);
+    // label each country by its code where there is room; the tooltip and the table have them all
+    const placed = [];
+    g.each(function (d) {
+      const lx = d.cx + 8, ly = d.cy + 4, box = [lx, ly - 10, lx + 18, ly + 2];
+      if (placed.some((b) => !(box[2] < b[0] || box[0] > b[2] || box[3] < b[1] || box[1] > b[3])) || lx + 18 > W) return;
+      placed.push(box);
+      d3.select(this).append("text").attr("class", "sc-lbl").attr("x", lx).attr("y", ly).text(d.k);
+    });
+    const tipL = (d) => [keyName(A.ds, d.k), `${A.name}: ${f1(d.a.p)}% (${d.a.w} of ${d.a.t})`, `${B.name}: ${f1(d.b.p)}% (${d.b.w} of ${d.b.t})`];
+    g.on("pointermove", (ev, d) => showTip(tipL(d), ev.clientX, ev.clientY)).on("pointerleave", hideTip);
+    host.setAttribute("aria-label", `Scatter plot, ${A.name} against ${B.name}, ${y}, one point per country, rho ${rhoTxt(c.rho)}. Use the arrow keys to read each country.`);
+    const order = nodes.slice().sort((p, q) => p.a.p - q.a.p);
+    let idx = -1;
+    host.onkeydown = (ev) => {
+      if (!["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown"].includes(ev.key)) return;
+      ev.preventDefault();
+      idx = Math.max(0, Math.min(order.length - 1, idx + (ev.key === "ArrowRight" || ev.key === "ArrowDown" ? 1 : -1)));
+      const d = order[idx], r = host.getBoundingClientRect();
+      svg.selectAll(".sc-dot").classed("is-hot", (q) => q === d);
+      showTip(tipL(d), r.left + d.cx, r.top + d.cy);
+    };
+    host.onblur = () => { hideTip(); svg.selectAll(".sc-dot").classed("is-hot", false); idx = -1; };
+  }
+
   /* ---------- boot ---------- */
   Promise.all([
     fetch("data/web/wipeu.json").then((r) => r.json()),
@@ -860,6 +1164,8 @@
     setupChamber();
     smallMultiples();
     dumbbell();
+    ladder();
+    correlations();
     pace();
     setupProfiles();
     setupMap();
@@ -878,6 +1184,6 @@
     });
   }).catch((err) => {
     console.error("wipEU: could not load data", err);
-    $$(".chart").forEach((c) => { c.textContent = "The chart data could not be loaded. The datasets can be downloaded in section 09."; });
+    $$(".chart").forEach((c) => { c.textContent = "The chart data could not be loaded. The datasets can be downloaded in section 10."; });
   });
 })();
